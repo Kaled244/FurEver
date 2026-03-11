@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400..800&display=swap');
+
+:root {
+  font-family: 'Baloo Tammudu 2', cursive;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F8F7F4;
+}
+
+/* Ensure Baloo Tammudu 2 is applied to everything */
+.landing-wrapper {
+    font-family: 'Baloo Tammudu 2', cursive;
+    background-color: #F8F7F4; /* Matching your off-white background */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Header Setup */
+.nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    font-family: 'Baloo Tammudu 2', cursive;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Center Content */
+.hero-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.title-container {
+    position: relative;
+}
+
+.paw-icon {
+    font-size: 4rem;
+    position: absolute;
+    top: -40px;
+    left: -20px;
+}
+
+.main-title {
+    font-size: 10rem; /* Massive size for the center */
+    margin: 0;
+    line-height: 1;
+    font-weight: 800;
+}
+
+/* Footer & Bottom Right Button */
+.footer-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Keeps everything at the bottom */
+    padding-bottom: 20px;
+}
+
+.tagline-box {
+    border: 2px solid black;
+    border-radius: 30px;
+    padding: 8px 25px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.adopt-btn {
+    background-color: #9A8C73; /* Matching that brownish-tan */
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 12px 35px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: 'Baloo Tammudu 2', cursive;
+    cursor: pointer;
+    box-shadow: 0 4px 0px #7a6e5a; /* Simple depth effect */
+    transition: transform 0.1s;
+}
+
+.adopt-btn:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+
+/* This targets the main containers in your pages */
+.main-content, .profile-content {
+  margin-left: 320px; /* Matches Sidebar width */
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Match Sidebar transition */
+  padding: 80px 60px; /* Pushes everything down so it's not on the very top */
+}
+
+/* When sidebar is collapsed, move content to the left */
+body.sidebar-collapsed .main-content,
+body.sidebar-collapsed .profile-content {
+  margin-left: 80px; /* Matches Collapsed Sidebar width */
+}

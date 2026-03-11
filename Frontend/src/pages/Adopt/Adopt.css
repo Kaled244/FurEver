@@ -1,0 +1,254 @@
+.adopt-page {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #fafaf9; /* Stone-50 */
+  overflow: hidden;
+}
+
+.adopt-header {
+  margin-bottom: 50px;
+}
+
+.main-content, .profile-content {
+  flex-grow: 1;
+  /* REDUCED from 35px to 15px to pull everything to the top */
+  padding: 15px 60px 40px 60px; 
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #fafaf9;
+}
+
+.main-title1 {
+  font-family: 'Baloo Tammudu Local';
+  font-size: 60px;
+  color: #292524;
+  margin-top: 0px; 
+  /* Tightened line-height to remove extra space above the letters */
+  line-height: 1; 
+  letter-spacing: -1px;
+}
+
+.main-subtitle {
+  font-family: 'Baloo Tammudu Local';
+  font-size: 22px; /* Slightly smaller to save vertical space */
+  color: #78716c;
+  /* REDUCED from -10px to -5px to pull subtitle up to title */
+  margin: -5px 0 20px 0; 
+}
+
+/* Adjust margin when sidebar is collapsed */
+body.sidebar-collapsed .main-content {
+  margin-left: 80px;
+}
+
+/* Filter Styling */
+.sticky-filter-container {
+  position: sticky;
+  top: -50px;
+  z-index: 100;
+  background-color: #fafaf9; 
+  padding: 10px 0;
+  margin-top: 10px;
+}
+
+/* Filter Styling */
+.sticky-filter-container {
+  position: sticky;
+  top: -50px;
+  z-index: 100;
+  background-color: #fafaf9; 
+  padding: 10px 0;
+  margin-top: 10px;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.filter-btn {
+  border: none; 
+  background: #D9CFC7; 
+  margin-top: 15px;
+  height: 55px;
+  border-radius: 12px;
+  padding: 0 25px;
+  font-family: 'Baloo Tammudu Local';
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background-color: #A18D6D;
+}
+
+.filter-btn.active-filter {
+  background-color: #A18D6D;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.521);
+  transform: translateY(0);
+}
+
+.dropdown-filter {
+  border: none; 
+  background: #D9CFC7; 
+  margin-top: 15px;
+  height: 55px;
+  border-radius: 12px;
+  padding: 0 25px;
+  font-family: 'Baloo Tammudu Local';
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid Layout */
+.pet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(384px, 1fr));
+  gap: 40px;
+  width: 100%;
+  padding-bottom: 60px;
+}
+
+.loading-state, .no-pets-message {
+  font-family: 'Baloo Tammudu Local';
+  font-size: 24px;
+  color: #78716c;
+  margin-top: 40px;
+}
+
+/* --- Floating Button --- */
+.floating-app-btn {
+  position: fixed;
+  /* CHANGE: Changed from bottom: 40px to top: 40px */
+  top: 40px; 
+  right: 40px;
+  
+  width: 75px;
+  height: 75px;
+  background-color: #A18D6D;
+  color: white;
+  border: none;
+  border-radius: 50%; /* Circle shape */
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(161, 141, 109, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* High z-index to stay above the sticky filters and sidebar */
+  z-index: 2000; 
+}
+
+.app-icon-text {
+  font-family: 'Baloo Tammudu Local';
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.floating-app-btn:hover {
+  transform: scale(1.1);
+  background-color: #3A2525;
+}
+
+.adopt-page {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #fafaf9;
+  overflow: hidden;
+}
+
+
+.main-subtitle {
+  font-family: 'Baloo Tammudu Local';
+  font-size: 24px;
+  color: #292524;
+  margin: -10px 0 35px 0;
+}
+
+/* Sticky Filters */
+.sticky-filter-container {
+  position: sticky;
+  top: 0; /* Changed from -50px for better visibility */
+  z-index: 100;
+  background-color: #fafaf9; 
+  padding: 10px 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.filter-btn, .dropdown-filter {
+  border: none; 
+  background: #D9CFC7; 
+  height: 55px;
+  border-radius: 12px;
+  padding: 0 25px;
+  font-family: 'Baloo Tammudu Local';
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn.active-filter {
+  background-color: #A18D6D;
+  color: white;
+}
+
+/* --- Floating Button (Top Right) --- */
+.floating-app-btn {
+  position: fixed;
+  top: 40px; 
+  right: 40px;
+  width: 75px;
+  height: 75px;
+  background-color: #A18D6D;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(161, 141, 109, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 2000; 
+}
+
+.app-icon-text {
+  font-family: 'Baloo Tammudu Local';
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.floating-app-btn:hover {
+  transform: scale(1.1);
+  background-color: #3A2525;
+}

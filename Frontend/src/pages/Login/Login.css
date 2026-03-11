@@ -1,0 +1,221 @@
+/* Inherit global container styles */
+.main-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #F9F8F6;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Baloo Tammudu Local', cursive;
+}
+
+/* Hero Elements - Reused from Register */
+.hero-section1 {
+  width: 734px;
+  height: 489px;
+  position: absolute;
+  left: 40%; 
+  top: 45%;
+  transform: translate(-50%, -50%);
+}
+
+.hero-title {
+  width: 553.86px;
+  height: 178.57px;
+  left: 50px;
+  top: 180px;
+  position: absolute;
+  font-size: 135px;
+  color: #3A2525;
+  z-index: 2;
+}
+
+.back-arrow-link {
+  position: absolute;
+  left: 45px;         
+  top: 50%;             
+  transform: translateY(-50%); 
+  z-index: 20;          
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F9F8F6;
+  border: 2px solid #3A2525;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  box-shadow: 3px 3px 0px #3A2525;
+}
+
+.back-arrow-img {
+  width: 25px;         
+  height: auto;
+}
+
+.back-arrow-link:hover {
+  transform: translateY(-52%) scale(1.1);
+  box-shadow: 5px 5px 0px #3A2525;
+}
+
+.img-cloud1-large { width: 185.38px; left: 448.62px; top: 261.34px; position: absolute; }
+.img-cloud1-main { width: 223.11px; left: 265.66px; top: 0px; position: absolute; border-radius: 11px; }
+.img-cloud1-small { width: 102.39px; left: -34.44px; top: 106.09px; position: absolute; }
+.img-cloud1-medium { width: 125.03px; left: -90px; top: 273.86px; position: absolute; }
+.img-cloud1-wide { width: 216.55px; left: 91.08px; top: 320px; position: absolute; }
+.img-paw1-small { width: 100px; left: 40px; top: 106.09px; position: absolute; }
+
+.top-logo {
+  position: absolute;
+  left: 32px;
+  top: 28px;
+  font-size: 6ch;
+  color: #3A2525;
+}
+
+/* --- Login Specific Panel --- */
+.login-panel {
+  width: 506px;
+  height: 650px; /* Shorter than register for better balance */
+  right: 75px; 
+  top: 120px; /* Adjusted top to center it more */
+  position: absolute;
+  background: #D9CFC7;
+  border-radius: 20px;
+  border: 2px solid #3A2525;
+  box-shadow: 4px 4px 0px #3A2525;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  z-index: 10;
+  animation: gentleSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.user-icon-top {
+  width: 88.83px;
+  height: 88.83px;
+  border-radius: 20px;
+  margin-top: 30px;
+}
+
+.login-header {
+  font-size: 50px;
+  color: #3A2525;
+  margin: 15px 0 30px 0;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+
+.login-input-wrapper {
+  width: 405px;
+  height: 53px;
+  position: relative; 
+}
+
+.login-input-wrapper input {
+  width: 100%;
+  height: 100%;
+  background: #F9F8F6;
+  border-radius: 20px;
+  border: 2px solid black;
+  padding-left: 60px; 
+  padding-right: 50px;
+  font-family: 'Baloo Tammudu Local';
+  font-size: 20px;
+  color: #3A2525;
+  outline: none;
+}
+
+.input-icon {
+  position: absolute;
+  left: 18px;          
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;          
+  height: 30px;
+  pointer-events: none;  
+}
+
+.eye-icon {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.signin-btn {
+  width: 126px;
+  height: 47px;
+  background: #A18D6D;
+  border-radius: 20px;
+  border: 2px solid black;
+  cursor: pointer;
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 1px 0px #3A2525;
+}
+
+.signin-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.signin-btn-text {
+  color: white;
+  font-size: 24px;
+  margin-top: 10px;
+  font-family: 'Baloo Tammudu Local';
+}
+
+.forgot-password {
+  width: 405px;        /* Same width as your input wrappers */
+  text-align: right;   /* Push it to the right */
+  margin-top: -15px;   /* Pull it closer to the password box above it */
+  font-size: 16px;     /* Smaller than main text */
+  color: #3A2525;
+  text-decoration: none;
+  font-family: 'Baloo Tammudu Local';
+  transition: color 0.2s;
+}
+
+.forgot-password:hover {
+  color: #A18D6D;      /* Changes to your brand color on hover */
+  text-decoration: underline;
+}
+
+.redirect-section {
+  position: absolute;
+  bottom: 40px;
+  text-align: center;
+  color: #3A2525;
+  font-size: 20px;
+}
+
+.signup-link {
+  text-decoration: none;
+  color: #3A2525;
+  font-weight: bold;
+  display: block;
+}
+
+@keyframes gentleSlideUp {
+  0% {
+    transform: translateY(60px); /* Just a small nudge from below */
+    opacity: 0;                  /* Starts invisible */
+  }
+  100% {
+    transform: translateY(0);    /* Ends in its perfect spot */
+    opacity: 1;                  /* Fully visible */
+  }
+}

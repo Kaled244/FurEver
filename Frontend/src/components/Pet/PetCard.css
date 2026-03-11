@@ -1,0 +1,412 @@
+/* --- Base Container --- */
+.pet-card-container {
+  width: 384px;
+  height: 487px;
+  position: relative;
+  font-family: 'Baloo Tammudu Local', sans-serif;
+  background-color: #ffffff; /* Pure white for a crisper look */
+  border: none; /* Removed the thick brown border */
+  border-radius: 24px; /* Slightly rounder for modern feel */
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pet-card-container:hover {
+  transform: translateY(-0px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.089), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* --- Image Section --- */
+.pet-card-image-wrapper {
+  width: 100%;
+  height: 260px;
+  position: relative;
+  background-color: #f1f1ef; 
+  border-bottom: none; /* Removed the divider line */
+}
+
+.pet-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Badges --- */
+.badge-type, .badge-status {
+  position: absolute;
+  top: 20px;
+  background-color: rgb(233, 255, 35);
+  backdrop-filter: blur(8px); 
+  border: none;
+  border-radius: 90px; 
+  padding: 6px 18px; 
+  font-size: 15px;
+  font-weight: 700;
+  color: #3A2525;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-type { left: 20px; }
+.badge-status { right: 20px; }
+
+/* --- Content Area --- */
+.pet-card-info {
+  background-color: #ffffff;
+  height: 200px;
+  position: relative;
+}
+
+/* --- Name & Price --- */
+.pet-card-name {
+  position: absolute;
+  left: 23px;
+  top: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #3A2525; /* Darker for better readability */
+  margin: 0;
+}
+
+.pet-card-price {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #A18D6D;
+}
+
+/* --- Specs --- */
+.pet-card-specs {
+  position: absolute;
+  left: 23px;
+  top: 65px; 
+}
+
+.pet-card-specs p {
+  margin-bottom: 4px;
+  color: #6b7280;
+  font-size: 18px;
+}
+
+.spec-label {
+  color: #3A2525;
+  font-weight: 300;
+}
+
+/* --- Adopt Button --- */
+.btn-adopt {
+  position: absolute;
+  top: 145px; 
+  right: 20px;
+  width: 140px;
+  height: 44px;
+  background-color: #8c7a5d ;
+  color: white;
+  border: none; /* Removed black border */
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(161, 141, 109, 0.3);
+  transition: all 0.2s;
+}
+
+.btn-adopt:hover {
+  background-color:#A18D6D;
+  box-shadow: 0 6px 15px rgba(161, 141, 109, 0.4);
+  transform: scale(1.02);
+}
+
+/* --- Details Link --- */
+.link-details {
+  position: absolute;
+  left: 23px;
+  top: 155px;
+  color: #A18D6D;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  margin-top: 10px;
+  font-weight: 800;
+  font-size: 18px;
+  transition: color 0.2s;
+}
+
+.link-details:hover {
+  color: #3A2525;
+}
+
+/* --- Modal Styles --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(58, 37, 37, 0.4); 
+  backdrop-filter: blur(8px); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: #fafaf9;
+  padding: 45px; /* Increased padding */
+  border-radius: 20px;
+  max-width: 700px; /* Increased from 500px */
+  width: 95%;
+  position: relative;
+  max-height: 85vh; /* Increased height slightly */
+  overflow-y: auto;
+  font-family: 'Baloo Tammudu Local', sans-serif;
+  color: #3A2525;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.modal-content h2 {
+  font-size: 36px; /* Bigger title */
+  color: #A18D6D;
+  margin-top: 0;
+}
+
+.modal-content .full-desc {
+  font-size: 18px; /* Bigger text */
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+
+.modal-close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 40px; /* Bigger close button */
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #3A2525;
+  transition: transform 0.2s;
+}
+
+.modal-close:hover {
+  transform: scale(1.2);
+  color: #A18D6D;
+}
+
+.health-records-section {
+  margin-top: 30px;
+  border-top: 3px dashed #A18D6D;
+  padding-top: 20px;
+}
+
+.health-records-section h3 {
+  font-size: 36px;
+  color: #A18D6D;
+  margin-bottom: 15px;
+}
+
+.health-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 18px; /* Bigger table text */
+}
+
+.health-table th {
+  background: #3A2525;
+  color: white;
+  padding: 15px;
+  text-align: left;
+  font-family: 'Baloo Tammudu Local', sans-serif;
+}
+
+.health-table td {
+  padding: 15px;
+  border-bottom: 2px solid #d4d4d8;
+  font-family: 'Baloo Tammudu Local', sans-serif;
+}
+
+/* --- Adoption Form Specific Styles --- */
+.modal-subtitle span {
+  color: #A18D6D;
+  font-weight: bold;
+}
+
+.adoption-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-group label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #3A2525;
+  margin-bottom: 8px;
+  margin-top: 20px;
+}
+
+/* Styled Inputs, Selects, and Textareas */
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  border: 2px solid #e7e5e4;
+  background: #ffffff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: 'Baloo Tammudu Local', sans-serif;
+  font-size: 16px;
+  color: #3A2525;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* --- CUSTOM SELECT ARROW LOGIC --- */
+.form-group select {
+  appearance: none; /* Removes the default browser arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  /* Adds a custom SVG arrow (the color matches your #A18D6D) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23A18D6D' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 18px;
+  padding-right: 45px; /* Makes sure text doesn't overlap the arrow */
+  cursor: pointer;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+  border-color: #A18D6D;
+  box-shadow: 0 0 0 4px rgba(161, 141, 109, 0.1);
+  background-color: #ffffff;
+}
+
+.form-group textarea {
+  resize: none;
+}
+
+/* The Submit Button */
+.submit-app-btn {
+  width: 100%;
+  height: 55px;
+  background-color: #A18D6D;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Baloo Tammudu Local';
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(161, 141, 109, 0.3);
+  transition: all 0.3s ease;
+}
+
+.submit-app-btn:hover {
+  background-color: #3A2525;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(58, 37, 37, 0.2);
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* APPLICATION MODAL*/
+.pet-card-container:has(.modal-overlay) {
+  transform: none !important;
+}
+
+.app-list-wrapper {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.app-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e7e5e4;
+  transition: transform 0.2s;
+}
+
+.app-list-item:hover {
+  transform: scale(1.02);
+}
+
+.app-pet-details h3 {
+  margin: 0;
+  color: #3A2525;
+  font-size: 22px;
+}
+
+.app-pet-details p {
+  margin: 5px 0 0 0;
+  color: #78716c;
+  font-size: 14px;
+}
+
+.status-badge-big {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 10px 22px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none; /* Removed the border */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Stronger black shadow */
+  transition: transform 0.2s ease;
+}
+
+.status-badge-big.pending {
+  background-color: #e5ff00; /* Bright Neon Yellow */
+  color: #000000;
+}
+
+.status-badge-big.approved {
+  background-color: #dcfce7; /* Soft Green */
+  color: #000000;
+}
+
+.status-badge-big.rejected {
+  background-color: #fee2e2; /* Soft Red */
+  color: #991b1b;
+}
