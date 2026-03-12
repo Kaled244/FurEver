@@ -131,7 +131,7 @@ const Login = () => {
         </form>
 
         <div className="redirect-section">
-          <p>Don't have an account?</p>
+          <p className="redirect-text">Don't have an account?</p>
           <Link to="/register" className="signin-link">Sign Up</Link>
         </div>
       </div>

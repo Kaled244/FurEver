@@ -1,6 +1,5 @@
 package com.furever.webapplication.FurEver.application;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.furever.webapplication.FurEver.pets.PetEntity;
 import com.furever.webapplication.FurEver.user.UserEntity;
 import jakarta.persistence.*;

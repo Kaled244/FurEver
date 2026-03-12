@@ -160,6 +160,7 @@
   border: 2px solid black;
   cursor: pointer;
   margin-top: 12px;
+  margin-bottom: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -195,11 +196,14 @@
 }
 
 .redirect-section {
-  position: absolute;
-  bottom: 40px;
   text-align: center;
   color: #3A2525;
   font-size: 20px;
+  margin-top: 20px;
+}
+
+.redirect-text {
+  margin: 0 0 -10px 0;
 }
 
 .signup-link {

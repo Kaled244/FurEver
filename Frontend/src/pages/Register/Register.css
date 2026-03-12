@@ -190,11 +190,15 @@
 }
 
 .redirect-section {
-  position: absolute;
-  bottom: 40px;
+  font-size: 20px;
   text-align: center;
   color: #3A2525;
   font-size: 20px;
+  margin-top: 7px;
+}
+
+.redirect-text1 {
+  margin: 0 0 -15px 0;
 }
 
 .signin-link {
@@ -202,6 +206,8 @@
   color: #3A2525;
   font-weight: bold;
   display: block;
+  display: inline-block;
+  transition: color 0.2s ease;
 }
 
 @keyframes gentleSlideUp {

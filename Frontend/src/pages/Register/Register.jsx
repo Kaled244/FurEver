@@ -167,7 +167,7 @@ const Register = () => {
         </form>
 
         <div className="redirect-section">
-          <p>Already have an account?</p>
+         <p className="redirect-text1">Don't have an account?</p>
           <Link to="/login" className="signin-link">Log In</Link>
         </div>
       </div>

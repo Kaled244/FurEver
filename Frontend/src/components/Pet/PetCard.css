@@ -87,11 +87,11 @@
 .pet-card-specs {
   position: absolute;
   left: 23px;
-  top: 65px; 
+  top: 75px; 
 }
 
 .pet-card-specs p {
-  margin-bottom: 4px;
+  margin: -10px 0;
   color: #6b7280;
   font-size: 18px;
 }
