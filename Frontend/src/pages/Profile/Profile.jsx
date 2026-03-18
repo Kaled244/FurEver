@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Profile.css';
+import eyeOpen from '../../assets/eyeopen.png';
+import eyeClose from '../../assets/eyeclose.png';
 
 const Profile = () => {
-  const [user, setUser] = useState({ name: "", email: "", address: "", role: "" });
+  const [user, setUser] = useState({ name: "", email: "", address: "", role: "", username: "", avatarUrl: "" });
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Modal States
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [showEditProfileModal, setShowEditProfileModal] = useState(false); // NEW
+
+  // Form States
+  const [passwordData, setPasswordData] = useState({ currentPassword: "", newPassword: "" });
+  
+  // Edit Profile States (NEW)
+  const [editProfileData, setEditProfileData] = useState({ name: "", username: "", address: "" });
+  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [avatarFile, setAvatarFile] = useState(null);
+
+  // Password visibility states
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -31,6 +49,76 @@ const Profile = () => {
     if (token) fetchProfileData();
   }, []);
 
+  // --- Handlers ---
+  const handleOpenEditProfile = () => {
+    setEditProfileData({
+      name: user.name || "",
+      username: user.username || "",
+      address: user.address || ""
+    });
+    setAvatarPreview(null);
+    setShowEditProfileModal(true);
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setAvatarFile(file);
+      setAvatarPreview(URL.createObjectURL(file)); // Preview immediately
+    }
+  };
+
+  const handleSaveProfile = async () => {
+    try {
+      const token = localStorage.getItem('token'); // Get the token!
+
+      // Using FormData because we are uploading a file (image)
+      const formData = new FormData();
+      formData.append('name', editProfileData.name);
+      formData.append('username', editProfileData.username);
+      formData.append('address', editProfileData.address);
+      if (avatarFile) {
+        formData.append('avatar', avatarFile);
+      }
+      
+      await axios.put('http://localhost:8080/api/profile/update', formData, {
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data' // Required for sending files
+        }
+      });
+      
+      alert("Profile updated successfully!");
+      
+      // Update local state instantly so the UI changes without a page refresh
+      setUser({ ...user, ...editProfileData, avatarUrl: avatarPreview || user.avatarUrl });
+      setShowEditProfileModal(false);
+    } catch (error) {
+      console.error("Update Error:", error);
+      alert("Error updating profile. Is your backend endpoint ready?");
+    }
+  };
+
+  const handlePasswordChange = async () => {
+    if (!passwordData.currentPassword || !passwordData.newPassword) {
+      alert("Please fill in both fields.");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put('http://localhost:8080/api/profile/change-password', passwordData, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      alert("Password updated successfully!");
+      setShowPasswordModal(false);
+      setPasswordData({ currentPassword: "", newPassword: "" });
+    // eslint-disable-next-line no-unused-vars
+    } catch (error) {
+      alert("Error updating password. Please check your current password.");
+    }
+  };
+
   const handleDeleteAccount = () => {
     alert("Account deletion request submitted.");
     setShowDeleteModal(false);
@@ -41,33 +129,38 @@ const Profile = () => {
   return (
     <div className="profile-page-wrapper">
       <main className="profile-content">
-        <header className="adopt-header">
-          <div className="title-section">
-            <h1 className="main-title1">Your Profile</h1>
-            <p className="main-subtitle">Manage your personal information and track your furry family.</p>
-          </div>
-        </header>
-
         <div className="profile-layout-container">
-          {/* LEFT COLUMN */}
+
+          {/* LEFT COLUMN - Profile Card */}
           <div className="profile-card">
-            <div className="profile-header-bg">
-              <div className="profile-avatar-container">
-                <div className="profile-avatar-main">
-                  {user.name ? user.name.charAt(0).toUpperCase() : "U"}
-                </div>
-                <button className="edit-avatar-btn">✏️</button>
-              </div>
-            </div>
-            
+            {/* Header is now just the background color */}
+            <div className="profile-header-bg"></div>
+
             <div className="profile-body">
+              {/* NEW: Wrapper to hold the Avatar and the Badge together */}
+              <div className="avatar-badge-group">
+                <div className="profile-avatar-container">
+                  <div className="profile-avatar-main">
+                    {user.avatarUrl ? (
+                      <img src={user.avatarUrl} alt="Profile" />
+                    ) : (
+                      user.name ? user.name.charAt(0).toUpperCase() : "U"
+                    )}
+                  </div>
+                  <button className="edit-avatar-btn" onClick={handleOpenEditProfile}>✏️</button>
+                </div>
+                
+                {/* Moved the Badge here! */}
+                <span className="user-role-badge">{user.role}</span>
+              </div>
+
+              {/* Name is now directly below the avatar group */}
               <h1 className="user-fullname">{user.name}</h1>
-              <span className="user-role-badge">{user.role}</span>
-              
+
               <div className="user-info-grid">
                 <div className="info-box">
-                <label>Username</label>
-                <p>@{user.username || "n/a"}</p>
+                  <label>Username</label>
+                  <p>@{user.username || "n/a"}</p>
                 </div>
                 <div className="info-box">
                   <label>Email Address</label>
@@ -81,67 +174,192 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* RIGHT COLUMN - Stacked Cards */}
+          {/* RIGHT COLUMN - Side Cards */}
           <div className="profile-side-column">
-            {/* 1. Upload Content Card */}
             <div className="action-card upload-card">
-              <div className="card-header">
-                <h3>Upload Content</h3>
-              </div>
+              <h3>Upload Content</h3>
               <p className="card-desc">Share your pet's journey with the community!</p>
               <button className="action-btn upload-btn">➕ Create Post</button>
             </div>
 
-            {/* 2. Quick Actions Card */}
             <div className="action-card">
-              <div className="card-header">
-                <h3>Quick Actions</h3>
-              </div>
-              <button className="action-btn">Edit Profile</button>
-              <button className="action-btn">Change Password</button>
+              <h3>Quick Actions</h3>
+              {/* WIRED UP THE EDIT PROFILE BUTTON */}
+              <button className="action-btn" onClick={handleOpenEditProfile}>Edit Profile</button>
+              <button className="action-btn" onClick={() => setShowPasswordModal(true)}>
+                Change Password
+              </button>
               <button className="action-btn">Settings</button>
             </div>
 
-            {/* 3. Danger Zone Card */}
             <div className="action-card danger-card">
               <h3>Danger Zone</h3>
-              <p>Once you delete your account, all data is lost forever.</p>
-              <button className="delete-btn" onClick={() => setShowDeleteModal(true)}>Delete Account</button>
+              <p>Once you delete it, all data is lost forever!</p>
+              <button className="delete-btn" onClick={() => setShowDeleteModal(true)}>
+                Delete Account
+              </button>
             </div>
           </div>
         </div>
 
+        {/* APPLICATIONS SECTION */}
         <section className="pending-section">
-          <h2 className="section-title">Pending Applications 🐾</h2>
-          <div className="applications-list">
-            {applications.length > 0 ? (
-              applications.map((app) => (
-                <div key={app.id} className="app-row">
-                  <div className="app-details">
-                    <h3>{app.newPetName || "Unnamed Pet"}</h3>
-                    <p>Applied on: {new Date(app.appDate).toLocaleDateString()}</p>
-                  </div>
-                  <div className={`status-badge-big ${(app.status || "pending").toLowerCase()}`}>
-                    {app.status || "PENDING"}
+  
+  <div className="applications-table-container">
+    {applications.length > 0 ? (
+      <table className="applications-table">
+        <thead>
+          <tr>
+            <th>Applications</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {applications.map((app) => (
+            <tr key={app.id}>
+              <td>
+                <div className="app-details">
+                  <h3>{app.newPetName || "Unnamed Pet"}</h3>
+                  <p>Applied on: {new Date(app.appDate).toLocaleDateString()}</p>
+                </div>
+              </td>
+              <td className="status-cell">
+                <div className={`status-badge-big ${(app.status || "pending").toLowerCase()}`}>
+                  {app.status || "PENDING"}
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    ) : (
+      <div className="pets-empty-state">
+        <p>No active requests found.</p>
+      </div>
+    )}
+  </div>
+</section>
+
+        {/* MODAL: EDIT PROFILE */}
+        {showEditProfileModal && (
+          <div className="modal-overlay" onClick={() => setShowEditProfileModal(false)}>
+            <div className="modal-content edit-profile-modal" onClick={e => e.stopPropagation()}>
+              <h2>Edit Profile</h2>
+              
+              <div className="edit-avatar-section">
+                <div className="edit-avatar-preview">
+                  {avatarPreview || user.avatarUrl ? (
+                     <img src={avatarPreview || user.avatarUrl} alt="Preview" />
+                  ) : (
+                     <div className="avatar-placeholder">{editProfileData.name ? editProfileData.name.charAt(0).toUpperCase() : "U"}</div>
+                  )}
+                </div>
+                {/* Hidden file input triggered by the label */}
+                <input 
+                  type="file" 
+                  id="avatarUpload" 
+                  accept="image/*" 
+                  style={{ display: 'none' }} 
+                  onChange={handleAvatarChange} 
+                />
+                <label htmlFor="avatarUpload" className="upload-avatar-btn">
+                  Choose New Picture
+                </label>
+              </div>
+
+              <div className="password-form">
+                <div className="input-group">
+                  <label>Full Name</label>
+                  <input 
+                    type="text" 
+                    value={editProfileData.name} 
+                    onChange={(e) => setEditProfileData({...editProfileData, name: e.target.value})} 
+                  />
+                </div>
+                <div className="input-group">
+                  <label>Username</label>
+                  <input 
+                    type="text" 
+                    value={editProfileData.username} 
+                    onChange={(e) => setEditProfileData({...editProfileData, username: e.target.value})} 
+                  />
+                </div>
+                <div className="input-group">
+                  <label>Home Address</label>
+                  <input 
+                    type="text" 
+                    value={editProfileData.address} 
+                    onChange={(e) => setEditProfileData({...editProfileData, address: e.target.value})} 
+                  />
+                </div>
+              </div>
+
+              <div className="modal-actions">
+                <button className="btn-cancel" onClick={() => setShowEditProfileModal(false)}>Cancel</button>
+                <button className="btn-confirm-save" onClick={handleSaveProfile}>Save Changes</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* MODAL: CHANGE PASSWORD */}
+        {showPasswordModal && (
+          <div className="modal-overlay" onClick={() => setShowPasswordModal(false)}>
+            <div className="modal-content password-confirm" onClick={e => e.stopPropagation()}>
+              <h2>Change Password</h2>
+              <div className="password-form">
+                <div className="input-group">
+                  <label>Current Password</label>
+                  <div className="password-input-wrapper">
+                    <input
+                      type={showCurrentPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      value={passwordData.currentPassword}
+                      onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
+                    />
+                    <img
+                      src={showCurrentPassword ? eyeOpen : eyeClose}
+                      alt="toggle visibility"
+                      className="password-toggle-icon"
+                      onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                    />
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="pets-empty-state">
-                <p>No active requests found.</p>
+                <div className="input-group">
+                  <label>New Password</label>
+                  <div className="password-input-wrapper">
+                    <input
+                      type={showNewPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      value={passwordData.newPassword}
+                      onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+                    />
+                    <img
+                      src={showNewPassword ? eyeOpen : eyeClose}
+                      alt="toggle visibility"
+                      className="password-toggle-icon"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                    />
+                  </div>
+                </div>
               </div>
-            )}
+              <div className="modal-actions">
+                <button className="btn-cancel" onClick={() => setShowPasswordModal(false)}>Cancel</button>
+                <button className="btn-confirm-save" onClick={handlePasswordChange}>Update</button>
+              </div>
+            </div>
           </div>
-        </section>
+        )}
 
+        {/* MODAL: DELETE ACCOUNT */}
         {showDeleteModal && (
           <div className="modal-overlay" onClick={() => setShowDeleteModal(false)}>
             <div className="modal-content delete-confirm" onClick={e => e.stopPropagation()}>
               <h2>Are you sure?</h2>
-              <p>Do you really want to delete your account? This action cannot be undone.</p>
+              <p>This action cannot be undone.</p>
               <div className="modal-actions">
-                <button className="btn-cancel" onClick={() => setShowDeleteModal(false)}>No, Keep it</button>
-                <button className="btn-confirm-delete" onClick={handleDeleteAccount}>Yes, Delete</button>
+                <button className="btn-cancel" onClick={() => setShowDeleteModal(false)}>Keep it</button>
+                <button className="btn-confirm-delete" onClick={handleDeleteAccount}>Delete</button>
               </div>
             </div>
           </div>

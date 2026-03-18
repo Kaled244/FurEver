@@ -33,6 +33,23 @@ body {
   box-sizing: border-box;
 }
 
+/* Allow the index page to scroll */
+.main-container.index-page {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: auto;
+  min-height: 100vh;
+}
+
+/* =========================================
+   SECTION 1: HERO (Top Fold)
+========================================= */
+.hero-full-screen {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
 /* Header */
 .top-logo {
   position: absolute;
@@ -75,7 +92,7 @@ body {
 
 @keyframes mainFloat {
   0%, 100% { transform: translate(-50%, -50%); }
-  50% { transform: translate(-50%, -55%); } /* Lifted from 53% to 55% */
+  50% { transform: translate(-50%, -55%); } 
 }
 
 .hero-title {
@@ -88,7 +105,6 @@ body {
   color: #3A2525;
   z-index: 2;
   transition: transform 0.3s ease;
-  /* Added a subtle pulse so the title feels alive too */
   animation: titlePulse 4s ease-in-out infinite;
 }
 
@@ -98,8 +114,6 @@ body {
 }
 
 /* --- Juiced Individual Cloud Drifting --- */
-/* Different speeds and distances make it unmistakably moving */
-
 .img-cloud-large { 
   width: 185.38px; left: 538.62px; top: 261.34px; position: absolute; 
   animation: driftHeavy 8s ease-in-out infinite; 
@@ -107,7 +121,7 @@ body {
 
 .img-cloud-main { 
   width: 223.11px; left: 365.66px; top: 0px; position: absolute; border-radius: 11px;
-  animation: breathe 4s ease-in-out infinite; /* Main cloud breathes */
+  animation: breathe 4s ease-in-out infinite; 
 }
 
 .img-cloud-small { 
@@ -129,21 +143,19 @@ body {
   width: 100px; left: 80px; top: 106.09px; position: absolute; 
 }
 
-/* --- New Juicy Keyframes --- */
-
 @keyframes driftHeavy {
   0%, 100% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(20px) translateY(-10px); } /* Diagonal drift */
+  50% { transform: translateX(20px) translateY(-10px); } 
 }
 
 @keyframes driftFast {
   0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(-25px); } /* Strong side-to-side */
+  50% { transform: translateX(-25px); } 
 }
 
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); } /* Subtle expansion */
+  50% { transform: scale(1.05); } 
 }
 
 /* --- Slogan Area --- */
@@ -166,85 +178,201 @@ body {
 
 .slogan-text { font-size: 24px; color: black; margin-top: 13px;}
 
-/* --- Interactive Adopt Button --- */
-.adopt-btn {
-  padding: 0 40px;
-  height: 70px;
+/* --- Bottom Right Hero Graphics --- */
+.hero-bottom-right-decor {
   position: absolute;
-  right: 62px;
-  bottom: 40px;
-  background: #A18D6D;
-  border: 3px solid #000000; 
-  border-radius: 20px;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 5;
-  box-shadow: 4px 4px 0px #000000; 
-  transition: all 0.2s ease; 
-}
-
-.adopt-btn:hover {
-  transform: translateY(-2px); 
-  box-shadow: 6px 6px 0px #3A2525; 
-  background: #8e7b5e;
-}
-
-.adopt-btn:active {
-  transform: scale(0.95) translate(2px, 2px); 
-  box-shadow: 0px 0px 0px #3A2525; 
-}
-
-.adopt-btn-text {
-  color: #F9F8F6;
-  font-size: 26px;
-  margin-top: 8px; 
-  font-family: 'Baloo Tammudu Local', sans-serif;
+  bottom: 0;
+  right: 0;
+  width: 500px;
+  height: 480px;
+  z-index: 1;
   pointer-events: none;
 }
 
-/* Next Page */
-
-/* Allow the index page to scroll */
-.main-container.index-page {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: auto;
-    min-height: 100vh;
+.hero-corner-shape {
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 494px;
+  height: 303px;
+  background: #D9CFC7;
+  border-top-left-radius: 500px;
+  z-index: 1;
 }
 
-.hero-full-screen {
-    height: 100vh;
-    width: 100%;
-    position: relative;
+.hero-decor-img-1 {
+  position: absolute;
+  bottom: -10px;
+  right: 190px;
+  width: 300px;
+  height: auto;
+  z-index: 3;
 }
 
-/* Info Section Styling */
+.hero-decor-img-2 {
+  position: absolute;
+  bottom: -40px;
+  right: -50px;
+  width: 425px;
+  height: 600px;
+  z-index: 2;
+}
+
+/* =========================================
+   SECTION 2: MOCHI SECTION
+========================================= */
+.mochi-section-container {
+  position: relative;
+  width: 100%;
+  min-height: 900px;
+  background: #D9CFC7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0;
+  margin-top: 50px; /* Added slight gap between Hero and Mochi */
+}
+
+/* Decorative Background Shapes */
+.mochi-bg-shape-top {
+  position: absolute;
+  width: 469px;
+  height: 310px;
+  left: 10%;
+  top: 0px;
+  background-color: #F9F8F6;
+  border-bottom-right-radius: 100px;
+  border-bottom-left-radius: 100px;
+  z-index: 0;
+}
+
+.mochi-bg-img-top {
+  position: absolute;
+  width: 250px;
+  height: 370px;
+  left: 15%;
+  top: 78px;
+  z-index: 1;
+}
+
+.mochi-bg-shape-bottom {
+  position: absolute;
+  width: 510px;
+  height: 310px;
+  right: 10%;
+  bottom: 0px;
+  background-color: #F9F8F6;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  z-index: 0;
+}
+
+.mochi-bg-img-bottom {
+  position: absolute;
+  width: 270px;
+  height: 400px;
+  right: 17%;
+  bottom: 100px;
+  z-index: 1;
+}
+
+/* Mochi Content Layout */
+.mochi-content-wrapper {
+  width: 1400px;
+  max-width: 95%;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  z-index: 2;
+}
+
+.mochi-card {
+  width: 855px;
+  max-width: 100%;
+  height: 367px;
+  background: #F9F8F6;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 40px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.mochi-card.align-right { 
+  align-self: flex-end;
+  margin-left: auto;  /* Pushes all empty space to the left, forcing the card right */
+  margin-right: -210px;
+}
+
+.mochi-card.align-left { 
+  align-self: flex-start; 
+  margin-right: auto; /* Pushes all empty space to the right, forcing the card left */
+  margin-left: -210px;
+}
+
+.mochi-text-content {
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mochi-title {
+  font-size: 32px;
+  font-weight: 400;
+  color: black;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.mochi-desc {
+  font-size: 14px; 
+  color: black;
+  line-height: 1.6;
+  margin-top: 15px;
+}
+
+.mochi-img-placeholder {
+  width: 305px;
+  height: 301px;
+  background: #D85454;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: black;
+  text-align: center;
+}
+
+/* =========================================
+   SECTION 3: THE INFO & MOBILE DESIGN
+========================================= */
 .info-section-container {
-    width: 100%;
-    min-height: 900px;
-    background: #F9F8F6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 100px 0;
-    border-top: 1px solid black;
+  width: 100%;
+  min-height: 900px;
+  background: #F9F8F6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+  margin-top: 60px;
 }
 
 .info-content-wrapper {
-    width: 1200px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .info-text-side {
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .info-brand { font-size: 24px; color: black; margin: 0; }
@@ -252,52 +380,54 @@ body {
 .info-para { font-size: 14px; line-height: 1.6; color: #3A2525; }
 
 .start-now-btn {
-    width: 265px;
-    padding: 10px 0;
-    background: #A18D6D;
-    border: 3px solid black;
-    border-radius: 20px;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 18px;
+  width: 265px;
+  padding: 10px 0;
+  background: #A18D6D;
+  border: 3px solid black;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-.footer-links { margin-top: 50px; font-size: 12px; }
+.footer-links { margin-top: 20px; font-size: 12px; }
 .footer-links a { color: #277BDA; text-decoration: none; }
 
 /* Phone Mockup */
 .phone-mockup {
-    width: 360px;
-    height: 640px;
-    background: #F9F8F6;
-    border: 2px solid black;
-    border-radius: 20px;
-    position: relative;
-    box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
-    overflow: hidden;
+  width: 360px;
+  height: 640px;
+  background: #F9F8F6;
+  border: 2px solid black;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
 .phone-header { padding: 20px; font-size: 20px; }
 .phone-inner-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
 }
 .phone-logo { font-size: 64px; margin-bottom: 20px; }
 .phone-btn {
-    background: #A18D6D;
-    color: white;
-    padding: 10px 30px;
-    border-radius: 20px;
-    text-decoration: none;
+  background: #A18D6D;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 20px;
+  text-decoration: none;
 }
 .phone-footer {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    text-align: center;
-    font-size: 11px;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
 }

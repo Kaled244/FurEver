@@ -44,6 +44,7 @@ body.sidebar-collapsed .profile-content {
   gap: 30px;
   width: 100%;
   margin-bottom: 40px;
+  margin-top: -35px;
 }
 
 /* --- Profile Card --- */
@@ -52,83 +53,118 @@ body.sidebar-collapsed .profile-content {
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  height: 710px;
+  display: flex;
+  flex-direction: column;
 }
 
 .profile-header-bg {
   height: 140px;
+  min-height: 140px; /* Prevents it from shrinking */
   background: linear-gradient(135deg, #D9CFC7 0%, #BDAE9F 100%);
+  width: 100%;
+}
+
+.profile-body {
+  padding: 0 40px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Grouping the Avatar and Badge */
+.avatar-badge-group {
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: -90px; /* Pulls the 180px avatar exactly halfway into the 140px header */
+  margin-bottom: 10px;
 }
 
 .profile-avatar-container {
-  position: absolute;
-  bottom: -50px;
-  display: flex;
-  align-items: flex-end;
+  position: relative;
 }
 
 .profile-avatar-main {
-  width: 110px;
-  height: 110px;
+  width: 180px;
+  height: 180px;
   background: #2d2d2d;
-  color: white;
+  color: rgb(238, 255, 0);
   border-radius: 50%;
-  font-size: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 60px; /* Added so the text letter scales nicely */
   border: 6px solid white;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
+.profile-avatar-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Better positioning for the pencil icon */
 .edit-avatar-btn {
   background: white;
   border: 1px solid #ddd;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  margin-left: -30px;
-  margin-bottom: 5px;
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
   z-index: 5;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.profile-body {
-  padding: 70px 40px 40px;
-  text-align: center;
+/* Places the badge perfectly to the right of the center */
+.user-role-badge {
+  position: absolute;
+  left: calc(50% + 105px); 
+  background: #e5ff00; 
+  color: #3A2525;
+  padding: 8px 24px; 
+  border-radius: 30px; 
+  font-size: 16px; 
+  font-weight: 800; 
+  letter-spacing: 1px; 
+  white-space: nowrap; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); 
+  text-transform: uppercase; 
 }
 
 .user-fullname {
   font-size: 32px;
-  margin-bottom: 4px;
+  margin-bottom: 20px;
   color: #3A2525;
 }
 
-.user-role-badge {
-  background: #3A2525;
-  color: white;
-  padding: 4px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-/* Updated for Username box integration */
 .user-info-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 15px;
-  margin-top: 30px;
 }
 
+/* Slightly tightened the info boxes to guarantee a fit in 710px */
 .info-box {
   background: #fdfdfd;
-  padding: 20px;
+  padding: 15px 20px;
   border-radius: 16px;
   border: 1px solid #eeeae6;
   text-align: left;
+  height: 95px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .info-box label {
@@ -136,6 +172,7 @@ body.sidebar-collapsed .profile-content {
   color: #a18d6d;
   font-weight: 800;
   text-transform: uppercase;
+  margin-bottom: 4px;
 }
 
 .info-box p {
@@ -165,21 +202,26 @@ body.sidebar-collapsed .profile-content {
   border-radius: 12px;
   border: 1px solid #e0e0e0;
   background: white;
-  font-weight: 600;
+  font-weight: 200;
   cursor: pointer;
   font-family: 'Baloo Tammudu Local';
 }
 
 .action-btn:hover {
-  background: #3A2525;
+  background: #A18D6D;
   color: white;
 }
 
 .upload-btn {
-  background: #3A2525 !important;
-  color: white !important;
-  border: none !important;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  font-weight: 200;
+  cursor: pointer;
+  font-family: 'Baloo Tammudu Local';
 }
 
 .upload-btn:hover {
@@ -193,32 +235,338 @@ body.sidebar-collapsed .profile-content {
   border-radius: 12px;
   background: #fee2e2;
   color: #991b1b;
-  font-weight: bold;
   border: none;
   cursor: pointer;
+  font-weight: 200;
+  font-family: 'Baloo Tammudu Local';
 }
 
 .delete-btn:hover { background: #991b1b; color: white; }
 
-/* --- Pending Section --- */
-.section-title { font-size: 40px; margin-bottom: 20px; color: #3A2525; }
 
-.app-row {
+/* --- Applications Table --- */
+.applications-table-container {
+  width: 100%;
+  overflow-x: auto; /* Keeps it responsive on smaller screens */
   background: white;
-  padding: 20px 40px;
   border-radius: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  padding: 20px;
+  border: 1px solid #eeeae6;
 }
 
-.status-badge-big {
-  font-family: 'Baloo Tammudu Local';
-  padding: 10px 25px;
-  border-radius: 12px;
-  font-weight: bold;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+.applications-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
 }
-.status-badge-big.pending { background: #e5ff00; color: black; }
+
+.applications-table th {
+  font-family: 'Baloo Tammudu Local', sans-serif;
+  color: #a18d6d;
+  font-size: 24px;
+  padding: 12px 16px;
+  border-bottom: 2px solid #eeeae6;
+}
+
+.applications-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f5f5f5;
+  vertical-align: middle;
+}
+
+/* Subtle hover effect for the rows */
+.applications-table tbody tr:hover {
+  background-color: #fafaf9;
+}
+
+/* Remove bottom border from the last row to keep it clean */
+.applications-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Align the status badge nicely */
+.status-cell {
+  text-align: right;
+  width: 150px; /* Keeps the status column a consistent width */
+}
+
+/* Make sure your h3 and p inside the table don't have weird margins */
+.applications-table .app-details h3 {
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  color: #3A2525;
+}
+
+.applications-table .app-details p {
+  margin: 0;
+  font-size: 14px;
+  color: #78716c;
+}
+
+
+
+
+
+
+
+
+
+
+/* --- Password Modal Specifics --- */
+.modal-content.password-confirm {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  max-width: 400px;
+  width: 90%;
+  border: 1px solid #eee;
+}
+
+.password-confirm {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.password-form {
+  margin: 25px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-group {
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 11px;
+  color: #000000;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #eeeae6;
+  background: #fdfdfd;
+  font-size: 16px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #A18D6D;
+  box-shadow: 0 0 0 3px rgba(161, 141, 109, 0.1);
+}
+
+.btn-confirm-save {
+  background: #3A2525;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-family: 'Baloo Tammudu Local';
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.btn-confirm-save:active {
+  transform: scale(0.98);
+}
+
+/* Container to hold the input and the eye icon */
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Ensure the input has padding on the right so text doesn't go under the eye */
+.password-input-wrapper input {
+  padding-right: 45px !important; /* Forces space for the icon */
+  width: 100%;
+}
+
+/* Position the eye icon */
+.password-toggle-icon {
+  position: absolute;
+  right: 12px;
+  width: 22px; /* Adjust size based on your image dimensions */
+  height: auto;
+  cursor: pointer;
+  opacity: 0.5; /* Makes it subtle until hovered */
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  user-select: none; /* Prevents the image from being highlighted/selected */
+}
+
+.password-toggle-icon:hover {
+  opacity: 1;
+  transform: scale(1.1); /* Slight pop effect on hover */
+}
+
+/* Optional: Slight tweak to your existing input-group to keep things tight */
+.input-group {
+  margin-bottom: 15px;
+}
+
+/* --- Modal Styles --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dims the entire screen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000; /* High z-index to stay on top */
+  backdrop-filter: blur(4px); /* Optional: adds a modern blur effect */
+}
+
+.modal-content.delete-confirm {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+  border: 1px solid #eee;
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.delete-confirm h2 {
+  font-family: 'Baloo Tammudu Local';
+  font-size: 32px;
+  color: #3A2525;
+  margin-bottom: 15px;
+}
+
+.delete-confirm p {
+  color: #000000;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+/* --- Modal Actions --- */
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn-cancel {
+  background: #f3f4f6;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-family: 'Baloo Tammudu Local';
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #e5e7eb;
+}
+
+.btn-confirm-delete {
+  background: #8b0000;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-family: 'Baloo Tammudu Local';
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-confirm-delete:hover {
+  transform: scale (1.05);
+  background: #a30000;
+}
+
+/* --- Edit Profile Modal Specifics --- */
+.modal-content.edit-profile-modal {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  border: 1px solid #eee;
+  max-width: 500px;
+  width: 100%;
+}
+
+.edit-avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.edit-avatar-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #fdfdfd;
+  border: 2px dashed #A18D6D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.edit-avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  font-size: 40px;
+  color: #A18D6D;
+  font-weight: bold;
+}
+
+.upload-card h3 , .action-card h3 , .danger-card h3{
+  color: #A18D6D;
+  font-size: 24px;
+}
+
+.upload-avatar-btn {
+  background: transparent;
+  color: #A18D6D;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #A18D6D;
+  padding: 5px 15px;
+  border-radius: 20px;
+  transition: all 0.2s;
+  margin-top: 15px;
+}
+
+.upload-avatar-btn:hover {
+  background: #A18D6D;
+  color: white;
+}

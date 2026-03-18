@@ -34,31 +34,36 @@ public class ApplicationController {
 
     @PostMapping("/submit")
     public ResponseEntity<?> submitApplication(@RequestBody ApplicationRequest request) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    if (request.petId() == null) {
+        return ResponseEntity.badRequest().body("Pet ID is required");
+    }
 
-        UserEntity user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        PetEntity pet = petRepository.findById(request.petId())
-                .orElseThrow(() -> new RuntimeException("Pet not found"));
+    UserEntity user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (applicationRepository.existsByUserAndPet(user, pet)) {
-            return ResponseEntity.badRequest().body("You've already applied for " + pet.getName());
-        }
+    @SuppressWarnings("null")
+    PetEntity pet = petRepository.findById(request.petId())
+            .orElseThrow(() -> new RuntimeException("Pet not found"));
 
-        ApplicationEntity application = new ApplicationEntity();
-        application.setUser(user);
-        application.setPet(pet);
-        application.setContactNumber(request.appContact());
-        application.setHomeType(request.appHomeType());
-        application.setExperience(request.appExperience());
-        application.setNewPetName(request.appNewpetname());
-        application.setAnswers(request.appAnswer());
-        application.setStatus("PENDING");
+    if (applicationRepository.existsByUserAndPet(user, pet)) {
+        return ResponseEntity.badRequest().body("You've already applied for " + pet.getName());
+    }
 
-        applicationRepository.save(application);
+    ApplicationEntity application = new ApplicationEntity();
+    application.setUser(user);
+    application.setPet(pet);
+    application.setContactNumber(request.appContact());
+    application.setHomeType(request.appHomeType());
+    application.setExperience(request.appExperience());
+    application.setNewPetName(request.appNewpetname());
+    application.setAnswers(request.appAnswer());
+    application.setStatus("PENDING");
 
-        return ResponseEntity.ok("Application submitted successfully for " + pet.getName() + "!");
+    applicationRepository.save(application);
+
+    return ResponseEntity.ok("Application submitted successfully for " + pet.getName() + "!");
     }
 
     @GetMapping("/all")
@@ -69,9 +74,9 @@ public class ApplicationController {
 
     @PatchMapping("/{id}/status")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> updateStatus(@PathVariable Integer id, @RequestBody String newStatus) {
-        ApplicationEntity application = applicationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Application not found"));
+    public ResponseEntity<?> updateStatus(@PathVariable int id, @RequestBody String newStatus) {
+    ApplicationEntity application = applicationRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Application not found"));
 
         String cleanStatus = newStatus.replace("\"", "").trim().toUpperCase();
 
@@ -102,15 +107,15 @@ public class ApplicationController {
     
     @PatchMapping("/adoption/{id}/pay")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> updatePaymentStatus(@PathVariable Integer id) {
+    public ResponseEntity<?> updatePaymentStatus(@PathVariable int id) {
 
-        AdoptionEntity adoption = adoptionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Adoption record not found"));
+    AdoptionEntity adoption = adoptionRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Adoption record not found"));
 
-        adoption.setPayStatus("PAID");
+    adoption.setPayStatus("PAID");
 
-        adoptionRepository.save(adoption);
-        return ResponseEntity.ok("Payment confirmed for Adoption #" + id + ". Muning is officially going home!");
+    adoptionRepository.save(adoption);
+    return ResponseEntity.ok("Payment confirmed for Adoption #" + id + ". Muning is officially going home!");
     }
     @GetMapping("/adoptions/unpaid")
     @PreAuthorize("hasAuthority('ADMIN')")

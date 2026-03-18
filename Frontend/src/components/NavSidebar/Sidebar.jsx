@@ -23,6 +23,7 @@ const Sidebar = () => {
           name: userData.username || "User", 
           address: userData.address || "" 
         });
+      // eslint-disable-next-line no-unused-vars
       } catch (error) {
         console.error("Error updating sidebar info.");
       }

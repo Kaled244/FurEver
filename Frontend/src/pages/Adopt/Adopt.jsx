@@ -1,23 +1,68 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import PetCard from '../../components/Pet/PetCard';
 import ApplicationListModal from '../../components/Pet/ApplicationListModal';
 import './Adopt.css';
 
+// --- DATA MAPPING ---
+const SPECIES_DATA = {
+  'Dog': ['Aspin', 'Golden Retriever', 'Askal', 'Poodle', 'Bulldog', 'Beagle', 'Chihuahua'],
+  'Cat': ['Puspin', 'Siamese', 'Persian', 'Maine Coon', 'Bengal', 'Munchkin', 'Tabby'],
+  'Rabbit': ['Dutch', 'Lionhead', 'Rex', 'Netherland Dwarf'],
+  'Bird': ['Parrot', 'Canary', 'Lovebird', 'Cockatiel', 'African Grey']
+};
+
+// --- NEW DROPDOWN COMPONENT (Inspired by Pure CSS) ---
+const AdoptDropdown = ({ label, options, selected, onSelect, disabled }) => {
+  const detailsRef = useRef(null);
+
+  const handleItemClick = (option) => {
+    onSelect(option);
+    // Force close the details tag after selection
+    if (detailsRef.current) {
+      detailsRef.current.removeAttribute('open');
+    }
+  };
+
+  return (
+    <details 
+      className={`custom-dropdown ${disabled ? 'disabled' : ''}`} 
+      ref={detailsRef}
+    >
+      <summary role="button" onClick={(e) => disabled && e.preventDefault()}>
+        <span className="dropdown-button-styled">
+          {selected || label}
+        </span>
+      </summary>
+      <ul>
+        {options.map((option, index) => (
+          <li key={index}>
+            <button onClick={() => handleItemClick(option)}>{option}</button>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+};
+
+// --- MAIN ADOPT COMPONENT ---
 const Adopt = () => {
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeFilter, setActiveFilter] = useState('All Pets');
-  const [showAppList, setShowAppList] = useState(false); // NEW STATE
+  const [showAppList, setShowAppList] = useState(false);
+
+  const [filters, setFilters] = useState({
+    species: 'All Pets',
+    breed: 'All Breeds'
+  });
 
   useEffect(() => {
     const fetchPets = async () => {
       try {
         setLoading(true);
         setError(null);
-        const targetUrl = 'http://localhost:8080/api/pets';
-        const response = await axios.get(targetUrl, {
+        const response = await axios.get('http://localhost:8080/api/pets', {
           headers: { 'Accept': 'application/json' }
         });
         setPets(response.data);
@@ -31,13 +76,28 @@ const Adopt = () => {
     fetchPets();
   }, []);
 
+  const handleSpeciesChange = (selectedSpecies) => {
+    setFilters({
+      species: selectedSpecies,
+      breed: 'All Breeds'
+    });
+  };
+
+  const handleBreedChange = (selectedBreed) => {
+    setFilters(prev => ({ ...prev, breed: selectedBreed }));
+  };
+
   const filteredPets = pets.filter(pet => {
-    const status = pet.pStatus || pet.p_status;
-    const isAvailable = status?.toLowerCase() === 'available';
-    if (!isAvailable) return false;
-    if (activeFilter === 'All Pets') return true;
-    const species = pet.pSpecies || pet.p_species;
-    return species?.toLowerCase() === activeFilter.toLowerCase();
+    const status = (pet.pStatus || pet.p_status)?.toLowerCase();
+    if (status !== 'available') return false;
+
+    const petSpecies = (pet.pSpecies || pet.p_species)?.toLowerCase();
+    const petBreed = (pet.pBreed || pet.p_breed)?.toLowerCase();
+
+    const matchesSpecies = filters.species === 'All Pets' || petSpecies === filters.species.toLowerCase();
+    const matchesBreed = filters.breed === 'All Breeds' || petBreed === filters.breed.toLowerCase();
+
+    return matchesSpecies && matchesBreed;
   });
 
   return (
@@ -51,19 +111,30 @@ const Adopt = () => {
           
           <div className="sticky-filter-container">
             <div className="filter-bar">
-              {['All Pets', 'Dog', 'Cat'].map((type) => (
-                <button 
-                  key={type}
-                  className={`filter-btn ${activeFilter === type ? 'active-filter' : ''}`}
-                  onClick={() => setActiveFilter(type)}
-                >
-                  {type}
-                </button>
-              ))}
-              <div className="dropdown-filter">
-                <span>Choose Breed</span>
-                <span className="dropdown-arrow">🡫</span>
-              </div>
+              {/* Reset Button */}
+              <button 
+                className={`filter-btn ${filters.species === 'All Pets' ? 'active-filter' : ''}`}
+                onClick={() => setFilters({ species: 'All Pets', breed: 'All Breeds' })}
+              >
+                All Pets
+              </button>
+
+              {/* Species Dropdown */}
+              <AdoptDropdown 
+                label="Choose Species"
+                options={['All Pets', ...Object.keys(SPECIES_DATA)]}
+                selected={filters.species === 'All Pets' ? '' : filters.species}
+                onSelect={handleSpeciesChange}
+              />
+
+              {/* Breed Dropdown */}
+              <AdoptDropdown 
+                label="Choose Breed"
+                options={['All Breeds', ...(filters.species !== 'All Pets' ? SPECIES_DATA[filters.species] : [])]}
+                selected={filters.breed === 'All Breeds' ? '' : filters.breed}
+                onSelect={handleBreedChange}
+                disabled={filters.species === 'All Pets'}
+              />
             </div>
           </div>
         </header>
@@ -84,11 +155,10 @@ const Adopt = () => {
               <PetCard key={pet.pId || pet.id} pet={pet} />
             ))
           ) : (
-            <p className="no-pets-message">No pets found for this category.</p>
+            <p className="no-pets-message">No {filters.species !== 'All Pets' ? filters.species : ''} pets found for this category.</p>
           )}
         </div>
 
-        {/* UPDATED: Floating Form Button with onClick */}
         <button 
           className="floating-app-btn" 
           title="View My Applications"
@@ -97,7 +167,6 @@ const Adopt = () => {
           <span className="app-icon-text">Form</span>
         </button>
 
-        {/* NEW: Application List Modal Component */}
         <ApplicationListModal 
           isOpen={showAppList} 
           onClose={() => setShowAppList(false)} 

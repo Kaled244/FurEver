@@ -1,18 +1,14 @@
+/* --- Page Layout --- */
 .adopt-page {
   display: flex;
   width: 100%;
   height: 100vh;
-  background-color: #fafaf9; /* Stone-50 */
+  background-color: #fafaf9;
   overflow: hidden;
 }
 
-.adopt-header {
-  margin-bottom: 50px;
-}
-
-.main-content, .profile-content {
+.main-content {
   flex-grow: 1;
-  /* REDUCED from 35px to 15px to pull everything to the top */
   padding: 15px 60px 40px 60px; 
   height: 100vh;
   overflow-y: auto;
@@ -21,47 +17,36 @@
   background-color: #fafaf9;
 }
 
+body.sidebar-collapsed .main-content {
+  margin-left: 80px;
+}
+
+/* --- Titles --- */
 .main-title1 {
   font-family: 'Baloo Tammudu Local';
   font-size: 60px;
   color: #292524;
-  margin-top: 0px; 
-  /* Tightened line-height to remove extra space above the letters */
+  margin-top: 0; 
   line-height: 1; 
   letter-spacing: -1px;
 }
 
 .main-subtitle {
   font-family: 'Baloo Tammudu Local';
-  font-size: 22px; /* Slightly smaller to save vertical space */
-  color: #78716c;
-  /* REDUCED from -10px to -5px to pull subtitle up to title */
-  margin: -5px 0 20px 0; 
+  font-size: 24px;
+  color: #292524;
+  margin: -10px 0 35px 0;
 }
 
-/* Adjust margin when sidebar is collapsed */
-body.sidebar-collapsed .main-content {
-  margin-left: 80px;
-}
-
-/* Filter Styling */
+/* --- Filter System --- */
 .sticky-filter-container {
   position: sticky;
-  top: -50px;
+  top: 0; 
   z-index: 100;
   background-color: #fafaf9; 
-  padding: 10px 0;
+  padding: 15px 0; /* Increased padding for better breathing room */
   margin-top: 10px;
-}
-
-/* Filter Styling */
-.sticky-filter-container {
-  position: sticky;
-  top: -50px;
-  z-index: 100;
-  background-color: #fafaf9; 
-  padding: 10px 0;
-  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .filter-bar {
@@ -70,13 +55,14 @@ body.sidebar-collapsed .main-content {
   align-items: center;
 }
 
-.filter-btn {
+/* Base style for BOTH buttons and dropdown containers */
+.filter-btn, 
+.dropdown-filter {
   border: none; 
   background: #D9CFC7; 
-  margin-top: 15px;
   height: 55px;
   border-radius: 12px;
-  padding: 0 25px;
+  padding: 0 25px; /* Equal side padding */
   font-family: 'Baloo Tammudu Local';
   font-size: 20px;
   cursor: pointer;
@@ -85,39 +71,51 @@ body.sidebar-collapsed .main-content {
   justify-content: center;
   transition: all 0.3s ease;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Crucial for equal padding */
+  min-width: 160px; /* Ensures boxes aren't too tiny */
 }
 
-.filter-btn:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+/* Specific fix for the dropdown box */
+.dropdown-filter {
+  padding: 0; /* Remove container padding so the select can fill the space */
+  overflow: hidden;
+}
+
+.filter-btn:hover,
+.dropdown-filter:hover:not(.disabled) {
   background-color: #A18D6D;
+  color: white;
 }
 
 .filter-btn.active-filter {
   background-color: #A18D6D;
   color: white;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.521);
-  transform: translateY(0);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
 }
 
-.dropdown-filter {
-  border: none; 
-  background: #D9CFC7; 
-  margin-top: 15px;
-  height: 55px;
-  border-radius: 12px;
-  padding: 0 25px;
+/* The actual <select> inside the box */
+.filter-select {
+  background: transparent;
+  border: none;
   font-family: 'Baloo Tammudu Local';
   font-size: 20px;
+  color: inherit;
+  outline: none;
   cursor: pointer;
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%; /* Makes the select fill the 55px height */
+  padding: 0 25px; /* Re-apply the equal padding INSIDE the select */
+  appearance: none; /* Removes the default browser arrow for a cleaner look */
+  -webkit-appearance: none;
+  text-align: center; /* Centers the text */
 }
 
-/* Grid Layout */
+.dropdown-filter.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Grid & Content --- */
 .pet-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(384px, 1fr));
@@ -134,95 +132,6 @@ body.sidebar-collapsed .main-content {
 }
 
 /* --- Floating Button --- */
-.floating-app-btn {
-  position: fixed;
-  /* CHANGE: Changed from bottom: 40px to top: 40px */
-  top: 40px; 
-  right: 40px;
-  
-  width: 75px;
-  height: 75px;
-  background-color: #A18D6D;
-  color: white;
-  border: none;
-  border-radius: 50%; /* Circle shape */
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(161, 141, 109, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  
-  /* High z-index to stay above the sticky filters and sidebar */
-  z-index: 2000; 
-}
-
-.app-icon-text {
-  font-family: 'Baloo Tammudu Local';
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.floating-app-btn:hover {
-  transform: scale(1.1);
-  background-color: #3A2525;
-}
-
-.adopt-page {
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  background-color: #fafaf9;
-  overflow: hidden;
-}
-
-
-.main-subtitle {
-  font-family: 'Baloo Tammudu Local';
-  font-size: 24px;
-  color: #292524;
-  margin: -10px 0 35px 0;
-}
-
-/* Sticky Filters */
-.sticky-filter-container {
-  position: sticky;
-  top: 0; /* Changed from -50px for better visibility */
-  z-index: 100;
-  background-color: #fafaf9; 
-  padding: 10px 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.filter-bar {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.filter-btn, .dropdown-filter {
-  border: none; 
-  background: #D9CFC7; 
-  height: 55px;
-  border-radius: 12px;
-  padding: 0 25px;
-  font-family: 'Baloo Tammudu Local';
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.filter-btn.active-filter {
-  background-color: #A18D6D;
-  color: white;
-}
-
-/* --- Floating Button (Top Right) --- */
 .floating-app-btn {
   position: fixed;
   top: 40px; 
@@ -251,4 +160,141 @@ body.sidebar-collapsed .main-content {
 .floating-app-btn:hover {
   transform: scale(1.1);
   background-color: #3A2525;
+}
+
+/* =========================================
+   PURE CSS DROPDOWN INSPIRED STYLES
+   ========================================= */
+
+.custom-dropdown {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  border: none;
+  font-family: 'Baloo Tammudu Local', sans-serif;
+}
+
+/* Hide default marker */
+.custom-dropdown summary {
+  list-style: none;
+}
+.custom-dropdown > summary::-webkit-details-marker {
+  display: none;
+}
+.custom-dropdown summary:focus {
+  outline: none;
+}
+
+/* The Button Look */
+.dropdown-button-styled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 25px;
+  height: 55px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  background: #D9CFC7;
+  color: #292524;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  min-width: 180px; /* Ensure boxes are wide enough */
+}
+
+.custom-dropdown summary:hover .dropdown-button-styled {
+  background-color: #BEB4AC;
+}
+
+/* The Popup Menu */
+.custom-dropdown ul {
+  position: absolute;
+  margin: 15px 0 0 0;
+  padding: 10px 0;
+  width: 100%;
+  min-width: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  z-index: 105; /* Must be higher than sticky header */
+  
+  background: #ffffff;
+  border-radius: 12px;
+  list-style: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  border: 1px solid #eeeae6;
+  
+  /* Adding a nice pop animation */
+  animation: dropdownPop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes dropdownPop {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(0.95); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+/* The Little Triangle on top of the menu */
+.custom-dropdown ul::before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -10px;
+  left: 50%;
+  margin-left: -10px;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #ffffff transparent;
+}
+
+/* Menu Items */
+.custom-dropdown ul li {
+  padding: 0;
+  margin: 0;
+}
+
+.custom-dropdown ul li button {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-family: 'Baloo Tammudu Local', sans-serif;
+  font-size: 18px;
+  color: #3A2525;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.custom-dropdown ul li button:hover {
+  background-color: #A18D6D;
+  color: white;
+}
+
+/* The Magic Overlay to close on outside click */
+.custom-dropdown > summary::before {
+  display: none;
+}
+.custom-dropdown[open] > summary::before {
+  content: ' ';
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100; /* Behind the menu, but over the page */
+  cursor: default;
+}
+
+/* Disabled State */
+.custom-dropdown.disabled {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+.custom-dropdown.disabled summary {
+  cursor: not-allowed;
+  pointer-events: none; /* Prevents opening */
 }

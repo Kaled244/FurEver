@@ -22,7 +22,7 @@
   width: 553.86px;
   height: 178.57px;
   left: 50px;
-  top: 180px;
+  top: 140px;
   position: absolute;
   font-size: 135px;
   color: #3A2525;
@@ -130,6 +130,7 @@
   font-size: 20px;
   color: #3A2525;
   outline: none;
+  line-height: 53px;
 }
 
 .input-icon {

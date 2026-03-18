@@ -20,9 +20,12 @@ public class HealthRecordsController  {
         return ResponseEntity.ok(healthRepository.findByPId(pId));
     }
     @PostMapping("/add")
-    public ResponseEntity<HealthRecordsEntity> addHealthRecord(@RequestBody HealthRecordsEntity record) {
-        HealthRecordsEntity savedRecord = healthRepository.save(record);
-        return ResponseEntity.ok(savedRecord);
+    public ResponseEntity<HealthRecordsEntity> addHealthRecord(@RequestBody HealthRecordsEntity healthRecord) {
+    if (healthRecord == null) {
+        return ResponseEntity.badRequest().build();
+    }
+    HealthRecordsEntity savedRecord = healthRepository.save(healthRecord);
+    return ResponseEntity.ok(savedRecord);
     }
 
 }
