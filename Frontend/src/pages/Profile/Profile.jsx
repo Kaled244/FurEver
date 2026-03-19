@@ -5,20 +5,20 @@ import eyeOpen from '../../assets/eyeopen.png';
 import eyeClose from '../../assets/eyeclose.png';
 
 const Profile = () => {
-  const [user, setUser] = useState({ name: "", email: "", address: "", role: "", username: "", avatarUrl: "" });
+  const [user, setUser] = useState({ name: "", l_name: "", email: "", address: "", role: "", username: "", avatarUrl: "" });
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Modal States
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [showEditProfileModal, setShowEditProfileModal] = useState(false); // NEW
+  const [showEditProfileModal, setShowEditProfileModal] = useState(false);
 
   // Form States
   const [passwordData, setPasswordData] = useState({ currentPassword: "", newPassword: "" });
   
-  // Edit Profile States (NEW)
-  const [editProfileData, setEditProfileData] = useState({ name: "", username: "", address: "" });
+  // Edit Profile States
+  const [editProfileData, setEditProfileData] = useState({ name: "", l_name: "", username: "", address: "" });
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [avatarFile, setAvatarFile] = useState(null);
 
@@ -34,7 +34,13 @@ const Profile = () => {
         const userRes = await axios.get('http://localhost:8080/api/profile/me', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        setUser(userRes.data);
+        
+        // Ensure we handle both potential naming conventions from backend
+        const userData = userRes.data;
+        setUser({
+            ...userData,
+            l_name: userData.l_name || userData.lName || ""
+        });
 
         const appRes = await axios.get('http://localhost:8080/api/applications/my-submissions', {
           headers: { 'Authorization': `Bearer ${token}` }
@@ -53,6 +59,7 @@ const Profile = () => {
   const handleOpenEditProfile = () => {
     setEditProfileData({
       name: user.name || "",
+      l_name: user.l_name || user.lName || "", // Fallback for last name
       username: user.username || "",
       address: user.address || ""
     });
@@ -64,38 +71,46 @@ const Profile = () => {
     const file = e.target.files[0];
     if (file) {
       setAvatarFile(file);
-      setAvatarPreview(URL.createObjectURL(file)); // Preview immediately
+      setAvatarPreview(URL.createObjectURL(file));
     }
   };
 
   const handleSaveProfile = async () => {
     try {
-      const token = localStorage.getItem('token'); // Get the token!
+      const token = localStorage.getItem('token');
 
-      // Using FormData because we are uploading a file (image)
       const formData = new FormData();
       formData.append('name', editProfileData.name);
+      formData.append('l_name', editProfileData.l_name);
       formData.append('username', editProfileData.username);
       formData.append('address', editProfileData.address);
       if (avatarFile) {
         formData.append('avatar', avatarFile);
       }
       
-      await axios.put('http://localhost:8080/api/profile/update', formData, {
+      // We capture the response so we can get the actual Supabase URL
+      const response = await axios.put('http://localhost:8080/api/profile/update', formData, {
         headers: { 
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data' // Required for sending files
+          'Content-Type': 'multipart/form-data'
         }
       });
       
+      const updatedUser = response.data;
       alert("Profile updated successfully!");
       
-      // Update local state instantly so the UI changes without a page refresh
-      setUser({ ...user, ...editProfileData, avatarUrl: avatarPreview || user.avatarUrl });
+      // Update local state with the actual data returned from Spring Boot
+      setUser({ 
+          ...user, 
+          ...updatedUser, 
+          l_name: updatedUser.l_name || updatedUser.lName,
+          avatarUrl: updatedUser.avatarUrl // This is the real Supabase URL
+      });
+      
       setShowEditProfileModal(false);
     } catch (error) {
       console.error("Update Error:", error);
-      alert("Error updating profile. Is your backend endpoint ready?");
+      alert("Error updating profile. Check console for details.");
     }
   };
 
@@ -133,29 +148,33 @@ const Profile = () => {
 
           {/* LEFT COLUMN - Profile Card */}
           <div className="profile-card">
-            {/* Header is now just the background color */}
             <div className="profile-header-bg"></div>
 
             <div className="profile-body">
-              {/* NEW: Wrapper to hold the Avatar and the Badge together */}
               <div className="avatar-badge-group">
                 <div className="profile-avatar-container">
                   <div className="profile-avatar-main">
                     {user.avatarUrl ? (
-                      <img src={user.avatarUrl} alt="Profile" />
+                      <img 
+                        src={user.avatarUrl} 
+                        alt="Profile" 
+                        onError={(e) => {
+                            console.error("Image failed to load:", user.avatarUrl);
+                            e.target.src = "fallback_image_url";
+                        }}
+                      />
                     ) : (
-                      user.name ? user.name.charAt(0).toUpperCase() : "U"
+                      <div className="avatar-placeholder">
+                        {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                      </div>
                     )}
                   </div>
                   <button className="edit-avatar-btn" onClick={handleOpenEditProfile}>✏️</button>
                 </div>
-                
-                {/* Moved the Badge here! */}
                 <span className="user-role-badge">{user.role}</span>
               </div>
 
-              {/* Name is now directly below the avatar group */}
-              <h1 className="user-fullname">{user.name}</h1>
+              <h1 className="user-fullname">{user.name} {user.l_name}</h1>
 
               <div className="user-info-grid">
                 <div className="info-box">
@@ -184,7 +203,6 @@ const Profile = () => {
 
             <div className="action-card">
               <h3>Quick Actions</h3>
-              {/* WIRED UP THE EDIT PROFILE BUTTON */}
               <button className="action-btn" onClick={handleOpenEditProfile}>Edit Profile</button>
               <button className="action-btn" onClick={() => setShowPasswordModal(true)}>
                 Change Password
@@ -204,41 +222,40 @@ const Profile = () => {
 
         {/* APPLICATIONS SECTION */}
         <section className="pending-section">
-  
-  <div className="applications-table-container">
-    {applications.length > 0 ? (
-      <table className="applications-table">
-        <thead>
-          <tr>
-            <th>Applications</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {applications.map((app) => (
-            <tr key={app.id}>
-              <td>
-                <div className="app-details">
-                  <h3>{app.newPetName || "Unnamed Pet"}</h3>
-                  <p>Applied on: {new Date(app.appDate).toLocaleDateString()}</p>
-                </div>
-              </td>
-              <td className="status-cell">
-                <div className={`status-badge-big ${(app.status || "pending").toLowerCase()}`}>
-                  {app.status || "PENDING"}
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    ) : (
-      <div className="pets-empty-state">
-        <p>No active requests found.</p>
-      </div>
-    )}
-  </div>
-</section>
+          <div className="applications-table-container">
+            {applications.length > 0 ? (
+              <table className="applications-table">
+                <thead>
+                  <tr>
+                    <th>Applications</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {applications.map((app) => (
+                    <tr key={app.id}>
+                      <td>
+                        <div className="app-details">
+                          <h3>{app.newPetName || "Unnamed Pet"}</h3>
+                          <p>Applied on: {new Date(app.appDate).toLocaleDateString()}</p>
+                        </div>
+                      </td>
+                      <td className="status-cell">
+                        <div className={`status-badge-big ${(app.status || "pending").toLowerCase()}`}>
+                          {app.status || "PENDING"}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="pets-empty-state">
+                <p>No active requests found.</p>
+              </div>
+            )}
+          </div>
+        </section>
 
         {/* MODAL: EDIT PROFILE */}
         {showEditProfileModal && (
@@ -254,7 +271,6 @@ const Profile = () => {
                      <div className="avatar-placeholder">{editProfileData.name ? editProfileData.name.charAt(0).toUpperCase() : "U"}</div>
                   )}
                 </div>
-                {/* Hidden file input triggered by the label */}
                 <input 
                   type="file" 
                   id="avatarUpload" 
@@ -269,11 +285,19 @@ const Profile = () => {
 
               <div className="password-form">
                 <div className="input-group">
-                  <label>Full Name</label>
+                  <label>First Name</label>
                   <input 
                     type="text" 
                     value={editProfileData.name} 
                     onChange={(e) => setEditProfileData({...editProfileData, name: e.target.value})} 
+                  />
+                </div>
+                <div className="input-group">
+                  <label>Last Name</label>
+                  <input 
+                    type="text" 
+                    value={editProfileData.l_name} 
+                    onChange={(e) => setEditProfileData({...editProfileData, l_name: e.target.value})} 
                   />
                 </div>
                 <div className="input-group">

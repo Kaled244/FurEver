@@ -77,7 +77,9 @@
 /* 4. Registration Side Panel */
 .register-panel {
   width: 506px;
-  height: 821px;
+  /* Changed height to auto to prevent unnecessary scrollbars */
+  height: auto; 
+  min-height: 800px;
   right: 75px; 
   top: 50px;
   position: absolute;
@@ -87,10 +89,58 @@
   flex-direction: column;
   align-items: center;
   padding: 30px;
+  padding-bottom: 50px; /* Space at the bottom */
   z-index: 10;
   border: 2px solid #3A2525;
   box-shadow: 4px 4px 0px #3A2525;
   animation: gentleSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  
+  /* Prevent the panel itself from scrolling */
+  overflow: hidden; 
+}
+
+/* 5. Form & Inputs */
+.reg-input-wrapper {
+  width: 405px;
+  height: 53px;
+  position: relative; 
+  /* Ensure no background images are leaking in from parent styles */
+  background: transparent; 
+}
+
+.reg-input-wrapper input {
+  width: 100%;
+  height: 100%;
+  background: #F9F8F6;
+  border-radius: 20px;
+  border: 2px solid black;
+  padding-left: 60px; 
+  padding-right: 50px;
+  font-family: 'Baloo Tammudu Local';
+  font-size: 20px;
+  color: #3A2525;
+  outline: none;
+  /* Remove any default browser background icons (like edge/chrome eye) */
+  background-image: none !important; 
+}
+
+/* Chrome/Safari/Edge hide default password toggle */
+.reg-input-wrapper input::-ms-reveal,
+.reg-input-wrapper input::-ms-clear {
+  display: none;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  z-index: 12;
+  /* Ensure it's not getting a background image from CSS */
+  background: none !important; 
 }
 
 .user-icon-top {
@@ -119,21 +169,6 @@
   width: 405px;
   height: 53px;
   position: relative; 
-}
-
-.reg-input-wrapper input {
-  width: 100%;
-  height: 100%;
-  background: #F9F8F6;
-  border-radius: 20px;
-  border: 2px solid black;
-  padding-left: 60px; 
-  padding-right: 50px;
-  font-family: 'Baloo Tammudu Local';
-  font-size: 20px;
-  color: #3A2525;
-  outline: none;
-  line-height: 53px;
 }
 
 .input-icon {

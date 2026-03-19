@@ -14,13 +14,14 @@ import arrow from '../../assets/leftarrow.png';
 import { NotificationContext } from '../../components/Notification/NotificationContext';
 
 const Register = () => {
-    const showNotification = useContext(NotificationContext);
+  const showNotification = useContext(NotificationContext);
   const navigate = useNavigate(); 
   
   const [showPassword, setShowPassword] = useState(false);
   
   const initialFormState = {
     name: '',
+    l_name: '',
     username: '',
     password: '',
     address: '',
@@ -50,17 +51,25 @@ const Register = () => {
         body: JSON.stringify(formData),
       });
       
-      const data = await response.json();
+      const textResponse = await response.text();
+   
+      let data = {};
+      if (textResponse) {
+          try {
+              data = JSON.parse(textResponse);
+          // eslint-disable-next-line no-unused-vars
+          } catch (jsonError) {
+              console.error("Server crashed and returned:", textResponse);
+          }
+      }
 
       if (response.ok) {
-        // Use your cool new notification!
         showNotification("Welcome to the FurEver family!", "success");
-        
         setFormData(initialFormState);
         navigate('/login'); 
       } else {
-        // Handle specific backend error messages
-        showNotification(data.message || "Oops! That username might be taken.", "error");
+        // Fallback message if the server didn't send a proper error JSON
+        showNotification(data.message || `Server Error: ${response.status}`, "error");
       }
     } catch (error) {
       console.error("Connection Error:", error);
@@ -77,13 +86,13 @@ const Register = () => {
       </Link>
 
       <div className="hero-section1">
-          <div className="hero-title1">FurEver</div>
-          <img className="img-cloud1-large" src={cloud} alt="cloud" />
-          <img className="img-cloud1-main" src={cloud} alt="cloud" />
-          <img className="img-cloud1-small" src={cloud} alt="cloud" />
-          <img className="img-paw1-small" src={paw} alt="paw" />
-          <img className="img-cloud1-wide" src={cloud} alt="cloud" />
-          <img className="img-cloud1-medium" src={cloud} alt="cloud" />
+        <div className="hero-title1">FurEver</div>
+        <img className="img-cloud1-large" src={cloud} alt="cloud" />
+        <img className="img-cloud1-main" src={cloud} alt="cloud" />
+        <img className="img-cloud1-small" src={cloud} alt="cloud" />
+        <img className="img-paw1-small" src={paw} alt="paw" />
+        <img className="img-cloud1-wide" src={cloud} alt="cloud" />
+        <img className="img-cloud1-medium" src={cloud} alt="cloud" />
       </div>   
   
       <div className="slogan-container">
@@ -100,8 +109,20 @@ const Register = () => {
             <input 
               type="text" 
               name="name" 
-              placeholder="Name" 
+              placeholder="First Name" 
               value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="reg-input-wrapper">
+            <img src={user} alt="last name" className="input-icon" />
+            <input 
+              type="text" 
+              name="l_name"
+              placeholder="Last Name" 
+              value={formData.l_name}
               onChange={handleChange}
               required
             />
@@ -167,7 +188,7 @@ const Register = () => {
         </form>
 
         <div className="redirect-section">
-         <p className="redirect-text1">Don't have an account?</p>
+          <p className="redirect-text1">Already have an account?</p>
           <Link to="/login" className="signin-link">Log In</Link>
         </div>
       </div>

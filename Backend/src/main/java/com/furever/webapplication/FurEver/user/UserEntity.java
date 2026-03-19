@@ -12,10 +12,15 @@ public class UserEntity {
     private Integer userId;
 
     private String name;
+    
+    @JsonProperty("l_name")
+    @Column(name = "l_name")
+    private String lName;
+
     private String username;
 
     @Column(name = "password")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // OR use @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) 
     private String password;
 
     private String email;
@@ -24,12 +29,22 @@ public class UserEntity {
     @Column(columnDefinition = "TEXT")
     private String address;
 
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
     public UserEntity() {}
 
     public Integer getUserId() { return userId; }
     public void setUserId(Integer userId) { this.userId = userId; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+    
+    @JsonProperty("l_name")
+    public String getLName() { return lName; }
+    
+    @JsonProperty("l_name")
+    public void setLName(String lName) { this.lName = lName; } 
+    
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public String getPassword() { return password; }
@@ -40,4 +55,6 @@ public class UserEntity {
     public void setRole(String role) { this.role = role; }
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
+    public String getAvatarUrl() { return avatarUrl; }
+    public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
 }

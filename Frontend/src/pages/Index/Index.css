@@ -231,7 +231,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 100px 0;
-  margin-top: 50px; /* Added slight gap between Hero and Mochi */
+  margin-top: 50px;
 }
 
 /* Decorative Background Shapes */
@@ -358,7 +358,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 100px 0;
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .info-content-wrapper {

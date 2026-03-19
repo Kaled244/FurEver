@@ -53,7 +53,7 @@ body.sidebar-collapsed .profile-content {
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-  height: 710px;
+  height: 740px;
   display: flex;
   flex-direction: column;
 }
@@ -165,6 +165,7 @@ body.sidebar-collapsed .profile-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .info-box label {
@@ -507,13 +508,17 @@ body.sidebar-collapsed .profile-content {
 /* --- Edit Profile Modal Specifics --- */
 .modal-content.edit-profile-modal {
   background: white;
-  padding: 40px;
+  padding: 30px;
   border-radius: 24px;
   text-align: center;
   box-shadow: 0 20px 40px rgba(0,0,0,0.2);
   border: 1px solid #eee;
   max-width: 500px;
-  width: 100%;
+  width: 90%;
+  overflow: hidden; 
+  max-height: 95vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .edit-avatar-section {
