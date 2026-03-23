@@ -2,8 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 
-import cloud from '../../assets/cloud.png';
-import paw from '../../assets/paw.png';
+import dogsBg from '../../assets/Dogs.jpg';
 import lock from '../../assets/lock.png';
 import userIcon from '../../assets/user.png';
 import eyeclose from '../../assets/eyeclose.png';
@@ -70,32 +69,25 @@ const Login = () => {
 
   return (
     <div className="main-container">
-      <div className="top-logo">FurEver</div>
 
       <Link to="/" className="back-arrow-link">
         <img src={arrow} alt="back" className="back-arrow-img" />
       </Link>
 
-      <div className="hero-section1">
-          <div className="hero-title1">FurEver</div>
-          <img className="img-cloud1-large" src={cloud} alt="cloud" />
-          <img className="img-cloud1-main" src={cloud} alt="cloud" />
-          <img className="img-cloud1-small" src={cloud} alt="cloud" />
-          <img className="img-paw1-small" src={paw} alt="paw" />
-          <img className="img-cloud1-wide" src={cloud} alt="cloud" />
-          <img className="img-cloud1-medium" src={cloud} alt="cloud" />
-      </div>
-
-      <div className="slogan-container">
-        <span className="slogan-text">Welcome! are you ready to adopt? &lt;3</span>
+      <div className="left-side-image">
+        <img src={dogsBg} alt="Happy dogs waiting for adoption" className="dogs-bg-img" />
+        
+        <div className="slogan-container">
+          <span className="slogan-text">Welcome! Are you ready to adopt? &lt;3</span>
+        </div>
       </div>
 
       <div className="login-panel">
-        <img className="user-icon-top" src={paw} alt="user icon" />
-        <h1 className="login-header">Login</h1>
+        <h1 className="login-header">WELCOME BACK</h1>
 
         <form className="login-form" onSubmit={handleSubmit}>
-          <div className="reg-input-wrapper">
+          {/* FIXED: Changed to login-input-wrapper */}
+          <div className="login-input-wrapper animate-slide-up" style={{animationDelay: '0.1s'}}>
             <img src={userIcon} alt="user" className="input-icon" />
             <input 
               type="text" 
@@ -107,7 +99,8 @@ const Login = () => {
             />
           </div>
 
-          <div className="reg-input-wrapper">
+          {/* FIXED: Changed to login-input-wrapper */}
+          <div className="login-input-wrapper animate-slide-up" style={{animationDelay: '0.2s'}}>
             <img src={lock} alt="lock" className="input-icon" />
             <input 
               type={showPassword ? "text" : "password"} 
@@ -125,14 +118,16 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className="signup-btn">
-            <span className="signup-btn-text">.Sign In.</span>
+          {/* FIXED: Changed to signin-btn */}
+          <button type="submit" className="signin-btn animate-slide-up" style={{animationDelay: '0.3s'}}>
+            <span>Log In</span>
           </button>
         </form>
 
-        <div className="redirect-section">
+        <div className="redirect-section animate-slide-up" style={{animationDelay: '0.4s'}}>
           <p className="redirect-text">Don't have an account?</p>
-          <Link to="/register" className="signin-link">Sign Up</Link>
+          {/* FIXED: Changed to signup-link */}
+          <Link to="/register" className="signup-link">Sign Up</Link>
         </div>
       </div>
     </div>

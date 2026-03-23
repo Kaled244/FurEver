@@ -1,283 +1,209 @@
-/* --- Page Layout --- */
-.adopt-page {
-  display: flex;
+/* =========================================
+   PAGE LAYOUT & CONTAINERS
+   ========================================= */
+.user-adopt-page-wrapper {
   width: 100%;
-  height: 100vh;
-  background-color: #fafaf9;
-  overflow: hidden;
+  background-color: #F9F8F6;
+  min-height: 100vh;
+  display: block; 
 }
 
-.main-content {
-  flex-grow: 1;
-  padding: 15px 60px 40px 60px; 
-  height: 100vh;
-  overflow-y: auto;
+.user-adopt-main-content {
+  padding: 40px 60px;
   display: flex;
   flex-direction: column;
-  background-color: #fafaf9;
+  align-items: flex-start; /* CRITICAL: Forces content to the left */
+  width: 100%;
+  box-sizing: border-box;
 }
 
-body.sidebar-collapsed .main-content {
-  margin-left: 80px;
+/* =========================================
+   STICKY HEADER & TITLES
+   ========================================= */
+
+.user-adopt-header {
+  width: 100%;
+  background: #F9F8F6;
+  padding: 0 0 20px 0;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  z-index: 50;
+  isolation: isolate;
 }
 
-/* --- Titles --- */
-.main-title1 {
-  font-family: 'Baloo Tammudu Local';
-  font-size: 60px;
-  color: #292524;
-  margin-top: 0; 
-  line-height: 1; 
-  letter-spacing: -1px;
+.ua-title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.main-subtitle {
-  font-family: 'Baloo Tammudu Local';
-  font-size: 24px;
-  color: #292524;
-  margin: -10px 0 35px 0;
+.ua-main-title {
+  font-family: 'Baloo Tammudu Local', cursive;
+  font-size: 54px;
+  color: #1A1A1A;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
 }
 
-/* --- Filter System --- */
-.sticky-filter-container {
-  position: sticky;
-  top: 0; 
-  z-index: 100;
-  background-color: #fafaf9; 
-  padding: 15px 0; /* Increased padding for better breathing room */
-  margin-top: 10px;
-  margin-bottom: 20px;
+.ua-main-subtitle p {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantall, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px; 
+  color: #000000; /* A soft charcoal—not quite black, not quite grey */
+  line-height: 1.6; /* CRITICAL for Baloo so the round letters can breathe */
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  text-align: left;
 }
 
-.filter-bar {
+/* =========================================
+   FILTER SYSTEM
+   ========================================= */
+
+.ua-filter-bar {
   display: flex;
   gap: 15px;
   align-items: center;
 }
 
-/* Base style for BOTH buttons and dropdown containers */
-.filter-btn, 
-.dropdown-filter {
-  border: none; 
-  background: #D9CFC7; 
-  height: 55px;
-  border-radius: 12px;
-  padding: 0 25px; /* Equal side padding */
-  font-family: 'Baloo Tammudu Local';
-  font-size: 20px;
+.ua-filter-btn {
+  border: none;
+  background: #FFFFFF;
+  height: 48px;
+  border-radius: 24px;
+  padding: 0 30px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* Crucial for equal padding */
-  min-width: 160px; /* Ensures boxes aren't too tiny */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
-/* Specific fix for the dropdown box */
-.dropdown-filter {
-  padding: 0; /* Remove container padding so the select can fill the space */
-  overflow: hidden;
+.ua-filter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  color: #1A1A1A;
 }
 
-.filter-btn:hover,
-.dropdown-filter:hover:not(.disabled) {
+.ua-filter-btn.ua-btn-active {
   background-color: #A18D6D;
   color: white;
-}
-
-.filter-btn.active-filter {
-  background-color: #A18D6D;
-  color: white;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-}
-
-/* The actual <select> inside the box */
-.filter-select {
-  background: transparent;
-  border: none;
-  font-family: 'Baloo Tammudu Local';
-  font-size: 20px;
-  color: inherit;
-  outline: none;
-  cursor: pointer;
-  width: 100%;
-  height: 100%; /* Makes the select fill the 55px height */
-  padding: 0 25px; /* Re-apply the equal padding INSIDE the select */
-  appearance: none; /* Removes the default browser arrow for a cleaner look */
-  -webkit-appearance: none;
-  text-align: center; /* Centers the text */
-}
-
-.dropdown-filter.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* --- Grid & Content --- */
-.pet-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(384px, 1fr));
-  gap: 40px;
-  width: 100%;
-  padding-bottom: 60px;
-}
-
-.loading-state, .no-pets-message {
-  font-family: 'Baloo Tammudu Local';
-  font-size: 24px;
-  color: #78716c;
-  margin-top: 40px;
-}
-
-/* --- Floating Button --- */
-.floating-app-btn {
-  position: fixed;
-  top: 40px; 
-  right: 40px;
-  width: 75px;
-  height: 75px;
-  background-color: #A18D6D;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(161, 141, 109, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  z-index: 2000; 
-}
-
-.app-icon-text {
-  font-family: 'Baloo Tammudu Local';
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.floating-app-btn:hover {
-  transform: scale(1.1);
-  background-color: #3A2525;
+  box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
 }
 
 /* =========================================
-   PURE CSS DROPDOWN INSPIRED STYLES
+   PET GRID & STATES
    ========================================= */
 
-.custom-dropdown {
+.user-adopt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 80px;
+  width: 100%;
+  padding-bottom: 60px;
   position: relative;
-  padding: 0;
-  margin: 0;
-  border: none;
-  font-family: 'Baloo Tammudu Local', sans-serif;
+  z-index: 1;
 }
 
-/* Hide default marker */
-.custom-dropdown summary {
+.ua-loading, .ua-error, .ua-empty-msg {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px;
+  background: #FFFFFF;
+  border-radius: 24px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #666;
+  font-size: 18px;
+}
+
+/* =========================================
+   NAMESPACED DROPDOWN (ua-)
+   ========================================= */
+
+.user-adopt-dropdown {
+  position: relative;
+  z-index: 10;
+}
+
+.user-adopt-dropdown[open] {
+  z-index: 9999;
+}
+
+.user-adopt-dropdown summary {
   list-style: none;
 }
-.custom-dropdown > summary::-webkit-details-marker {
+
+.user-adopt-dropdown summary::-webkit-details-marker {
   display: none;
 }
-.custom-dropdown summary:focus {
-  outline: none;
-}
 
-/* The Button Look */
-.dropdown-button-styled {
+.ua-dropdown-trigger {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 25px;
-  height: 55px;
-  border-radius: 12px;
-  box-sizing: border-box;
-  background: #D9CFC7;
-  color: #292524;
-  font-size: 20px;
+  padding: 0 30px;
+  height: 48px;
+  border-radius: 24px;
+  background: #FFFFFF;
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-  min-width: 180px; /* Ensure boxes are wide enough */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  min-width: 160px;
 }
 
-.custom-dropdown summary:hover .dropdown-button-styled {
-  background-color: #BEB4AC;
-}
-
-/* The Popup Menu */
-.custom-dropdown ul {
+.ua-dropdown-menu {
   position: absolute;
   margin: 15px 0 0 0;
-  padding: 10px 0;
+  padding: 8px;
   width: 100%;
-  min-width: 200px;
-  left: 50%;
-  transform: translateX(-50%);
-  box-sizing: border-box;
-  z-index: 105; /* Must be higher than sticky header */
-  
+  min-width: 220px;
+  left: 0; /* Align menu to the left of the button */
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 16px;
   list-style: none;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  border: 1px solid #eeeae6;
-  
-  /* Adding a nice pop animation */
-  animation: dropdownPop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  border: 1px solid rgba(0,0,0,0.05);
+  z-index: 10000;
+  animation: uaDropdownPop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes dropdownPop {
-  0% { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(0.95); }
-  100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+@keyframes uaDropdownPop {
+  0% { opacity: 0; transform: translateY(-10px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* The Little Triangle on top of the menu */
-.custom-dropdown ul::before {
-  content: ' ';
-  position: absolute;
-  width: 0;
-  height: 0;
-  top: -10px;
-  left: 50%;
-  margin-left: -10px;
-  border-style: solid;
-  border-width: 0 10px 10px 10px;
-  border-color: transparent transparent #ffffff transparent;
-}
-
-/* Menu Items */
-.custom-dropdown ul li {
-  padding: 0;
-  margin: 0;
-}
-
-.custom-dropdown ul li button {
+.ua-dropdown-menu li button {
   display: block;
   width: 100%;
   padding: 12px 20px;
   background: transparent;
   border: none;
+  border-radius: 8px;
   text-align: left;
-  font-family: 'Baloo Tammudu Local', sans-serif;
-  font-size: 18px;
-  color: #3A2525;
+  font-size: 15px;
+  color: #444;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
 }
 
-.custom-dropdown ul li button:hover {
-  background-color: #A18D6D;
-  color: white;
+.ua-dropdown-menu li button:hover {
+  background-color: #F9F8F6;
+  color: #A18D6D;
 }
 
-/* The Magic Overlay to close on outside click */
-.custom-dropdown > summary::before {
-  display: none;
-}
-.custom-dropdown[open] > summary::before {
+/* Overlay for outside-click to close */
+.user-adopt-dropdown[open] > summary::before {
   content: ' ';
   display: block;
   position: fixed;
@@ -285,16 +211,75 @@ body.sidebar-collapsed .main-content {
   right: 0;
   left: 0;
   bottom: 0;
-  z-index: 100; /* Behind the menu, but over the page */
-  cursor: default;
+  z-index: 9998;
 }
 
-/* Disabled State */
-.custom-dropdown.disabled {
-  opacity: 0.5;
-  filter: grayscale(1);
+/* =========================================
+   FLOATING ACTION BUTTON
+   ========================================= */
+   
+.ua-floating-btn {
+  position: fixed;
+  top: 32px;
+  right: 70px;
+  width: 110px;
+  height: 44px;
+  background-color: #464b4e;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  z-index: 2000;
+  /* CRITICAL: Allows the badge to position itself relative to the button */
+  position: fixed; 
 }
-.custom-dropdown.disabled summary {
-  cursor: not-allowed;
-  pointer-events: none; /* Prevents opening */
+
+/* The Notification Badge */
+.ua-badge {
+  position: absolute;
+  top: -8px; /* Peeks over the top */
+  right: -8px; /* Peeks over the side */
+  background-color: #D93838; /* A "Warning/Notification" Red */
+  color: white;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%; /* Perfect circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid #F9F8F6; /* Creates a clean "cutout" look against the page */
+}
+
+.ua-btn-text {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.ua-floating-btn:hover {
+  background-color: #333739;
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+
+@keyframes gentleSlideUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: gentleSlideUp 0.5s ease-out forwards;
 }

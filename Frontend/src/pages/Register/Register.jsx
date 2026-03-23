@@ -2,8 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Register.css';
 
-import cloud from '../../assets/cloud.png';
-import paw from '../../assets/paw.png';
+import catsBg from '../../assets/Cats.jpg';
 import lock from '../../assets/lock.png';
 import user from '../../assets/user.png';
 import email from '../../assets/email.png';
@@ -79,32 +78,25 @@ const Register = () => {
 
   return (
     <div className="main-container">
-      <div className="top-logo">FurEver</div>
 
       <Link to="/" className="back-arrow-link">
         <img src={arrow} alt="back" className="back-arrow-img" />
       </Link>
 
-      <div className="hero-section1">
-        <div className="hero-title1">FurEver</div>
-        <img className="img-cloud1-large" src={cloud} alt="cloud" />
-        <img className="img-cloud1-main" src={cloud} alt="cloud" />
-        <img className="img-cloud1-small" src={cloud} alt="cloud" />
-        <img className="img-paw1-small" src={paw} alt="paw" />
-        <img className="img-cloud1-wide" src={cloud} alt="cloud" />
-        <img className="img-cloud1-medium" src={cloud} alt="cloud" />
-      </div>   
-  
-      <div className="slogan-container">
-        <span className="slogan-text">Create and be part of the fur-family &lt;3</span>
+      {/* --- LEFT SIDE IMAGE CONTAINER --- */}
+      <div className="left-side-image">
+        <img src={catsBg} alt="Beautiful cats waiting for adoption" className="cats-bg-img" />
+        
+        <div className="slogan-container">
+          <span className="slogan-text">Create and be part of the fur-family &lt;3</span>
+        </div>
       </div>
 
-      <div className="register-panel">
-        <img className="user-icon-top" src={paw} alt="paw icon" />
-        <h1 className="register-header">Register</h1>
+      <div className="login-panel">
+        <h1 className="login-header">CREATE AN ACCOUNT</h1>
 
-        <form className="register-form" onSubmit={handleSubmit}>
-          <div className="reg-input-wrapper">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="login-input-wrapper animate-slide-up" style={{animationDelay: '0.1s'}}>
             <img src={user} alt="user" className="input-icon" />
             <input 
               type="text" 
@@ -116,7 +108,7 @@ const Register = () => {
             />
           </div>
 
-          <div className="reg-input-wrapper">
+          <div className="login-input-wrapper animate-slide-up" style={{animationDelay: '0.15s'}}>
             <img src={user} alt="last name" className="input-icon" />
             <input 
               type="text" 
@@ -128,7 +120,7 @@ const Register = () => {
             />
           </div>
 
-          <div className="reg-input-wrapper">
+          <div className="login-input-wrapper animate-slide-up" style={{animationDelay: '0.2s'}}>
             <img src={user} alt="username" className="input-icon" />
             <input 
               type="text" 
@@ -140,7 +132,7 @@ const Register = () => {
             />
           </div>
 
-          <div className="reg-input-wrapper">
+          <div className="login-input-wrapper animate-slide-up" style={{animationDelay: '0.25s'}}>
             <img src={lock} alt="lock" className="input-icon" />
             <input 
               type={showPassword ? "text" : "password"} 
@@ -158,7 +150,7 @@ const Register = () => {
             />
           </div>
 
-          <div className="reg-input-wrapper">
+          <div className="login-input-wrapper animate-slide-up" style={{animationDelay: '0.3s'}}>
             <img src={locationIcon} alt="address" className="input-icon" />
             <input 
               type="text" 
@@ -170,7 +162,7 @@ const Register = () => {
             />
           </div>
 
-          <div className="reg-input-wrapper">
+          <div className="login-input-wrapper animate-slide-up" style={{animationDelay: '0.35s'}}>
             <img src={email} alt="email" className="input-icon" />
             <input 
               type="email" 
@@ -182,14 +174,14 @@ const Register = () => {
             />
           </div>
 
-          <button type="submit" className="signup-btn">
-            <span className="signup-btn-text">.Sign Up.</span>
+          <button type="submit" className="signin-btn animate-slide-up" style={{animationDelay: '0.4s'}}>
+            <span>Sign Up</span>
           </button>
         </form>
 
-        <div className="redirect-section">
-          <p className="redirect-text1">Already have an account?</p>
-          <Link to="/login" className="signin-link">Log In</Link>
+        <div className="redirect-section animate-slide-up" style={{animationDelay: '0.45s'}}>
+          <p className="redirect-text">Already have an account?</p>
+          <Link to="/login" className="signup-link">Log In</Link>
         </div>
       </div>
     </div>

@@ -12,12 +12,12 @@
   background-color: #F9F8F6;
   position: relative;
   overflow: hidden;
-  font-family: 'Baloo Tammudu Local';
+  font-family: 'Baloo Tammudu Local', sans-serif;
   animation: fadeIn 0.8s ease-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(1.01); }
+  from { opacity: 0; transform: scale(1.02); }
   to { opacity: 1; transform: scale(1); }
 }
 
@@ -25,6 +25,8 @@ body {
   overflow-x: hidden;
   background-color: #F9F8F6;
   font-family: 'Baloo Tammudu Local', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 * {
@@ -41,6 +43,68 @@ body {
   min-height: 100vh;
 }
 
+/* Add/Update these in your Index.css */
+
+.logo-container {
+  position: absolute;
+  left: 40px;
+  top: 30px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-image-holder {
+  width: 170px;
+  height: auto;
+}
+
+.top-logo-text {
+  font-size: 50px;
+  font-weight: 200px;
+  color: #1A1A1A;
+  margin-top: 15px;
+  margin-left: 150px;
+  position: absolute;
+}
+
+.brand-motto {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 11px;
+  color: #313641; 
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-left: 150px; 
+  margin-top: -32px;
+  font-weight: 700;
+}
+
+.brand-motto strong {
+  color: #464b4e; /* Darker accent for the company name */
+  font-weight: 700;
+}
+
+.mochi-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+/* Ensure images fit inside the mochi card placeholders */
+.mochi-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
 /* =========================================
    SECTION 1: HERO (Top Fold)
 ========================================= */
@@ -53,31 +117,50 @@ body {
 /* Header */
 .top-logo {
   position: absolute;
-  left: 32px;
-  top: 28px;
-  font-size: 6ch;
-  color: black;
+  left: 40px;
+  top: 30px;
+  font-size: 42px;
+  color: #1A1A1A;
   transition: transform 0.3s ease;
+  z-index: 10;
 }
 
 .nav-group {
   position: absolute;
   right: 60px;
-  top: 30px;
+  top: 40px;
   display: flex;
-  gap: 30px;
+  gap: 35px;
+  z-index: 10;
 }
 
 .nav-link {
-  font-size: 32px;
-  color: black;
+  font-size: 22px;
+  color: #1A1A1A;
   text-decoration: none;
   transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Modern underline hover effect for nav */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #A18D6D;
+  transition: width 0.3s ease;
 }
 
 .nav-link:hover {
   color: #A18D6D;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 /* --- Hero Section with Stronger Floating Animation --- */
@@ -87,96 +170,84 @@ body {
   position: absolute;
   left: 50%;
   top: 45%;
-  animation: mainFloat 5s ease-in-out infinite;
+  animation: mainFloat 6s ease-in-out infinite;
+  z-index: 2;
 }
 
 @keyframes mainFloat {
   0%, 100% { transform: translate(-50%, -50%); }
-  50% { transform: translate(-50%, -55%); } 
+  50% { transform: translate(-50%, -53%); } 
 }
 
 .hero-title {
   width: 553.86px;
   height: 178.57px;
-  left: 112px;
-  top: 140px;
+  left: 60px;
+  top: 220px;
   position: absolute;
-  font-size: 135px;
+  font-size: 140px;
   color: #3A2525;
   z-index: 2;
-  transition: transform 0.3s ease;
-  animation: titlePulse 4s ease-in-out infinite;
+  line-height: 1;
+  text-shadow: 0 10px 30px rgba(58, 37, 37, 0.08); /* Soft shadow instead of flat color */
 }
 
-@keyframes titlePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-}
-
-/* --- Juiced Individual Cloud Drifting --- */
-.img-cloud-large { 
-  width: 185.38px; left: 538.62px; top: 261.34px; position: absolute; 
-  animation: driftHeavy 8s ease-in-out infinite; 
-}
-
-.img-cloud-main { 
-  width: 223.11px; left: 365.66px; top: 0px; position: absolute; border-radius: 11px;
-  animation: breathe 4s ease-in-out infinite; 
-}
-
-.img-cloud-small { 
-  width: 102.39px; left: 20.56px; top: 106.09px; position: absolute; 
-  animation: driftFast 3.5s ease-in-out infinite reverse; 
-}
-
-.img-cloud-medium { 
-  width: 125.03px; left: 0px; top: 280.86px; position: absolute; 
-  animation: driftHeavy 6s ease-in-out infinite reverse;
-}
-
-.img-cloud-wide { 
-  width: 216.55px; left: 191.08px; top: 300px; position: absolute; 
-  animation: driftHeavy 10s ease-in-out infinite; 
-}
-
-.img-paw-small { 
-  width: 100px; left: 80px; top: 106.09px; position: absolute; 
-}
+/* --- Individual Cloud Drifting --- */
+.img-cloud-large { width: 185.38px; left: 538.62px; top: 261.34px; position: absolute; animation: driftHeavy 8s ease-in-out infinite; }
+.img-cloud-main { width: 223.11px; left: 365.66px; top: 0px; position: absolute; animation: breathe 4s ease-in-out infinite; }
+.img-cloud-small { width: 102.39px; left: 20.56px; top: 106.09px; position: absolute; animation: driftFast 3.5s ease-in-out infinite reverse; }
+.img-cloud-medium { width: 125.03px; left: 0px; top: 280.86px; position: absolute; animation: driftHeavy 6s ease-in-out infinite reverse; }
+.img-cloud-wide { width: 216.55px; left: 191.08px; top: 300px; position: absolute; animation: driftHeavy 10s ease-in-out infinite; }
+.img-paw-small { width: 100px; left: 80px; top: 106.09px; position: absolute; opacity: 1;}
 
 @keyframes driftHeavy {
   0%, 100% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(20px) translateY(-10px); } 
+  50% { transform: translateX(15px) translateY(-10px); } 
 }
 
 @keyframes driftFast {
   0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(-25px); } 
+  50% { transform: translateX(-15px); } 
 }
 
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); } 
+  50% { transform: scale(1.03); } 
 }
 
-/* --- Slogan Area --- */
-.slogan-container {
-  width: 480px;
-  height: 54px;
-  left: 44px;
-  bottom: 40px;
+/* --- Modern Glassmorphism Slogan Area --- */
+.slogan-container1 {
   position: absolute;
-  border: 2px solid #3A2525;
-  border-radius: 20px;
-  display: flex;
+  left: 60px;
+  bottom: 60px;
+  display: inline-flex;
   align-items: center;
-  padding-left: 25px;
-  background-color: #F9F8F6;
-  pointer-events: auto;
-  box-shadow: 2px 2px 0px #3A2525;
-  transition: all 0.3s ease;
+  padding: 15px 35px;
+  
+  /* Modern frosted glass effect */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50px; /* Sleek pill shape */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06); /* Soft, airy shadow */
+  
+  z-index: 10;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.slogan-text { font-size: 24px; color: black; margin-top: 13px;}
+.slogan-container1:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.slogan-text { 
+  font-size: 22px; 
+  color: #3A2525; 
+  font-weight: 500;
+  margin: 0;
+  margin-top: 5px; /* Adjusting for the Baloo font baseline */
+}
 
 /* --- Bottom Right Hero Graphics --- */
 .hero-bottom-right-decor {
@@ -191,32 +262,17 @@ body {
 
 .hero-corner-shape {
   position: absolute;
-  bottom: -50px;
-  right: -50px;
+  bottom: 0px;
+  right: -0px;
   width: 494px;
-  height: 303px;
-  background: #D9CFC7;
+  height: 240px;
+  background: #464b4e;
   border-top-left-radius: 500px;
   z-index: 1;
 }
 
-.hero-decor-img-1 {
-  position: absolute;
-  bottom: -10px;
-  right: 190px;
-  width: 300px;
-  height: auto;
-  z-index: 3;
-}
-
-.hero-decor-img-2 {
-  position: absolute;
-  bottom: -40px;
-  right: -50px;
-  width: 425px;
-  height: 600px;
-  z-index: 2;
-}
+.hero-decor-img-1 { position: absolute; bottom: -10px; right: 190px; width: 300px; height: auto; z-index: 3; }
+.hero-decor-img-2 { position: absolute; bottom: -40px; right: -50px; width: 425px; height: auto; z-index: 2; }
 
 /* =========================================
    SECTION 2: MOCHI SECTION
@@ -224,127 +280,112 @@ body {
 .mochi-section-container {
   position: relative;
   width: 100%;
-  min-height: 900px;
-  background: #D9CFC7;
+  min-height: 800px;
+  background: #464b4e; /* Your signature slate */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 100px 0;
-  margin-top: 50px;
+  overflow: hidden;
 }
 
-/* Decorative Background Shapes */
-.mochi-bg-shape-top {
+/* Simplified Background Accents 
+   We're removing the heavy rounded blocks and using subtle, 
+   low-opacity geometric accents for a "Big Tech" feel. */
+.mochi-bg-shape-top, .mochi-bg-shape-bottom {
   position: absolute;
-  width: 469px;
-  height: 310px;
-  left: 10%;
-  top: 0px;
-  background-color: #F9F8F6;
-  border-bottom-right-radius: 100px;
-  border-bottom-left-radius: 100px;
+  width: 600px;
+  height: 600px;
+  background: rgba(255, 255, 255, 0.03); /* Very faint contrast */
+  border-radius: 50%; /* Perfect circle is cleaner than 100px radius */
   z-index: 0;
+  pointer-events: none;
 }
 
-.mochi-bg-img-top {
-  position: absolute;
-  width: 250px;
-  height: 370px;
-  left: 15%;
-  top: 78px;
-  z-index: 1;
-}
+.mochi-bg-shape-top { top: -200px; left: -100px; }
+.mochi-bg-shape-bottom { bottom: -200px; right: -100px; }
 
-.mochi-bg-shape-bottom {
-  position: absolute;
-  width: 510px;
-  height: 310px;
-  right: 10%;
-  bottom: 0px;
-  background-color: #F9F8F6;
-  border-top-left-radius: 100px;
-  border-top-right-radius: 100px;
-  z-index: 0;
-}
+/* Let the images float naturally instead of being stuck in shapes */
+.mochi-bg-img-top { position: absolute; width: 220px; left: 8%; top: 10%; z-index: 1; opacity: 0.8; }
+.mochi-bg-img-bottom { position: absolute; width: 240px; right: 8%; bottom: 10%; z-index: 1; opacity: 0.8; }
 
-.mochi-bg-img-bottom {
-  position: absolute;
-  width: 270px;
-  height: 400px;
-  right: 17%;
-  bottom: 100px;
-  z-index: 1;
-}
-
-/* Mochi Content Layout */
 .mochi-content-wrapper {
-  width: 1400px;
-  max-width: 95%;
+  width: 1100px; /* Tighter width for a more focused look */
+  max-width: 90%;
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 40px; /* Reduced gap for a cohesive feel */
   z-index: 2;
 }
 
 .mochi-card {
-  width: 855px;
-  max-width: 100%;
-  height: 367px;
-  background: #F9F8F6;
-  border-radius: 30px;
+  width: 100%;
+  max-width: 880px;
+  background: #ffffff;
+  border-radius: 24px; /* Professional sweet spot (not too round, not too sharp) */
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 30px 40px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  gap: 60px;
+  padding: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.mochi-card.align-right { 
-  align-self: flex-end;
-  margin-left: auto;  /* Pushes all empty space to the left, forcing the card right */
-  margin-right: -210px;
+.mochi-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
 
-.mochi-card.align-left { 
-  align-self: flex-start; 
-  margin-right: auto; /* Pushes all empty space to the right, forcing the card left */
-  margin-left: -210px;
-}
+.mochi-card.align-right { align-self: flex-end; }
+.mochi-card.align-left { align-self: flex-start; flex-direction: row-reverse; } /* Swaps image/text position */
 
 .mochi-text-content {
-  width: 420px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
 }
 
 .mochi-title {
   font-size: 32px;
-  font-weight: 400;
-  color: black;
-  margin: 0;
+  font-weight: 700;
+  color: #1a1a1a;
   line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.02em;
 }
 
 .mochi-desc {
-  font-size: 14px; 
-  color: black;
+  font-size: 16px;
+  color: #4b5563; /* Slate grey for readability */
   line-height: 1.6;
   margin-top: 15px;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
+/* Image Container */
 .mochi-img-placeholder {
-  width: 305px;
-  height: 301px;
-  background: #D85454;
-  border-radius: 30px;
+  width: 320px;
+  height: 320px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f3f4f6;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
-  color: black;
-  text-align: center;
+}
+
+.mochi-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.mochi-card:hover .mochi-card-img {
+  transform: scale(1.05); /* Subtle zoom on hover */
 }
 
 /* =========================================
@@ -352,20 +393,19 @@ body {
 ========================================= */
 .info-section-container {
   width: 100%;
-  min-height: 900px;
+  min-height: 800px;
   background: #F9F8F6;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 100px 0;
-  margin-top: 80px;
+  padding: 120px 0;
 }
 
 .info-content-wrapper {
   width: 1200px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center; /* Center aligned for better visual balance */
 }
 
 .info-text-side {
@@ -375,59 +415,99 @@ body {
   gap: 20px;
 }
 
-.info-brand { font-size: 24px; color: black; margin: 0; }
-.info-headline { font-size: 32px; color: black; line-height: 1.2; }
-.info-para { font-size: 14px; line-height: 1.6; color: #3A2525; }
+.info-brand { 
+  font-size: 20px; 
+  color: #A18D6D; 
+  margin: 0; 
+  text-transform: uppercase; 
+  letter-spacing: 2px; 
+}
 
+.info-headline { 
+  font-size: 46px; 
+  color: #1A1A1A; 
+  line-height: 1.1; 
+  margin-bottom: 10px;
+}
+
+.info-para { 
+  font-size: 16px; 
+  line-height: 1.7; 
+  color: #666666; 
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.para-bottom {
+  margin-top: 10px;
+}
+
+/* Sleek, Borderless Button */
 .start-now-btn {
-  width: 265px;
-  padding: 10px 0;
+  display: inline-block;
+  width: max-content;
+  padding: 16px 40px;
   background: #A18D6D;
-  border: 3px solid black;
-  border-radius: 20px;
-  color: white;
+  border: none; /* No ugly borders! */
+  border-radius: 50px; /* Modern pill shape */
+  color: #FFFFFF;
   text-align: center;
   text-decoration: none;
-  font-size: 20px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  font-size: 22px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 20px rgba(161, 141, 109, 0.3); /* Glowing soft shadow */
+  transition: all 0.3s ease;
 }
 
-.footer-links { margin-top: 20px; font-size: 12px; }
-.footer-links a { color: #277BDA; text-decoration: none; }
-
-/* Phone Mockup */
-.phone-mockup {
-  width: 360px;
-  height: 640px;
-  background: #F9F8F6;
-  border: 2px solid black;
-  border-radius: 20px;
-  position: relative;
-  box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
-  overflow: hidden;
+.start-now-btn:hover {
+  background: #8F7B5C;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(161, 141, 109, 0.4);
 }
 
-.phone-header { padding: 20px; font-size: 20px; }
-.phone-inner-content {
+.start-now-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(161, 141, 109, 0.3);
+}
+
+.footer-links { 
+  margin-top: 30px; 
+  font-size: 14px; 
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #666;
+}
+
+.footer-links p {
+  margin-bottom: 8px;
+}
+
+.footer-links a { 
+  color: #A18D6D; 
+  text-decoration: none; 
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #8F7B5C;
+  text-decoration: underline;
+}
+
+/* Mobile Image container */
+.mobile-image-container {
+  width: 450px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 70%;
 }
-.phone-logo { font-size: 64px; margin-bottom: 20px; }
-.phone-btn {
-  background: #A18D6D;
-  color: white;
-  padding: 10px 30px;
-  border-radius: 20px;
-  text-decoration: none;
+
+.mobile-mockup-img {
+  width: 87%;
+  height: auto;
+  border-radius: 30px;
+  filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15));
+  transition: transform 0.4s ease;
 }
-.phone-footer {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-  font-size: 11px;
+
+.mobile-mockup-img:hover {
+  transform: translateY(-10px);
 }

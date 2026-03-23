@@ -7,7 +7,7 @@ import eyeClose from '../../assets/eyeclose.png';
 const Profile = () => {
   const [user, setUser] = useState({ name: "", l_name: "", email: "", address: "", role: "", username: "", avatarUrl: "" });
   const [applications, setApplications] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   // Modal States
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -35,7 +35,6 @@ const Profile = () => {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         
-        // Ensure we handle both potential naming conventions from backend
         const userData = userRes.data;
         setUser({
             ...userData,
@@ -59,7 +58,7 @@ const Profile = () => {
   const handleOpenEditProfile = () => {
     setEditProfileData({
       name: user.name || "",
-      l_name: user.l_name || user.lName || "", // Fallback for last name
+      l_name: user.l_name || user.lName || "", 
       username: user.username || "",
       address: user.address || ""
     });
@@ -78,7 +77,6 @@ const Profile = () => {
   const handleSaveProfile = async () => {
     try {
       const token = localStorage.getItem('token');
-
       const formData = new FormData();
       formData.append('name', editProfileData.name);
       formData.append('l_name', editProfileData.l_name);
@@ -88,7 +86,6 @@ const Profile = () => {
         formData.append('avatar', avatarFile);
       }
       
-      // We capture the response so we can get the actual Supabase URL
       const response = await axios.put('http://localhost:8080/api/profile/update', formData, {
         headers: { 
           'Authorization': `Bearer ${token}`,
@@ -99,18 +96,17 @@ const Profile = () => {
       const updatedUser = response.data;
       alert("Profile updated successfully!");
       
-      // Update local state with the actual data returned from Spring Boot
       setUser({ 
           ...user, 
           ...updatedUser, 
           l_name: updatedUser.l_name || updatedUser.lName,
-          avatarUrl: updatedUser.avatarUrl // This is the real Supabase URL
+          avatarUrl: updatedUser.avatarUrl 
       });
       
       setShowEditProfileModal(false);
     } catch (error) {
       console.error("Update Error:", error);
-      alert("Error updating profile. Check console for details.");
+      alert("Error updating profile.");
     }
   };
 
@@ -130,7 +126,7 @@ const Profile = () => {
       setPasswordData({ currentPassword: "", newPassword: "" });
     // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      alert("Error updating password. Please check your current password.");
+      alert("Error updating password.");
     }
   };
 
@@ -139,53 +135,49 @@ const Profile = () => {
     setShowDeleteModal(false);
   };
 
-  if (loading) return <div className="loading-state">Loading fuzzy profile...</div>;
-
   return (
-    <div className="profile-page-wrapper">
-      <main className="profile-content">
-        <div className="profile-layout-container">
+    <div className="user-profile-page-root">
+      <main className="user-profile-main-content">
+        <div className="up-layout-container">
 
           {/* LEFT COLUMN - Profile Card */}
-          <div className="profile-card">
-            <div className="profile-header-bg"></div>
+          <div className="up-profile-card animate-slide-up">
+            <div className="up-header-bg"></div>
 
-            <div className="profile-body">
-              <div className="avatar-badge-group">
-                <div className="profile-avatar-container">
-                  <div className="profile-avatar-main">
+            <div className="up-body">
+              <div className="up-avatar-badge-group">
+                <div className="up-avatar-container">
+                  <div className="up-avatar-main">
                     {user.avatarUrl ? (
                       <img 
                         src={user.avatarUrl} 
                         alt="Profile" 
                         onError={(e) => {
-                            console.error("Image failed to load:", user.avatarUrl);
                             e.target.src = "fallback_image_url";
                         }}
                       />
                     ) : (
-                      <div className="avatar-placeholder">
+                      <div className="up-avatar-placeholder">
                         {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                       </div>
                     )}
                   </div>
-                  <button className="edit-avatar-btn" onClick={handleOpenEditProfile}>✏️</button>
                 </div>
-                <span className="user-role-badge">{user.role}</span>
+                <span className="up-user-role-badge">{user.role || "MEMBER"}</span>
               </div>
 
-              <h1 className="user-fullname">{user.name} {user.l_name}</h1>
+              <h1 className="up-user-fullname">{user.name} {user.l_name}</h1>
 
-              <div className="user-info-grid">
-                <div className="info-box">
+              <div className="up-user-info-grid">
+                <div className="up-info-box">
                   <label>Username</label>
                   <p>@{user.username || "n/a"}</p>
                 </div>
-                <div className="info-box">
+                <div className="up-info-box">
                   <label>Email Address</label>
                   <p>{user.email}</p>
                 </div>
-                <div className="info-box">
+                <div className="up-info-box">
                   <label>Home Address</label>
                   <p>{user.address || "Address not provided"}</p>
                 </div>
@@ -194,26 +186,26 @@ const Profile = () => {
           </div>
 
           {/* RIGHT COLUMN - Side Cards */}
-          <div className="profile-side-column">
-            <div className="action-card upload-card">
+          <div className="up-side-column animate-slide-up" style={{animationDelay: '0.1s'}}>
+            <div className="up-action-card up-upload-card">
               <h3>Upload Content</h3>
-              <p className="card-desc">Share your pet's journey with the community!</p>
-              <button className="action-btn upload-btn">➕ Create Post</button>
+              <p className="up-card-desc">Share your pet's journey with the community!</p>
+              <button className="up-action-btn up-upload-btn">➕ Create Post</button>
             </div>
 
-            <div className="action-card">
+            <div className="up-action-card">
               <h3>Quick Actions</h3>
-              <button className="action-btn" onClick={handleOpenEditProfile}>Edit Profile</button>
-              <button className="action-btn" onClick={() => setShowPasswordModal(true)}>
+              <button className="up-action-btn" onClick={handleOpenEditProfile}>Edit Profile</button>
+              <button className="up-action-btn" onClick={() => setShowPasswordModal(true)}>
                 Change Password
               </button>
-              <button className="action-btn">Settings</button>
+              <button className="up-action-btn">Settings</button>
             </div>
 
-            <div className="action-card danger-card">
+            <div className="up-action-card up-danger-card">
               <h3>Danger Zone</h3>
-              <p>Once you delete it, all data is lost forever!</p>
-              <button className="delete-btn" onClick={() => setShowDeleteModal(true)}>
+              <p className="up-card-desc">Once you delete it, all data is lost forever!</p>
+              <button className="up-delete-btn" onClick={() => setShowDeleteModal(true)}>
                 Delete Account
               </button>
             </div>
@@ -221,27 +213,28 @@ const Profile = () => {
         </div>
 
         {/* APPLICATIONS SECTION */}
-        <section className="pending-section">
-          <div className="applications-table-container">
+        <section className="up-applications-section animate-slide-up" style={{animationDelay: '0.2s'}}>
+          <h2 className="up-section-title">My Applications</h2>
+          <div className="up-table-container">
             {applications.length > 0 ? (
-              <table className="applications-table">
+              <table className="up-table">
                 <thead>
                   <tr>
-                    <th>Applications</th>
-                    <th>Status</th>
+                    <th>Pet Details</th>
+                    <th className="up-status-header">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {applications.map((app) => (
                     <tr key={app.id}>
                       <td>
-                        <div className="app-details">
+                        <div className="up-app-details">
                           <h3>{app.newPetName || "Unnamed Pet"}</h3>
                           <p>Applied on: {new Date(app.appDate).toLocaleDateString()}</p>
                         </div>
                       </td>
-                      <td className="status-cell">
-                        <div className={`status-badge-big ${(app.status || "pending").toLowerCase()}`}>
+                      <td className="up-status-cell">
+                        <div className={`up-status-badge ${(app.status || "pending").toLowerCase()}`}>
                           {app.status || "PENDING"}
                         </div>
                       </td>
@@ -250,7 +243,7 @@ const Profile = () => {
                 </tbody>
               </table>
             ) : (
-              <div className="pets-empty-state">
+              <div className="up-empty-state">
                 <p>No active requests found.</p>
               </div>
             )}
@@ -259,32 +252,32 @@ const Profile = () => {
 
         {/* MODAL: EDIT PROFILE */}
         {showEditProfileModal && (
-          <div className="modal-overlay" onClick={() => setShowEditProfileModal(false)}>
-            <div className="modal-content edit-profile-modal" onClick={e => e.stopPropagation()}>
-              <h2>Edit Profile</h2>
+          <div className="pm-modal-overlay" onClick={() => setShowEditProfileModal(false)}>
+            <div className="pm-modal-box animate-scale-up" onClick={e => e.stopPropagation()}>
+              <h2 className="pm-modal-title">Edit Profile</h2>
               
-              <div className="edit-avatar-section">
-                <div className="edit-avatar-preview">
+              <div className="up-edit-avatar-section">
+                <div className="up-edit-avatar-preview">
                   {avatarPreview || user.avatarUrl ? (
                      <img src={avatarPreview || user.avatarUrl} alt="Preview" />
                   ) : (
-                     <div className="avatar-placeholder">{editProfileData.name ? editProfileData.name.charAt(0).toUpperCase() : "U"}</div>
+                     <div className="up-avatar-placeholder">{editProfileData.name ? editProfileData.name.charAt(0).toUpperCase() : "U"}</div>
                   )}
                 </div>
                 <input 
                   type="file" 
-                  id="avatarUpload" 
+                  id="upAvatarUpload" 
                   accept="image/*" 
                   style={{ display: 'none' }} 
                   onChange={handleAvatarChange} 
                 />
-                <label htmlFor="avatarUpload" className="upload-avatar-btn">
+                <label htmlFor="upAvatarUpload" className="up-upload-avatar-label">
                   Choose New Picture
                 </label>
               </div>
 
-              <div className="password-form">
-                <div className="input-group">
+              <div className="pm-modern-form">
+                <div className="pm-input-group">
                   <label>First Name</label>
                   <input 
                     type="text" 
@@ -292,7 +285,7 @@ const Profile = () => {
                     onChange={(e) => setEditProfileData({...editProfileData, name: e.target.value})} 
                   />
                 </div>
-                <div className="input-group">
+                <div className="pm-input-group">
                   <label>Last Name</label>
                   <input 
                     type="text" 
@@ -300,7 +293,7 @@ const Profile = () => {
                     onChange={(e) => setEditProfileData({...editProfileData, l_name: e.target.value})} 
                   />
                 </div>
-                <div className="input-group">
+                <div className="pm-input-group">
                   <label>Username</label>
                   <input 
                     type="text" 
@@ -308,7 +301,7 @@ const Profile = () => {
                     onChange={(e) => setEditProfileData({...editProfileData, username: e.target.value})} 
                   />
                 </div>
-                <div className="input-group">
+                <div className="pm-input-group">
                   <label>Home Address</label>
                   <input 
                     type="text" 
@@ -318,9 +311,9 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="modal-actions">
-                <button className="btn-cancel" onClick={() => setShowEditProfileModal(false)}>Cancel</button>
-                <button className="btn-confirm-save" onClick={handleSaveProfile}>Save Changes</button>
+              <div className="pm-modal-actions">
+                <button className="pm-btn-cancel" onClick={() => setShowEditProfileModal(false)}>Cancel</button>
+                <button className="pm-btn-confirm" onClick={handleSaveProfile}>Save Changes</button>
               </div>
             </div>
           </div>
@@ -328,13 +321,13 @@ const Profile = () => {
 
         {/* MODAL: CHANGE PASSWORD */}
         {showPasswordModal && (
-          <div className="modal-overlay" onClick={() => setShowPasswordModal(false)}>
-            <div className="modal-content password-confirm" onClick={e => e.stopPropagation()}>
-              <h2>Change Password</h2>
-              <div className="password-form">
-                <div className="input-group">
+          <div className="pm-modal-overlay" onClick={() => setShowPasswordModal(false)}>
+            <div className="pm-modal-box animate-scale-up" onClick={e => e.stopPropagation()}>
+              <h2 className="pm-modal-title">Change Password</h2>
+              <div className="pm-modern-form">
+                <div className="pm-input-group">
                   <label>Current Password</label>
-                  <div className="password-input-wrapper">
+                  <div className="pm-password-wrapper">
                     <input
                       type={showCurrentPassword ? "text" : "password"}
                       placeholder="••••••••"
@@ -343,15 +336,15 @@ const Profile = () => {
                     />
                     <img
                       src={showCurrentPassword ? eyeOpen : eyeClose}
-                      alt="toggle visibility"
-                      className="password-toggle-icon"
+                      alt="toggle"
+                      className="pm-password-toggle"
                       onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                     />
                   </div>
                 </div>
-                <div className="input-group">
+                <div className="pm-input-group">
                   <label>New Password</label>
-                  <div className="password-input-wrapper">
+                  <div className="pm-password-wrapper">
                     <input
                       type={showNewPassword ? "text" : "password"}
                       placeholder="••••••••"
@@ -360,16 +353,16 @@ const Profile = () => {
                     />
                     <img
                       src={showNewPassword ? eyeOpen : eyeClose}
-                      alt="toggle visibility"
-                      className="password-toggle-icon"
+                      alt="toggle"
+                      className="pm-password-toggle"
                       onClick={() => setShowNewPassword(!showNewPassword)}
                     />
                   </div>
                 </div>
               </div>
-              <div className="modal-actions">
-                <button className="btn-cancel" onClick={() => setShowPasswordModal(false)}>Cancel</button>
-                <button className="btn-confirm-save" onClick={handlePasswordChange}>Update</button>
+              <div className="pm-modal-actions">
+                <button className="pm-btn-cancel" onClick={() => setShowPasswordModal(false)}>Cancel</button>
+                <button className="pm-btn-confirm" onClick={handlePasswordChange}>Update</button>
               </div>
             </div>
           </div>
@@ -377,13 +370,13 @@ const Profile = () => {
 
         {/* MODAL: DELETE ACCOUNT */}
         {showDeleteModal && (
-          <div className="modal-overlay" onClick={() => setShowDeleteModal(false)}>
-            <div className="modal-content delete-confirm" onClick={e => e.stopPropagation()}>
-              <h2>Are you sure?</h2>
-              <p>This action cannot be undone.</p>
-              <div className="modal-actions">
-                <button className="btn-cancel" onClick={() => setShowDeleteModal(false)}>Keep it</button>
-                <button className="btn-confirm-delete" onClick={handleDeleteAccount}>Delete</button>
+          <div className="pm-modal-overlay" onClick={() => setShowDeleteModal(false)}>
+            <div className="pm-modal-box animate-scale-up" onClick={e => e.stopPropagation()}>
+              <h2 className="pm-modal-title pm-text-danger">Are you sure?</h2>
+              <p className="pm-modal-desc">This action cannot be undone. All your data will be permanently removed.</p>
+              <div className="pm-modal-actions">
+                <button className="pm-btn-cancel" onClick={() => setShowDeleteModal(false)}>Keep it</button>
+                <button className="pm-btn-delete" onClick={handleDeleteAccount}>Delete Account</button>
               </div>
             </div>
           </div>

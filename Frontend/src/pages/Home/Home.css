@@ -1,144 +1,124 @@
-.home-page {
-  display: flex;
+/* --- Root Container --- */
+.user-home-page-root {
   width: 100%;
-  height: 100vh;
-  background-color: #fafaf9;
-  overflow: hidden;
+  background-color: #F9F8F6;
+  min-height: 100vh;
+  display: block; /* NO flex here to avoid centering */
 }
 
-.main-content, .profile-content {
-  flex-grow: 1;
-  /* REDUCED from 35px to 15px to pull everything to the top */
-  padding: 15px 60px 40px 60px; 
-  height: 100vh;
-  overflow-y: auto;
+.user-home-content {
+  /* Margin-left is handled by App.js; padding handles internal space */
+  padding: 40px 60px;
   display: flex;
   flex-direction: column;
-  background-color: #fafaf9;
-}
-
-.main-title1 {
-  font-family: 'Baloo Tammudu Local';
-  font-size: 60px;
-  color: #292524;
-  margin-top: 0px; 
-  /* Tightened line-height to remove extra space above the letters */
-  line-height: 1; 
-  letter-spacing: -1px;
-}
-
-.main-subtitle {
-  font-family: 'Baloo Tammudu Local';
-  font-size: 22px; /* Slightly smaller to save vertical space */
-  color: #78716c;
-  /* REDUCED from -10px to -5px to pull subtitle up to title */
-  margin: -5px 0 20px 0; 
-}
-
-/* --- Announcement Section (Below Pets) --- */
-.announcement-container {
-  background-color: #ffffff;
-  border-radius: 20px;
-  padding: 40px;
-  margin-top: 40px;
-  margin-bottom: 60px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e7e5e4;
+  align-items: flex-start; /* CRITICAL: Forces content to stay left */
   width: 100%;
   box-sizing: border-box;
 }
-
-/* --- Announcement Section --- */
-.announcement-container {
-  background-color: #ffffff;
-  border-radius: 20px;
-  padding: 40px;
-  margin-top: 40px;
-  margin-bottom: 60px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e7e5e4;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.announcement-tag {
-  font-family: 'Baloo Tammudu Local';
-  font-size: 40px;
-  color: #292524;
-  margin-top: 0;
-  line-height: 1.1;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.announcement-body h3 {
-  font-family: 'Baloo Tammudu Local';
-  font-size: 24px;
-  color: #A18D6D;
-  margin: 10px 0 5px 0;
-}
-
-.announcement-body p {
-  font-family: 'Baloo Tammudu Local';
-  font-size: 18px;
-  color: #3A2525;
-}
-
 
 /* --- Header & Titles --- */
-.main-subtitle {
-  font-family: 'Baloo Tammudu Local';
-  font-size: 24px;
-  color: #78716c;
-  margin: -5px 0 30px 0;
+.uh-header {
+  width: 100%;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
-/* --- Sticky Filter Section --- */
-.sticky-filter-container {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: #fafaf9;
-  padding: 15px 0;
-  margin-bottom: 20px;
+.uh-main-title {
+  font-family: 'Baloo Tammudu Local', cursive;
+  font-size: 54px;
+  color: #1A1A1A;
+  margin: 0;
+  line-height: 1.1;
+  text-align: left;
 }
 
-.filter-bar {
+.uh-subtitle p {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantall, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px; 
+  color: #000000; /* A soft charcoal—not quite black, not quite grey */
+  line-height: 1.6; /* CRITICAL for Baloo so the round letters can breathe */
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  text-align: left;
+}
+
+/* --- Filters --- */
+.uh-filter-bar {
   display: flex;
   gap: 15px;
 }
 
-
-.filter-btn {
-  border: none; 
-  background: #D9CFC7; /* Changed from white to match Adopt */
-  height: 55px;        /* Increased from 50px */
-  border-radius: 12px;
-  padding: 0 25px;
-  font-family: 'Baloo Tammudu Local';
-  font-size: 20px;     /* Increased from 18px */
+.uh-filter-btn {
+  border: none;
+  background: #FFFFFF;
+  height: 48px;
+  border-radius: 24px;
+  padding: 0 30px;
+  font-weight: 500;
+  color: #666;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.filter-btn:hover {
+.uh-btn-active {
   background-color: #A18D6D;
   color: white;
 }
 
-.filter-btn.active-filter {
-  background-color: #A18D6D;
-  color: white;
-}
-
-/* --- Pet Grid --- */
-.pet-grid {
+/* --- Grid --- */
+.uh-pet-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(384px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
   width: 100%;
+  justify-items: start; /* CRITICAL: Align cards to the left */
+  margin-bottom: 50px;
+}
+
+/* --- Announcement Card --- */
+.uh-announcement-container {
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 20px;
+}
+
+.uh-announcement-glass {
+  background: #FFFFFF;
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  position: relative;
+  text-align: left;
+}
+
+.uh-announcement-tag {
+  display: inline-block;
+  background: #A18D6D;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.uh-announcement-body h3 {
+  margin: 0 0 10px 0;
+  color: #1A1A1A;
+}
+
+/* --- Animations --- */
+@keyframes gentleSlideUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: gentleSlideUp 0.5s ease-out forwards;
 }

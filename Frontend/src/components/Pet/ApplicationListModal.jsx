@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import axios from 'axios';
-import './PetCard.css';
 
 const ApplicationListModal = ({ isOpen, onClose }) => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      fetchMySubmissions();
-    }
+    if (isOpen) fetchMySubmissions();
   }, [isOpen]);
 
   const fetchMySubmissions = async () => {
@@ -21,7 +19,7 @@ const ApplicationListModal = ({ isOpen, onClose }) => {
       });
       setApplications(response.data);
     } catch (error) {
-      console.error("Error fetching submissions:", error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -29,35 +27,33 @@ const ApplicationListModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content list-modal" onClick={e => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>&times;</button>
-        <h2 className="modal-title1">My Applications</h2>
-        <p className="modal-subtitle">Track the status of your fur-ever friends.</p>
-
-        <div className="app-list-wrapper">
+  return createPortal(
+    <div className="pm-modal-overlay" onClick={onClose}>
+      <div className="pm-modal-box alm-modal-width" onClick={e => e.stopPropagation()}>
+        <button className="pm-close-x" onClick={onClose}>&times;</button>
+        <h2 className="pm-modal-title">My Applications</h2>
+        <div className="alm-list-container">
           {loading ? (
-            <p className="loading-text">Fetching your requests...</p>
+            <p className="pm-loading-text">Fetching your requests...</p>
           ) : applications.length > 0 ? (
             applications.map((app) => (
-              <div key={app.id} className="app-list-item">
-                <div className="app-pet-details">
+              <div key={app.id} className="alm-list-card">
+                <div className="alm-pet-info">
                   <h3>{app.newPetName || "Unnamed Pet"}</h3>
                   <p>Applied on: {new Date(app.appDate).toLocaleDateString()}</p>
                 </div>
-                {/* Big visible status tag */}
-                <div className={`status-badge-big ${app.status.toLowerCase()}`}>
+                <div className={`alm-status-pill ${app.status.toLowerCase()}`}>
                   {app.status}
                 </div>
               </div>
             ))
           ) : (
-            <p className="no-records">You haven't made any applications yet.</p>
+            <p className="pm-no-records">You haven't made any applications yet.</p>
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

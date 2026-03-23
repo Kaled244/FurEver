@@ -1,0 +1,236 @@
+.admin-inbox-page {
+  background-color: #fcfcfb;
+  min-height: 100vh;
+  padding: 40px;
+  width: 100%;
+}
+
+.inbox-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.inbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.inbox-header h1 {
+  font-family: 'Baloo Tammudu Local', cursive;
+  font-size: 38px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.stats-pill {
+  background: #3a2525;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 30px;
+}
+
+.app-card-premium {
+  background: white;
+  border-radius: 30px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.app-card-premium:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.app-tag {
+  font-size: 12px;
+  font-weight: 800;
+  color: #A18D6D;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-dot {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 15px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.status-dot.pending { background: #fff9e6; color: #d4a000; }
+.status-dot.approved { background: #e6f7ed; color: #00a344; }
+.status-dot.rejected { background: #fff0f0; color: #d93838; }
+
+.pet-mini-profile h3 {
+  font-size: 24px;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.pet-breed {
+  font-size: 14px;
+  color: #888;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 25px 0;
+  padding: 20px 0;
+  border-top: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.info-item label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #aaa;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.info-item p {
+  margin: 0;
+  font-weight: 600;
+  color: #333;
+}
+
+.reason-section label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+}
+
+.reason-bubble {
+  margin-top: 10px;
+  background: #f9f8f6;
+  padding: 20px;
+  border-radius: 20px;
+  font-style: italic;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.card-footer-actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+}
+
+.btn-approve-admin {
+  flex: 2;
+  background: #A18D6D;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-approve-admin:hover { background: #3a2525; }
+
+.btn-reject-admin {
+  flex: 1;
+  background: #f0f0f0;
+  color: #888;
+  border: none;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-reject-admin:hover { background: #d93838; color: white; }
+
+
+
+.admin-inbox-page {
+  padding: 40px;
+  width: 100%;
+}
+
+/* Fits more cards per row (stops them from being too wide) */
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+  gap: 20px;
+}
+
+/* Compact Card Styling */
+.app-card-premium {
+  background: white;
+  border-radius: 20px;
+  padding: 20px; /* Reduced from 30px */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  height: fit-content; /* CRITICAL: Prevents vertical stretching */
+  transition: transform 0.3s ease;
+}
+
+.pet-mini-profile h3 {
+  font-size: 20px; /* Smaller header */
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 15px 0;
+  padding: 10px 0;
+  border-top: 1px solid #f8f8f8;
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.info-item p {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Caps the text area so it doesn't grow the card too much */
+.reason-bubble {
+  margin-top: 8px;
+  background: #f9f8f6;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  max-height: 100px;
+  overflow-y: auto; /* Scroll if reason is too long */
+}
+
+.card-footer-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-approve-admin, .btn-reject-admin {
+  padding: 10px;
+  font-size: 13px;
+  border-radius: 10px;
+}

@@ -1,0 +1,172 @@
+/* Sidebar Nav Container */
+.adm-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background-color: #2E3133; /* Charcoal Base */
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  font-family: 'Baloo Tammudu Local', cursive;
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.2);
+}
+
+.adm-sidebar.adm-collapsed {
+  width: 90px;
+}
+
+/* Toggle Button */
+.adm-toggle-btn {
+  position: absolute;
+  top: 35px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  background: #A18D6D; /* Tan Accent */
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1001;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.adm-toggle-btn:hover { transform: scale(1.1); }
+.adm-chevron-icon { color: #FFFFFF; transition: transform 0.5s ease; }
+.adm-chevron-icon.adm-flipped { transform: rotate(180deg); }
+
+/* Logo Section */
+.adm-logo-wrap {
+  padding: 0 20px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adm-logo-main { font-size: 42px; line-height: 1; margin: 0; }
+.adm-logo-main span { color: #A18D6D; }
+.adm-logo-sub { font-size: 11px; opacity: 0.6; letter-spacing: 2px; text-transform: uppercase; margin: 0; }
+
+.adm-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  width: calc(100% - 40px);
+  margin: 15px 20px;
+}
+
+/* Links */
+.adm-nav-list {
+  list-style: none;
+  padding: 0 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.adm-nav-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 14px 20px;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.adm-nav-item:hover, .adm-nav-item.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  transform: translateX(5px);
+}
+
+.adm-nav-item.active {
+  background-color: #FFFFFF;
+  color: #2E3133;
+}
+
+.adm-nav-icon { min-width: 24px; display: flex; align-items: center; justify-content: center; }
+.adm-nav-text { margin-left: 15px; font-size: 18px; margin-top: 4px; }
+
+/* User Card Glassmorphism */
+.adm-footer { padding: 0 15px 20px 15px; }
+
+.adm-user-card {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin: 10px 0;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.adm-avatar {
+  width: 40px;
+  height: 40px;
+  background: #A18D6D;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.adm-u-name { font-size: 14px; color: white; font-weight: bold; display: block; }
+.adm-u-role { font-size: 11px; color: rgba(255,255,255,0.5); font-family: sans-serif; display: block; }
+
+/* Logout */
+.adm-logout-trigger { color: #FF6B6B !important; margin-top: 5px; }
+.adm-logout-trigger:hover { background: rgba(255, 107, 107, 0.1) !important; }
+
+/* Modal Styles */
+.adm-modal-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.adm-confirm-box {
+  background: #FFFFFF;
+  padding: 40px;
+  border-radius: 24px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.adm-modal-h2 { font-family: 'Baloo Tammudu Local'; color: #2E3133; margin: 0 0 10px 0; font-size: 32px; }
+.adm-modal-p { color: #666; font-family: sans-serif; margin-bottom: 25px; }
+
+.adm-modal-btns { display: flex; gap: 15px; }
+.adm-btn-stay { flex: 1; padding: 12px; border-radius: 12px; border: none; background: #EEE; cursor: pointer; font-weight: bold; }
+.adm-btn-out { flex: 1; padding: 12px; border-radius: 12px; border: none; background: #D93838; color: white; cursor: pointer; font-weight: bold; }
+
+.adm-animate-pop { animation: admScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+@keyframes admScale { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }

@@ -1,4 +1,4 @@
-/* 1. Global & Layout Containers */
+/* Inherit global container styles */
 .main-container {
   width: 100vw;
   height: 100vh;
@@ -8,156 +8,127 @@
   font-family: 'Baloo Tammudu Local', cursive;
 }
 
-/* 2. Hero / Background Elements */
-.hero-section1 {
-  width: 734px;
-  height: 489px;
-  position: absolute;
-  left: 40%; 
-  top: 45%;
-  transform: translate(-50%, -50%);
-}
-
-.hero-title1 {
-  width: 553.86px;
-  height: 178.57px;
-  left: 50px;
-  top: 140px;
-  position: absolute;
-  font-size: 135px;
-  color: #3A2525;
-  z-index: 2;
-}
-
+/* --- Modernized Back Arrow --- */
 .back-arrow-link {
   position: absolute;
-  left: 45px;         
-  top: 50%;             
-  transform: translateY(-50%); 
+  left: 45px;        
+  top: 45px;          
   z-index: 20;          
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #F9F8F6;
-  border: 2px solid #3A2525;
+  background: #FFFFFF;
+  border: none; 
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  box-shadow: 3px 3px 0px #3A2525;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .back-arrow-img {
-  width: 25px;         
+  width: 20px;         
   height: auto;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
 }
 
 .back-arrow-link:hover {
-  transform: translateY(-52%) scale(1.1);
-  box-shadow: 5px 5px 0px #3A2525;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-.img-cloud1-large { width: 185.38px; left: 448.62px; top: 261.34px; position: absolute; }
-.img-cloud1-main { width: 223.11px; left: 265.66px; top: 0px; position: absolute; border-radius: 11px; }
-.img-cloud1-small { width: 102.39px; left: -34.44px; top: 106.09px; position: absolute; }
-.img-cloud1-medium { width: 125.03px; left: -90px; top: 273.86px; position: absolute; }
-.img-cloud1-wide { width: 216.55px; left: 91.08px; top: 320px; position: absolute; }
-.img-paw1-small { width: 100px; left: 40px; top: 106.09px; position: absolute; }
+.back-arrow-link:hover .back-arrow-img {
+  opacity: 1;
+}
 
-/* 3. Header & Slogan */
-.top-logo {
+/* --- LEFT SIDE IMAGE & OVERLAYS --- */
+.left-side-image {
   position: absolute;
-  left: 32px;
-  top: 28px;
-  font-size: 6ch;
-  color: #3A2525;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: calc(100% - max(40vw, 450px)); 
+  z-index: 1;
+}
+
+.cats-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  object-position: center; 
+}
+
+/* Premium Glassmorphism Slogan */
+.slogan-container {
+  position: absolute;
+  left: 50%;
+  bottom: 80px; 
+  transform: translateX(-50%);
+  
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  
+  padding: 16px 40px;
+  border-radius: 50px; 
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   z-index: 5;
+  white-space: nowrap; 
+  transition: transform 0.3s ease;
 }
 
-/* 4. Registration Side Panel */
-.register-panel {
-  width: 506px;
-  /* Changed height to auto to prevent unnecessary scrollbars */
-  height: auto; 
-  min-height: 800px;
-  right: 75px; 
-  top: 50px;
+.slogan-container:hover {
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.slogan-text {
+  font-size: 24px;
+  color: #3A2525;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* --- REGISTER PANEL (Right Side) --- */
+/* Note: Class is 'login-panel' to maintain consistency with the JSX */
+.login-panel {
+  width: 40vw;
+  min-width: 450px;
+  height: 100vh;
   position: absolute;
-  background: #D9CFC7;
-  border-radius: 20px;
+  right: 0;
+  top: 0;
+  background: #FFFFFF;
+  border: none;
+  border-radius: 0;
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.04); 
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
-  padding-bottom: 50px; /* Space at the bottom */
+  justify-content: center;
+  padding: 40px;
   z-index: 10;
-  border: 2px solid #3A2525;
-  box-shadow: 4px 4px 0px #3A2525;
-  animation: gentleSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  
-  /* Prevent the panel itself from scrolling */
-  overflow: hidden; 
+  animation: modernFadeIn 0.8s ease-out forwards;
+  overflow-y: auto;
 }
 
-/* 5. Form & Inputs */
-.reg-input-wrapper {
-  width: 405px;
-  height: 53px;
-  position: relative; 
-  /* Ensure no background images are leaking in from parent styles */
-  background: transparent; 
+@keyframes modernFadeIn {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
-.reg-input-wrapper input {
-  width: 100%;
-  height: 100%;
-  background: #F9F8F6;
-  border-radius: 20px;
-  border: 2px solid black;
-  padding-left: 60px; 
-  padding-right: 50px;
-  font-family: 'Baloo Tammudu Local';
-  font-size: 20px;
-  color: #3A2525;
-  outline: none;
-  /* Remove any default browser background icons (like edge/chrome eye) */
-  background-image: none !important; 
+/* Header Styles */
+.login-header {
+  font-size: 46px;
+  font-weight: 500;
+  color: #1A1A1A;
+  margin: 0 0 40px 0;
+  letter-spacing: -0.5px;
 }
 
-/* Chrome/Safari/Edge hide default password toggle */
-.reg-input-wrapper input::-ms-reveal,
-.reg-input-wrapper input::-ms-clear {
-  display: none;
-}
-
-.eye-icon {
-  position: absolute;
-  right: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-  z-index: 12;
-  /* Ensure it's not getting a background image from CSS */
-  background: none !important; 
-}
-
-.user-icon-top {
-  width: 88.83px;
-  height: 88.83px;
-  border-radius: 20px;
-  margin-top: 30px;
-}
-
-.register-header {
-  font-size: 50px;
-  color: #3A2525;
-  margin: 15px 0 30px 0;
-}
-
-/* 5. Form & Inputs */
-.register-form {
+/* Form Layout */
+.login-form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -165,94 +136,148 @@
   align-items: center;
 }
 
-.reg-input-wrapper {
-  width: 405px;
-  height: 53px;
-  position: relative; 
+/* --- SLEEK INPUT FIELDS --- */
+.login-input-wrapper {
+  width: 100%;
+  max-width: 405px;
+  height: 56px;
+  position: relative;
+  background: transparent;
+  opacity: 0; 
 }
 
-.input-icon {
+.login-input-wrapper input {
+  width: 100%;
+  height: 100%;
+  background: #F8F6F3; 
+  border-radius: 16px;
+  border: 1.5px solid transparent; 
+  padding-left: 52px;
+  padding-right: 48px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  color: #1A1A1A;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.login-input-wrapper input:focus {
+  background: #FFFFFF;
+  border-color: #A18D6D;
+  box-shadow: 0 4px 15px rgba(161, 141, 109, 0.15);
+}
+
+.login-input-wrapper input::placeholder {
+  color: #A0A0A0;
+  font-weight: 400;
+}
+
+.login-input-wrapper .input-icon {
   position: absolute;
-  left: 18px;          
+  left: 18px;
   top: 50%;
   transform: translateY(-50%);
-  width: 30px;          
-  height: 30px;
-  pointer-events: none;  
-  z-index: 11;
+  width: 22px;
+  height: 22px;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-.eye-icon {
+.login-input-wrapper input:focus ~ .input-icon,
+.login-input-wrapper input:not(:placeholder-shown) ~ .input-icon {
+  opacity: 0.9;
+}
+
+.login-input-wrapper .eye-icon {
   position: absolute;
   right: 18px;
   top: 50%;
   transform: translateY(-50%);
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
-  z-index: 12;
-  transition: transform 0.1s ease;
+  opacity: 0.5;
+  transition: all 0.3s ease;
 }
 
-.eye-icon:hover {
+.login-input-wrapper .eye-icon:hover {
+  opacity: 1;
   transform: translateY(-50%) scale(1.1);
 }
 
-/* 6. Buttons & Redirects */
-.signup-btn {
-  width: 126px;
-  height: 47px;
-  background: #A18D6D;
-  border-radius: 20px;
-  border: 2px solid black;
+.login-input-wrapper input::-ms-reveal,
+.login-input-wrapper input::-ms-clear,
+.login-input-wrapper input::-webkit-credentials-auto-fill-button {
+  display: none;
+}
+
+/* --- SIGN UP BUTTON --- */
+.signin-btn {
+  width: 100%;
+  max-width: 405px;
+  height: 56px;
+  background: #2E3133;
+  border-radius: 16px; 
+  border: none;
   cursor: pointer;
-  margin-top: 15px;
+  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 2px 1px 0px #3A2525; /* Sticker look */
-}
-
-.signup-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: none;
-}
-
-.signup-btn-text {
-  color: white;
+  font-family: 'Baloo Tammudu Local', cursive;
   font-size: 24px;
-  margin-top: 10px;
-  font-family: 'Baloo Tammudu Local';
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(161, 141, 109, 0.25);
+  opacity: 0;
 }
 
+.signin-btn:hover {
+  background: #464b4e;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(161, 141, 109, 0.35);
+}
+
+.signin-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(161, 141, 109, 0.2);
+}
+
+/* Redirect Section */
 .redirect-section {
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
-  color: #3A2525;
-  font-size: 20px;
-  margin-top: 7px;
+  margin-top: 30px;
+  font-family: system-ui, -apple-system, sans-serif;
+  opacity: 0;
 }
 
-.redirect-text1 {
-  margin: 0 0 -15px 0;
+.redirect-text {
+  color: #666;
+  margin: 0 0 5px 0;
 }
 
-.signin-link {
+.signup-link {
+  color: #A18D6D;
   text-decoration: none;
-  color: #3A2525;
-  font-weight: bold;
-  display: block;
-  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
   transition: color 0.2s ease;
 }
 
+.signup-link:hover {
+  color: #8F7B5C;
+  text-decoration: underline;
+}
+
+/* Cascading Animation */
 @keyframes gentleSlideUp {
-  0% {
-    transform: translateY(60px); /* Just a small nudge from below */
-    opacity: 0;                  /* Starts invisible */
-  }
-  100% {
-    transform: translateY(0);    /* Ends in its perfect spot */
-    opacity: 1;                  /* Fully visible */
-  }
+  0% { transform: translateY(15px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+  animation: gentleSlideUp 0.5s ease-out forwards;
 }

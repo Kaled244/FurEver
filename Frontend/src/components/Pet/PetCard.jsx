@@ -1,65 +1,64 @@
 import React, { useState } from 'react';
-import AdoptionModal from './AdoptionModal'; // Make sure the path matches your file
+import { createPortal } from 'react-dom';
+import AdoptionModal from './AdoptionModal'; 
 import './PetCard.css';
 
 const PetCard = ({ pet }) => {
   const [showDetails, setShowDetails] = useState(false);
-  const [showForm, setShowForm] = useState(false); // New state for the form modal
+  const [showForm, setShowForm] = useState(false);
 
   if (!pet) return null;
 
   return (
-    <div className="pet-card-container">
-      {/* Image Section */}
-      <div className="pet-card-image-wrapper">
+    <div className="pc-card-container">
+      <div className="pc-image-wrapper">
         <img 
           src={pet.pImage || "https://placehold.co/400x300?text=Pet+Photo"} 
           alt={pet.pName} 
-          className="pet-card-img"
+          className="pc-main-img"
         />
-        <div className="badge-type">{pet.pSpecies}</div>
-        <div className={`badge-status ${(pet.pStatus || "").toLowerCase()}`}>
+        <div className="pc-badge-species">{pet.pSpecies}</div>
+        <div className={`pc-badge-status ${(pet.pStatus || "").toLowerCase()}`}>
           {pet.pStatus}
         </div>
       </div>
 
-      {/* Info Section */}
-      <div className="pet-card-info">
-        <div className="pet-card-header">
-          <h3 className="pet-card-name">{pet.pName}</h3>
-          <span className="pet-card-price">${pet.pPrice}</span>
+      <div className="pc-content-body">
+        <div className="pc-header-row">
+          <h3 className="pc-pet-name">{pet.pName}</h3>
+          <span className="pc-pet-price">${pet.pPrice}</span>
         </div>
 
-        <div className="pet-card-specs">
-          <p><span className="spec-label">Breed :</span> {pet.pBreed}</p>
-          <p><span className="spec-label">Age :</span> {pet.pAge} yrs</p>
-          <p><span className="spec-label">Sex :</span> {pet.pGender}</p>
+        <div className="pc-stats-grid">
+          <p><span className="pc-label">Breed :</span> {pet.pBreed}</p>
+          <p><span className="pc-label">Age :</span> {pet.pAge} yrs</p>
+          <p><span className="pc-label">Sex :</span> {pet.pGender}</p>
         </div>
 
-        <button className="link-details" onClick={() => setShowDetails(true)}>
+        <button className="pc-link-details" onClick={() => setShowDetails(true)}>
           Check details
         </button>
         
-        {/* Trigger the Application Modal here */}
-        <button className="btn-adopt" onClick={() => setShowForm(true)}>
+        <button className="pc-btn-adopt" onClick={() => setShowForm(true)}>
           Adopt me !
         </button>
       </div>
 
-      {/* --- MODAL 1: DETAILS --- */}
-      {showDetails && (
-        <div className="modal-overlay" onClick={() => setShowDetails(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setShowDetails(false)}>&times;</button>
+      {showDetails && createPortal(
+        <div className="pm-modal-overlay" onClick={() => setShowDetails(false)}>
+          <div className="pm-modal-box" onClick={e => e.stopPropagation()}>
+            <button className="pm-close-x" onClick={() => setShowDetails(false)}>&times;</button>
             
-            <h2>About {pet.pName}</h2>
-            <p className="full-desc">{pet.pDescription || "No full description provided."}</p>
+            <h2 className="pm-modal-title">
+             About : <span className="pm-highlight-name">{pet.pName}</span>
+            </h2>
+            <p className="pm-description-text">{pet.pDescription || "No full description provided."}</p>
             
-            <div className="health-records-section">
-              <h3>Health & Vaccination Records</h3>
+            <div className="pc-health-section">
+              <h3 className="pc-health-title">Health & Vaccination Records</h3>
         
               {pet.healthRecords && pet.healthRecords.length > 0 ? (
-                <table className="health-table">
+                <table className="pc-health-table">
                   <thead>
                     <tr>
                       <th>Vaccination Type</th>
@@ -76,14 +75,14 @@ const PetCard = ({ pet }) => {
                   </tbody>
                 </table>
               ) : (
-                <p className="no-records">No health records currently on file.</p>
+                <p className="pm-no-records">No health records currently on file.</p>
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
-      {/* --- MODAL 2: APPLICATION FORM --- */}
       <AdoptionModal 
         pet={pet} 
         isOpen={showForm} 

@@ -1,0 +1,168 @@
+/* --- Root Layout --- */
+.help-page-root {
+  width: 100%;
+  background-color: #F9F8F6;
+  min-height: 100vh;
+}
+
+.help-subtitle {
+  font-family: 'Baloo Tammudu Local', cursive !important;
+  font-size: 20px !important; 
+  color: #000000 !important;
+  display: block !important; /* Ensure it's treated as a block */
+  text-align: left !important; /* Force it to the left */
+}
+
+.help-content-inner {
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.help-header {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.help-main-title {
+  font-family: 'Baloo Tammudu Local', cursive;
+  font-size: 54px;
+  color: #1A1A1A;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.help-subtitle {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 18px;
+  color: #666;
+}
+
+/* --- FAQ Accordion --- */
+.help-premium-card {
+  background: #FFFFFF;
+  border-radius: 30px;
+  padding: 45px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  margin-bottom: 30px;
+}
+
+.help-card-title {
+  font-family: 'Baloo Tammudu Local', cursive;
+  font-size: 36px;
+  color: #A18D6D;
+  margin-bottom: 25px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.faq-item {
+  border: 2px solid #F9F8F6;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faq-question {
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: #1A1A1A;
+  font-size: 18px;
+  background: #FFFFFF;
+}
+
+.faq-item.active {
+  border-color: #A18D6D;
+  background: #FDFBF9;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease;
+  background: #FDFBF9;
+  padding: 0 25px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px;
+  padding: 0 25px 20px 25px;
+}
+
+/* --- Contact Grid --- */
+.help-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.contact-box {
+  background: #FFFFFF;
+  padding: 40px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.03);
+}
+
+.contact-icon {
+  font-size: 40px;
+  color: #A18D6D;
+  margin-bottom: 20px;
+}
+
+.contact-box h3 {
+  font-family: 'Baloo Tammudu Local', cursive;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.contact-btn {
+  margin-top: 20px;
+  background: #F9F8F6;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: #1A1A1A;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+  background: #A18D6D;
+  color: white;
+}
+
+.contact-box p {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantall, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px; 
+  color: #000000; /* A soft charcoal—not quite black, not quite grey */
+  line-height: 1.6; /* CRITICAL for Baloo so the round letters can breathe */
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+
+/* --- Animations --- */
+@keyframes gentleSlideUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: gentleSlideUp 0.6s ease-out forwards;
+}
