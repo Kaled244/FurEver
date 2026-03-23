@@ -44,16 +44,19 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('role', data.role);
-        localStorage.setItem('username', data.username);
+        // Handle the nested ApiResponse format (data.data) or fallback to flat structure
+        const authData = data.data ? data.data : data;
+
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('role', authData.role);
+        localStorage.setItem('username', authData.username);
         
-        localStorage.setItem('user', JSON.stringify(data)); 
+        localStorage.setItem('user', JSON.stringify(authData)); 
         window.dispatchEvent(new Event('userUpdated'));
         
-        showNotification("Welcome back, " + (data.name || data.username) + "! ", "success");
+        showNotification("Welcome back, " + (authData.name || authData.username) + "! ", "success");
 
-        if (data.role === 'ADMIN') {
+        if (authData.role === 'ADMIN') {
           navigate('/admin-dashboard');
         } else {
           navigate('/home'); 

@@ -116,7 +116,7 @@
 .up-user-fullname {
   font-family: 'Baloo Tammudu Local', cursive;
   font-size: 42px;
-  margin: 0 0 30px 0;
+  margin: 0 0 10px 0;
   color: #1A1A1A;
   line-height: 1.1;
   margin-top: 15px;
@@ -138,7 +138,7 @@
   flex-direction: column;
   justify-content: center;
   transition: transform 0.2s ease;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 .up-info-box:hover {
@@ -146,21 +146,19 @@
 }
 
 .up-info-box label {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 12px;
-  color: #A18D6D;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 5px;
+  font-family: 'Baloo Tammudu Local', cursive;
+    font-size: 20px;
+    color: #1A1A1A;
+    margin: 0 0 5px 0;
+    line-height: 1;
 }
 
 .up-info-box p {
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 500;
   margin: 0;
-  color: #3A2525;
+  color: #8F7B5C;
 }
 
 /* =========================================
@@ -183,28 +181,37 @@
 }
 
 .up-action-card h3 {
-  font-family: 'Baloo Tammudu Local', cursive;
-  color: #A18D6D;
-  font-size: 18px;
-  margin: 0 0 10px 0;
-  line-height: 1;
+    font-family: 'Baloo Tammudu Local', cursive;
+    font-size: 24px;
+    color: #1A1A1A;
+    margin: 0 0 10px 0;
+    line-height: 1;
+    margin-bottom: 5px;
 }
 
 .up-card-desc {
   font-family: system-ui, -apple-system, sans-serif;
-  color: #666;
-  font-size: 15px;
-  margin: 0 0 20px 0;
-  line-height: 1.5;
+    margin: 0 0 6px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-bottom: 10px;
 }
 
+.p-info-box label{
+  color: #A18D6D;
+  background: transparent;
+  border: none;
+  font-weight: 800;
+  font-size: 16px;
+}
 .up-action-btn {
   width: 100%;
   padding: 14px;
   margin-bottom: 12px;
   border-radius: 16px;
   border: none;
-  background: #F9F8F6;
+  background: #D9CFC7;
   color:  #000000;
   font-weight: 600;
   font-size: 16px;
@@ -225,7 +232,7 @@
 }
 
 .up-upload-btn {
-  background: #F9F8F6;
+  background: #D9CFC7;
   color: #000000;
   box-shadow: 0 6px 15px rgba(161, 141, 109, 0.2);
 }
@@ -238,8 +245,8 @@
   width: 100%;
   padding: 14px;
   border-radius: 16px;
-  background: #FFF0F0;
-  color: #c40202;
+  background: #D93838;
+  color: #ffffff;
   border: none;
   cursor: pointer;
   font-weight: 600;
@@ -249,7 +256,7 @@
 }
 
 .up-delete-btn:hover { 
-  background: #D93838; 
+  background: #9c0000; 
   color: #FFFFFF; 
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(217, 56, 56, 0.2);
@@ -290,14 +297,15 @@
 }
 
 .up-table th {
-  font-family: system-ui, -apple-system, sans-serif;
-  color: #A18D6D;
-  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-weight: 700;
   padding: 16px 20px;
   border-bottom: 2px solid #F9F8F6;
+  font-family: 'Baloo Tammudu Local', cursive;
+  font-size: 20px;
+  color: #1A1A1A;
+  margin: 0 0 5px 0;
+  line-height: 1;
 }
 
 .up-status-header {
@@ -389,7 +397,7 @@
 
 .pm-modal-title {
   font-family: 'Baloo Tammudu Local', cursive;
-  font-size: 36px;
+  font-size: 24px;
   color: #1A1A1A;
   margin: 0 0 10px 0;
   line-height: 1;

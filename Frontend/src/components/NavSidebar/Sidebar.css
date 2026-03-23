@@ -44,39 +44,44 @@
 }
 
 .paw-toggle-icon {
-  width: 20px; /* Fixed sizing bug */
+  width: 20px;
   height: 20px;       
   object-fit: contain;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
 }
 
 .paw-toggle-icon.flipped {
-  transform: rotate(180deg); /* Full turn looks smoother */
+  transform: rotate(180deg);
 }
 
-/* Logo Section */
 .sidebar-logo {
   padding: 0 20px;
   margin-top: 40px;
   margin-bottom: 20px;
   text-align: center;
-  color: #3A2525;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #3A2525;
 }
 
 .logo-text { 
+  font-family: 'Baloo Tammudu Local', cursive;
   font-size: 42px; 
   line-height: 1;
   margin: 0;
+  transition: font-size 0.3s ease;
+}
+
+.logo-text span {
+  color: #A18D6D;
 }
 
 .sub-logo-text { 
-  font-size: 16px; 
-  margin: 0;
-  opacity: 0.7;
-  letter-spacing: 1px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #000000;
 }
 
 /* Elegant Separator */
@@ -180,24 +185,23 @@
 .user-name { 
   font-size: 16px;
   color: #3A2525;
-  font-weight: bold;
+  font-weight: 200px;
   line-height: 1.2;
 }
 
 .user-email { 
   font-size: 12px; 
-  color: #666;
-  font-family: system-ui, -apple-system, sans-serif; /* Cleaner font for emails */
+  color: #000000;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* Logout Link specific style */
 .logout-link {
-  color: #D93838; /* Soft Red */
+  color: #D93838;
   transition: all 0.3s ease;
 }
 
 .logout-link:hover {
-  background: #FFEBEB; /* Soft red background on hover */
+  background: #FFEBEB;
   color: #C02B2B;
   transform: translateX(3px);
 }

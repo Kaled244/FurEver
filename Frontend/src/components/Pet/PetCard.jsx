@@ -49,13 +49,11 @@ const PetCard = ({ pet }) => {
           <div className="pm-modal-box" onClick={e => e.stopPropagation()}>
             <button className="pm-close-x" onClick={() => setShowDetails(false)}>&times;</button>
             
-            <h2 className="pm-modal-title">
-             About : <span className="pm-highlight-name">{pet.pName}</span>
-            </h2>
+            <h2 className="pm-modal-title">About : <span className="pm-highlight-name">{pet.pName}</span></h2>
             <p className="pm-description-text">{pet.pDescription || "No full description provided."}</p>
             
             <div className="pc-health-section">
-              <h3 className="pc-health-title">Health & Vaccination Records</h3>
+            <h2 className="pc-health-title">Health & <span className="pc-highlight-name">Vaccination Records</span></h2>
         
               {pet.healthRecords && pet.healthRecords.length > 0 ? (
                 <table className="pc-health-table">

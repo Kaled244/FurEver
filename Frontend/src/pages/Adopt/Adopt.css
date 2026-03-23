@@ -74,12 +74,13 @@
   border: none;
   background: #FFFFFF;
   height: 48px;
+  width: auto;
   border-radius: 24px;
   padding: 0 30px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: 'Baloo Tammudu Local', cursive;
   font-size: 16px;
   font-weight: 500;
-  color: #666;
+  color: #000000;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -89,16 +90,18 @@
 }
 
 .ua-filter-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  color: #1A1A1A;
-}
-
-.ua-filter-btn.ua-btn-active {
   background-color: #A18D6D;
   color: white;
   box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
 }
+
+.ua-filter-btn.ua-btn-active {
+ background-color: #A18D6D;
+ color: white;
+ border-color: #A18D6D; /* Optional: smooths out the border */
+ box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
+}
+
 
 /* =========================================
    PET GRID & STATES
@@ -154,13 +157,25 @@
   height: 48px;
   border-radius: 24px;
   background: #FFFFFF;
-  color: #666;
+  color: #000000;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease;
   min-width: 160px;
+}
+
+.ua-dropdown-trigger:hover{
+  background-color: #A18D6D;
+  color: white;
+  box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
+}
+
+.ua-dropdown-trigger.ua-btn-active {
+    background-color: #A18D6D;
+    color: white;
+    box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
 }
 
 .ua-dropdown-menu {
@@ -197,9 +212,9 @@
   cursor: pointer;
 }
 
-.ua-dropdown-menu li button:hover {
-  background-color: #F9F8F6;
-  color: #A18D6D;
+.ua-dropdown-menu li button:hover{
+  background-color: #D9CFC7;
+  color: #000000;
 }
 
 /* Overlay for outside-click to close */
@@ -263,6 +278,7 @@
   font-family: system-ui, -apple-system, sans-serif;
   font-weight: 600;
   font-size: 14px;
+  padding: 0 10px;
 }
 
 .ua-floating-btn:hover {

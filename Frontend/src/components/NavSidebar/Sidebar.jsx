@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'; 
-import { FaSignOutAlt, FaHome, FaPaw, FaInfoCircle, FaQuestionCircle, FaUser } from 'react-icons/fa';
-import pawIcon from '../../assets/paw.png';
+import { Home, HeartHandshake, User, Info, HelpCircle, LogOut, ChevronLeft } from 'lucide-react';
 import './Sidebar.css';
 
 const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
-
   const [user, setUser] = useState({ name: "", email: "", address: "" });
   const [showLogoutModal, setShowLogoutModal] = useState(false); 
   const navigate = useNavigate();
@@ -38,9 +36,8 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
     };
   }, []);
 
-  // 3. UPDATE THIS FUNCTION to call the Parent's state
   const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed); // This now tells App.js to move the furniture!
+    setIsCollapsed(!isCollapsed);
   };
 
   const confirmLogout = () => {
@@ -53,13 +50,19 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
   return (
     <>
       <div className={`sidebar-nav ${isCollapsed ? 'collapsed' : ''}`}>
+        
+        {/* Modern CSS-only Toggle Button using Lucide Chevron */}
         <button className="sidebar-collapse-btn" onClick={toggleSidebar} title="Toggle Sidebar">
-          <img src={pawIcon} alt="toggle" className={`paw-toggle-icon ${isCollapsed ? 'flipped' : ''}`} />
+          <ChevronLeft 
+             size={20} 
+             strokeWidth={2.5} 
+             className={`paw-toggle-icon ${isCollapsed ? 'flipped' : ''}`} 
+          />
         </button>
 
         <div className="sidebar-logo">
           <h1 className="logo-text">{isCollapsed ? <>F<span>E</span></> : <>Fur<span>Ever</span></>}</h1>
-          {!isCollapsed && <p className="sub-logo-text">ADOPTION SHOP</p>}
+          {!isCollapsed && <p className="sub-logo-text">ADOPTION PANEL</p>}
         </div>
 
         <div className="sidebar-separator" />
@@ -67,32 +70,32 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
         <ul className="sidebar-links">
           <li>
             <NavLink to="/home" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
-              <FaHome className="sidebar-icon" />
+              <Home className="sidebar-icon" size={22} strokeWidth={2} />
               {!isCollapsed && <span className="sidebar-link-text">Home</span>}
             </NavLink>
           </li>
           <li>
             <NavLink to="/adopt" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
-              <FaPaw className="sidebar-icon" />
+              <HeartHandshake className="sidebar-icon" size={22} strokeWidth={2} />
               {!isCollapsed && <span className="sidebar-link-text">Adopt</span>}
             </NavLink>
           </li>
           <li>
-            <NavLink to="/profile" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
-              <FaUser className="sidebar-icon" />
-              {!isCollapsed && <span className="sidebar-link-text">Profile</span>}
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/about" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
-              <FaInfoCircle className="sidebar-icon" />
+              <Info className="sidebar-icon" size={22} strokeWidth={2} />
               {!isCollapsed && <span className="sidebar-link-text">About Us</span>}
             </NavLink>
           </li>
           <li>
             <NavLink to="/help" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
-              <FaQuestionCircle className="sidebar-icon" />
+              <HelpCircle className="sidebar-icon" size={22} strokeWidth={2} />
               {!isCollapsed && <span className="sidebar-link-text">Help</span>}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/profile" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+              <User className="sidebar-icon" size={22} strokeWidth={2} />
+              {!isCollapsed && <span className="sidebar-link-text">Profile</span>}
             </NavLink>
           </li>
         </ul>
@@ -113,13 +116,12 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           </div>
 
           <div className="sidebar-link logout-link" onClick={() => setShowLogoutModal(true)}>
-            <FaSignOutAlt className="sidebar-icon" />
+            <LogOut className="sidebar-icon" size={22} strokeWidth={2} />
             {!isCollapsed && <span className="sidebar-link-text">Logout</span>}
           </div>
         </div>
       </div>
 
-      {/* Logout Modal remains the same */}
       {showLogoutModal && (
         <div className="modal-overlay" onClick={() => setShowLogoutModal(false)}>
           <div className="modal-content logout-confirm animate-scale-up" onClick={e => e.stopPropagation()}>

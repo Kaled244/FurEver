@@ -51,9 +51,11 @@
 
 .help-card-title {
   font-family: 'Baloo Tammudu Local', cursive;
-  font-size: 36px;
-  color: #A18D6D;
-  margin-bottom: 25px;
+  font-size: 24px;
+  color: #1A1A1A;
+  margin: 0 0 10px 0;
+  line-height: 1;
+  margin-bottom: 20px;
 }
 
 .faq-list {
@@ -75,10 +77,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0;
+  letter-spacing: 0.3px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 18px;
   font-weight: 600;
   color: #1A1A1A;
-  font-size: 18px;
-  background: #FFFFFF;
+
 }
 
 .faq-item.active {
@@ -125,35 +130,39 @@
 .contact-box h3 {
   font-family: 'Baloo Tammudu Local', cursive;
   font-size: 24px;
-  margin-bottom: 10px;
+  color: #1A1A1A;
+  margin: 0 0 10px 0;
+  line-height: 1;
 }
 
 .contact-btn {
   margin-top: 20px;
-  background: #F9F8F6;
+  background: #464b4e;
   border: none;
   padding: 12px 30px;
   border-radius: 12px;
   font-weight: 700;
-  color: #1A1A1A;
+  color: #ffffff;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .contact-btn:hover {
-  background: #A18D6D;
+  background: #636a6e;
   color: white;
 }
 
 .contact-box p {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantall, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 18px; 
-  color: #000000; /* A soft charcoal—not quite black, not quite grey */
-  line-height: 1.6; /* CRITICAL for Baloo so the round letters can breathe */
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 0;
-  font-weight: 400;
   letter-spacing: 0.3px;
-  text-align: center;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1A1A1A;
 }
 
 /* --- Animations --- */

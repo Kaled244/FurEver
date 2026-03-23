@@ -35,7 +35,8 @@ const Profile = () => {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         
-        const userData = userRes.data;
+        // Handle standardized ApiResponse wrapping if it exists
+        const userData = userRes.data.data ? userRes.data.data : userRes.data;
         setUser({
             ...userData,
             l_name: userData.l_name || userData.lName || ""
@@ -44,14 +45,22 @@ const Profile = () => {
         const appRes = await axios.get('http://localhost:8080/api/applications/my-submissions', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        setApplications(appRes.data);
+        // Handle standardized ApiResponse mapping for applications Array
+        const appsData = appRes.data.data ? appRes.data.data : appRes.data;
+        setApplications(appsData);
       } catch (err) {
         console.error("❌ Profile Load Error:", err);
       } finally {
         setLoading(false);
       }
     };
-    if (token) fetchProfileData();
+    
+    if (token) {
+        fetchProfileData();
+    } else {
+        // Redirect if they aren't logged in
+        window.location.href = '/login'; 
+    }
   }, []);
 
   // --- Handlers ---
@@ -170,15 +179,15 @@ const Profile = () => {
 
               <div className="up-user-info-grid">
                 <div className="up-info-box">
-                  <label>Username</label>
+                  <label>Username </label>
                   <p>@{user.username || "n/a"}</p>
                 </div>
                 <div className="up-info-box">
-                  <label>Email Address</label>
+                  <label>Email Address </label>
                   <p>{user.email}</p>
                 </div>
                 <div className="up-info-box">
-                  <label>Home Address</label>
+                  <label>Home Address </label>
                   <p>{user.address || "Address not provided"}</p>
                 </div>
               </div>

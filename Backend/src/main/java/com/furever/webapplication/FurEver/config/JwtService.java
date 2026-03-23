@@ -36,6 +36,20 @@ public class JwtService {
                 .compact();
     }
 
+    /**
+     * Generate a long-lived refresh token (30 days by default)
+     * Used for mobile app token refresh mechanism
+     */
+    public String generateRefreshToken(String username) {
+        return Jwts.builder()
+                .subject(username)
+                .claim("type", "refresh")
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 30))
+                .signWith(getKey())
+                .compact();
+    }
+
     public String extractRole(String token) {
         return extractClaim(token, claims -> claims.get("role", String.class));
     }
@@ -72,7 +86,14 @@ public class JwtService {
         }
     }
 
-    private boolean isTokenExpired(String token) {
-        return extractClaim(token, Claims::getExpiration).before(new Date());
+    /**
+     * Check if token is expired
+     */
+    public boolean isTokenExpired(String token) {
+        try {
+            return extractClaim(token, Claims::getExpiration).before(new Date());
+        } catch (Exception e) {
+            return true;
+        }
     }
 }

@@ -21,13 +21,17 @@ const AdoptDropdown = ({ label, options, selected, onSelect, disabled }) => {
     }
   };
 
+  // If there is text in 'selected' (like "Dog"), we grab the active class
+  const activeClass = selected ? 'ua-btn-active' : '';
+
   return (
     <details 
       className={`user-adopt-dropdown ${disabled ? 'ua-disabled' : ''}`} 
       ref={detailsRef}
     >
       <summary role="button" onClick={(e) => disabled && e.preventDefault()}>
-        <span className="ua-dropdown-trigger">
+        {/* The active class is injected right here into the trigger */}
+        <span className={`ua-dropdown-trigger ${activeClass}`}>
           {selected || label}
         </span>
       </summary>
@@ -59,8 +63,8 @@ const Adopt = () => {
         setLoading(true);
         const response = await axios.get('http://localhost:8080/api/pets');
         setPets(response.data);
-      // eslint-disable-next-line no-unused-vars
       } catch (error) {
+        console.error("Failed to fetch pets:", error);
         setError('Cannot connect to server.');
       } finally {
         setLoading(false);
@@ -75,10 +79,13 @@ const Adopt = () => {
   const filteredPets = pets.filter(pet => {
     const status = (pet.pStatus || pet.p_status)?.toLowerCase();
     if (status !== 'available') return false;
+    
     const petSpecies = (pet.pSpecies || pet.p_species)?.toLowerCase();
     const petBreed = (pet.pBreed || pet.p_breed)?.toLowerCase();
+    
     const matchesSpecies = filters.species === 'All Pets' || petSpecies === filters.species.toLowerCase();
     const matchesBreed = filters.breed === 'All Breeds' || petBreed === filters.breed.toLowerCase();
+    
     return matchesSpecies && matchesBreed;
   });
 

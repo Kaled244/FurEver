@@ -22,8 +22,8 @@ public class SupabaseStorageService {
     public String uploadImage(MultipartFile file) throws Exception {
         // 1. Create a unique file name (e.g., 550e8400-e29b.jpg)
         String originalFilename = file.getOriginalFilename();
-        String extension = originalFilename != null && originalFilename.contains(".") 
-                           ? originalFilename.substring(originalFilename.lastIndexOf(".")) 
+        String extension = (originalFilename != null && originalFilename.contains(".")) 
+                           ? originalFilename.substring(originalFilename.lastIndexOf("."))
                            : ".jpg";
         String fileName = UUID.randomUUID().toString() + extension;
 
@@ -35,7 +35,8 @@ public class SupabaseStorageService {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(supabaseKey);
         headers.set("apikey", supabaseKey);
-        headers.setContentType(MediaType.parseMediaType(file.getContentType()));
+        String contentType = file.getContentType() != null ? file.getContentType() : "application/octet-stream";
+        headers.setContentType(MediaType.parseMediaType(contentType));
 
         // 4. Send the Request
         RestTemplate restTemplate = new RestTemplate();
