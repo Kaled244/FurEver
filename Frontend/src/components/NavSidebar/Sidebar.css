@@ -74,14 +74,16 @@
 }
 
 .logo-text span {
-  color: #A18D6D;
+  color: #806c4c;
 }
 
 .sub-logo-text { 
-  font-size: 12px;
-  letter-spacing: 2px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 18px;
   color: #000000;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+  text-align: left;
 }
 
 /* Elegant Separator */
@@ -190,9 +192,12 @@
 }
 
 .user-email { 
-  font-size: 12px; 
+  font-size: 12px;
   color: #000000;
-  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+  text-align: left;
 }
 
 .logout-link {

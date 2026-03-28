@@ -3,9 +3,9 @@
    ========================================= */
 .user-adopt-page-wrapper {
   width: 100%;
-  background-color: #F9F8F6;
+  background-color: #f9f8f6;
   min-height: 100vh;
-  display: block; 
+  display: block;
 }
 
 .user-adopt-main-content {
@@ -23,7 +23,7 @@
 
 .user-adopt-header {
   width: 100%;
-  background: #F9F8F6;
+  background: #f9f8f6;
   padding: 0 0 20px 0;
   margin-bottom: 30px;
   display: flex;
@@ -41,22 +41,20 @@
 }
 
 .ua-main-title {
-  font-family: 'Baloo Tammudu Local', cursive;
+  font-family: "Baloo Tammudu Local", cursive;
   font-size: 54px;
-  color: #1A1A1A;
+  color: #1a1a1a;
   margin: 0;
   line-height: 1.1;
   letter-spacing: -0.5px;
 }
 
-.ua-main-subtitle p {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantall, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 18px; 
-  color: #000000; /* A soft charcoal—not quite black, not quite grey */
-  line-height: 1.6; /* CRITICAL for Baloo so the round letters can breathe */
+.ua-main-subtitle {
+  font-size: 18px;
+  color: #000000;
+  line-height: 1.6;
   margin: 0;
   font-weight: 400;
-  letter-spacing: 0.3px;
   text-align: left;
 }
 
@@ -72,12 +70,12 @@
 
 .ua-filter-btn {
   border: none;
-  background: #FFFFFF;
+  background: #D9CFC7;
   height: 48px;
   width: auto;
-  border-radius: 24px;
+  border-radius: 15px;
   padding: 0 30px;
-  font-family: 'Baloo Tammudu Local', cursive;
+  font-family: "Baloo Tammudu Local", cursive;
   font-size: 16px;
   font-weight: 500;
   color: #000000;
@@ -90,18 +88,17 @@
 }
 
 .ua-filter-btn:hover {
-  background-color: #A18D6D;
+  background-color: #a18d6d;
   color: white;
   box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
 }
 
 .ua-filter-btn.ua-btn-active {
- background-color: #A18D6D;
- color: white;
- border-color: #A18D6D; /* Optional: smooths out the border */
- box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
+  background-color: #a18d6d;
+  color: white;
+  border-color: #a18d6d; /* Optional: smooths out the border */
+  box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
 }
-
 
 /* =========================================
    PET GRID & STATES
@@ -109,21 +106,30 @@
 
 .user-adopt-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 80px;
+  /* 280px is a sweet spot for 4 columns on desktop */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+  /* Tightened gap from 160px to a balanced 32px or 40px */
+  gap: 40px;
+
   width: 100%;
   padding-bottom: 60px;
   position: relative;
   z-index: 1;
 }
 
-.ua-loading, .ua-error, .ua-empty-msg {
+.ua-loading,
+.ua-error,
+.ua-empty-msg {
   grid-column: 1 / -1;
   text-align: center;
   padding: 60px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 24px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: #666;
   font-size: 18px;
 }
@@ -155,8 +161,8 @@
   justify-content: center;
   padding: 0 30px;
   height: 48px;
-  border-radius: 24px;
-  background: #FFFFFF;
+  border-radius: 15px;
+  background: #D9CFC7;
   color: #000000;
   font-size: 16px;
   font-weight: 500;
@@ -166,16 +172,16 @@
   min-width: 160px;
 }
 
-.ua-dropdown-trigger:hover{
-  background-color: #A18D6D;
+.ua-dropdown-trigger:hover {
+  background-color: #a18d6d;
   color: white;
   box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
 }
 
 .ua-dropdown-trigger.ua-btn-active {
-    background-color: #A18D6D;
-    color: white;
-    box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
+  background-color: #a18d6d;
+  color: white;
+  box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
 }
 
 .ua-dropdown-menu {
@@ -188,15 +194,21 @@
   background: #ffffff;
   border-radius: 16px;
   list-style: none;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   z-index: 10000;
   animation: uaDropdownPop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes uaDropdownPop {
-  0% { opacity: 0; transform: translateY(-10px) scale(0.95); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .ua-dropdown-menu li button {
@@ -212,14 +224,14 @@
   cursor: pointer;
 }
 
-.ua-dropdown-menu li button:hover{
-  background-color: #D9CFC7;
+.ua-dropdown-menu li button:hover {
+  background-color: #d9cfc7;
   color: #000000;
 }
 
 /* Overlay for outside-click to close */
 .user-adopt-dropdown[open] > summary::before {
-  content: ' ';
+  content: " ";
   display: block;
   position: fixed;
   top: 0;
@@ -229,39 +241,17 @@
   z-index: 9998;
 }
 
-/* =========================================
-   FLOATING ACTION BUTTON
-   ========================================= */
-   
-.ua-floating-btn {
-  position: fixed;
-  top: 32px;
-  right: 70px;
-  width: 110px;
-  height: 44px;
-  background-color: #464b4e;
-  color: #ffffff;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-  z-index: 2000;
-  /* CRITICAL: Allows the badge to position itself relative to the button */
-  position: fixed; 
-}
-
 /* The Notification Badge */
 .ua-badge {
   position: absolute;
   top: -8px; /* Peeks over the top */
   right: -8px; /* Peeks over the side */
-  background-color: #D93838; /* A "Warning/Notification" Red */
+  background-color: #d93838; /* A "Warning/Notification" Red */
   color: white;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-size: 12px;
   font-weight: 800;
   width: 22px;
@@ -271,19 +261,17 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 2px solid #F9F8F6; /* Creates a clean "cutout" look against the page */
+  border: 2px solid #f9f8f6; /* Creates a clean "cutout" look against the page */
 }
 
 .ua-btn-text {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 600;
   font-size: 14px;
   padding: 0 10px;
-}
-
-.ua-floating-btn:hover {
-  background-color: #333739;
-  transform: translateY(-2px);
 }
 
 /* =========================================
@@ -291,8 +279,14 @@
    ========================================= */
 
 @keyframes gentleSlideUp {
-  0% { transform: translateY(20px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .animate-slide-up {

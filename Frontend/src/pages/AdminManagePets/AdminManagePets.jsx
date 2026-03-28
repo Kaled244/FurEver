@@ -292,7 +292,7 @@ const AdminManagePets = () => {
               
               <textarea name="pDescription" placeholder="Pet Biography/Description..." value={formData.pDescription} onChange={handleInputChange} required></textarea>
               <button type="submit" className="save-pet-btn">
-                {editingId ? "Update Pet Details" : "Save to Database"}
+                {editingId ? "Update Pet Details" : "Save new pet"}
               </button>
             </form>
           </div>

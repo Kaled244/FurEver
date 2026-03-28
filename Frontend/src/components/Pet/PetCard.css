@@ -1,14 +1,17 @@
 /* --- Base Container --- */
 .pc-card-container {
-  width: 384px;
-  height: 487px;
+  width: 100%; /* CHANGE THIS from 384px */
+  max-width: 400px; /* Optional: prevents cards from getting TOO huge on massive screens */
+  height: 500px; /* Increased slightly to give more breathing room for 4-col layout */
   position: relative;
-  font-family: 'Baloo Tammudu Local', sans-serif;
-  background-color: #ffffff; 
-  border-radius: 24px; 
+  font-family: "Baloo Tammudu Local", sans-serif;
+  background-color: #ffffff;
+  border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
 }
 
 .pc-card-container:hover {
@@ -21,7 +24,7 @@
   width: 100%;
   height: 260px;
   position: relative;
-  background-color: #f1f1ef; 
+  background-color: #f1f1ef;
 }
 
 .pc-main-img {
@@ -31,22 +34,45 @@
 }
 
 /* --- Badges --- */
-.pc-badge-species, .pc-badge-status {
+.pc-badge-species {
   position: absolute;
   top: 20px;
-  background-color: rgb(233, 255, 35);
-  backdrop-filter: blur(8px); 
-  border-radius: 90px; 
-  padding: 6px 18px; 
+  backdrop-filter: blur(8px);
+  border-radius: 90px;
+  padding: 6px 18px;
   font-size: 14px;
-  font-weight: 700;
-  color: #3A2525;
+  font-weight: 600;
   text-transform: uppercase;
   z-index: 10;
+  background: #2e3133;
+  color: white;
+  border: 2px solid rgba(255, 251, 0, 0.95);
+  letter-spacing: 1px;
+  left: 20px;
 }
 
-.pc-badge-species { left: 20px; }
-.pc-badge-status { right: 20px; }
+.pc-badge-status {
+  position: absolute;
+  top: 20px;
+  backdrop-filter: blur(8px);
+  border-radius: 90px;
+  padding: 6px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  z-index: 10;
+  right: 15px;
+  background: rgba(255, 251, 0, 0.95);
+  color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.pc-badge-status {
+  right: 20px;
+}
 
 /* --- Content Area --- */
 .pc-content-body {
@@ -64,64 +90,65 @@
 .pc-pet-name {
   font-size: 28px;
   font-weight: 700;
-  color: #3A2525; 
+  color: #3a2525;
   margin: 0;
 }
 
 .pc-pet-price {
   font-size: 24px;
   font-weight: 700;
-  color: #A18D6D;
+  color: #a18d6d;
 }
 
 .pc-label {
   color: #000000;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
 }
 
-.pc-stats-grid p { 
+.pc-stats-grid p {
   margin-top: 5px;
-  margin-bottom: 5px; 
+  margin-bottom: 5px;
   color: #7b806b;
   line-height: 1.2;
-  font-family: system-ui, -apple-system, sans-serif;
   margin: 0 0 6px 0;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .pc-stats-grid {
   position: absolute;
   left: 23px;
-  bottom: 70px; 
+  bottom: 70px;
 }
 
 .pc-btn-adopt {
   position: absolute;
-  bottom: 25px; 
+  bottom: 25px;
   right: 23px;
   width: 130px;
   height: 44px;
-  background-color: #8c7a5d ;
+  background-color: #8c7a5d;
   color: white;
-  border: none; 
+  border: none;
   border-radius: 12px;
-  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .pc-btn-adopt:hover {
-  background-color:#A18D6D;
+  background-color: #a18d6d;
   transform: scale(1.05);
 }
 
 .pc-link-details {
   position: absolute;
+  font-family: system-ui,-apple-system,sans-serif;
   bottom: 32px;
   left: 23px;
-  color: #A18D6D;
+  color: #000000;
   background: transparent;
   border: none;
   font-weight: 800;
@@ -149,13 +176,13 @@
 }
 
 .pm-modal-box {
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 50px; /* Generous breathing room */
   border-radius: 30px;
-  max-width: 600px; 
+  max-width: 600px;
   width: 95%;
   position: relative;
-  max-height: 85vh; 
+  max-height: 85vh;
   overflow-y: auto;
   text-align: center;
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.12); /* Deeper, softer shadow */
@@ -163,51 +190,53 @@
 }
 
 .alm-pet-info h3 {
-  font-family: 'Baloo Tammudu Local', cursive;
+  font-family: "Baloo Tammudu Local", cursive;
   font-size: 20px;
-  color: #1A1A1A;
+  color: #1a1a1a;
   margin: 0 0 5px 0; /* Space between name and date */
   text-align: left;
   line-height: 1.2;
 }
 
 .alm-pet-info p {
-  font-size: 14px;
-  color: #666;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   margin: 0;
-  text-align: left;
+  font-size: 14px;
+  color: #444444;
 }
-
 
 /*======== Modal =======*/
 
 .pm-modal-title {
-  font-family: 'Baloo Tammudu Local', cursive;
-  font-size: 24px; 
-  color: #1A1A1A;
+  font-family: "Baloo Tammudu Local", cursive;
+  font-size: 24px;
+  color: #1a1a1a;
   margin: 0 0 10px 0;
   line-height: 1;
 }
 
 .pm-modal-title span {
-  font-family: 'Baloo Tammudu Local', cursive;
   font-size: 24px;
-  color: #8F7B5C;
-  margin: 0 0 10px 0;
-  line-height: 1;
+  color: #a18d6d;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+
 }
 
 .pm-description-text {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: #1A1A1A;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a1a;
   margin-bottom: 30px;
-  text-align: center;  
-  width: 100%;      
-  display: block; 
-  background-color: #F8F9FA;
-  border: 1px solid #E2E8F0;
+  text-align: center;
+  width: 100%;
+  display: block;
+  background-color: #f8f9fa;
+  border: 1px solid #e2e8f0;
   padding: 16px 20px;
   box-sizing: border-box;
   border-radius: 8px;
@@ -215,11 +244,13 @@
 }
 
 .pc-health-title {
-  font-family: 'Baloo Tammudu Local', cursive;
-  font-size: 24px; 
-  color: #1A1A1A;
-  margin: 0 0 10px 0;
-  line-height: 1;
+  font-size: 24px;
+  color: #000000;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+
 }
 
 table {
@@ -228,14 +259,14 @@ table {
   margin-top: 15px;
 }
 
-th, td {
+th,td {
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid #E2E8F0;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 th {
-  color: #64748B;
+  color: #64748b;
   font-weight: 600;
   font-size: 14px;
   text-transform: uppercase;
@@ -247,7 +278,7 @@ th {
   position: absolute;
   right: 20px;
   top: 20px;
-  font-size: 28px; 
+  font-size: 28px;
   border: none;
   background: transparent;
   width: 45px;
@@ -262,8 +293,8 @@ th {
 }
 
 .pm-close-x:hover {
-  background: #F9F8F6;
-  color: #1A1A1A;
+  background: #f9f8f6;
+  color: #1a1a1a;
   transform: rotate(90deg); /* Playful twist on hover */
 }
 
@@ -283,10 +314,13 @@ th {
 }
 
 .pm-input-group label {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-size: 13px;
   font-weight: 700;
-  color: #1A1A1A;
+  color: #1a1a1a;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 8px;
@@ -295,21 +329,21 @@ th {
 .pm-input-group input {
   width: 100%;
   height: 54px;
-  background: #F9F8F6;
+  background: #f9f8f6;
   border-radius: 16px;
   border: 1.5px solid transparent;
   padding: 0 20px;
   font-size: 16px;
-  color: #1A1A1A;
+  color: #1a1a1a;
   outline: none;
   box-sizing: border-box;
   transition: all 0.3s ease;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .pm-input-group input:focus {
-  background: #FFFFFF;
-  border-color: #A18D6D;
+  background: #ffffff;
+  border-color: #a18d6d;
   box-shadow: 0 4px 15px rgba(161, 141, 109, 0.15);
 }
 
@@ -345,8 +379,8 @@ th {
 .pm-btn-confirm {
   flex: 1;
   height: 56px;
-  background: #A18D6D;
-  color: #FFFFFF;
+  background: #a18d6d;
+  color: #ffffff;
   border: none;
   border-radius: 28px;
   font-weight: 700;
@@ -357,7 +391,7 @@ th {
 }
 
 .pm-btn-confirm:hover {
-  background: #8F7B5C;
+  background: #8f7b5c;
   transform: translateY(-2px);
   box-shadow: 0 12px 25px rgba(161, 141, 109, 0.35);
 }
@@ -365,7 +399,7 @@ th {
 .pm-btn-cancel {
   flex: 1;
   height: 56px;
-  background: #F3F4F6;
+  background: #f3f4f6;
   color: #666;
   border: none;
   border-radius: 28px;
@@ -376,40 +410,53 @@ th {
 }
 
 .pm-btn-cancel:hover {
-  background: #E5E7EB;
-  color: #1A1A1A;
+  background: #e5e7eb;
+  color: #1a1a1a;
 }
 
 /* Special Danger Button (Delete) */
 .pm-btn-delete {
-  background: #D93838;
+  background: #d93838;
   color: white;
   box-shadow: 0 8px 20px rgba(217, 56, 56, 0.25);
 }
 
 .pm-btn-delete:hover {
-  background: #C02B2B;
+  background: #c02b2b;
   box-shadow: 0 12px 25px rgba(217, 56, 56, 0.35);
 }
 
 .pm-text-danger {
-  color: #D93838 !important;
+  color: #d93838 !important;
 }
 
 /* Animations (Unchanged, just polished) */
-@keyframes pmFadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes pmScaleUp { 
-  0% { transform: scale(0.95); opacity: 0; } 
-  100% { transform: scale(1); opacity: 1; } 
+@keyframes pmFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pmScaleUp {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-.pm-no-records{
-    font-family: system-ui, -apple-system, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: #1A1A1A;
-    text-align: center;
-    width: 100%;
+.pm-no-records {
+  font-family: system-ui,-apple-system,sans-serif;
+  font-size: 16px;
+  color: #000000;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
 }
 
 /* --- Health Table (pc-) --- */
@@ -420,82 +467,115 @@ th {
   border-spacing: 0;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #F3EEEA;
+  border: 1px solid #f3eeea;
 }
 
-.pc-highlight-name{
-    color: #A18D6D;
+.pc-highlight-name {
+  font-size: 24px;
+  color: #a18d6d;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+
 }
 .pc-health-table th {
   padding: 15px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   margin: 0 0 6px 0;
   font-size: 16px;
   font-weight: 800;
-  color: #1A1A1A;
+  color: #1a1a1a;
 }
 
 .pc-health-table td {
   padding: 15px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   margin: 0 0 6px 0;
   font-size: 14px;
   font-weight: 600;
-  color: #1A1A1A;
+  color: #1a1a1a;
 }
 
 /* --- Adoption Form (am-) --- */
-.am-form-title {     
-  font-family: 'Baloo Tammudu Local', cursive;
+.am-form-title {
+  font-family: "Baloo Tammudu Local", cursive;
   font-size: 24px;
-  color: #1A1A1A;;
+  color: #1a1a1a;
   margin: 0 0 10px 0;
-  line-height: 1; }
-.am-form-title span { color: #A18D6D; }
+  line-height: 1;
+}
+.am-form-title span {
+  color: #a18d6d;
+}
 
-.am-form-row { display: flex; gap: 15px; margin-bottom: 15px; }
-.am-input-group { display: flex; flex-direction: column; flex: 1; }
-.am-input-group label {  
-  font-family: system-ui, -apple-system, sans-serif;
+.am-form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.am-input-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.am-input-group label {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   padding: 15px;
   margin: 0 0 6px 0;
   font-size: 16px;
   font-weight: 800;
-  color: #1A1A1A;
+  color: #1a1a1a;
   text-align: left;
 }
 
-.am-input-group input, .am-input-group select, .am-input-group textarea {
-  background: #F9F8F6;
+.am-input-group input,
+.am-input-group select,
+.am-input-group textarea {
+  background: #f9f8f6;
   border: 1.5px solid transparent;
   padding: 12px;
   border-radius: 12px;
   outline: none;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   margin: 0 0 6px 0;
   font-size: 14px;
   font-weight: 600;
-  color: #1A1A1A;
+  color: #1a1a1a;
 }
 
 /* Add this right below your shared input/select/textarea styles */
 .am-input-group select {
-  appearance: none; 
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231A1A1A%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
-  background-position: right 16px center; 
+  background-position: right 16px center;
   background-size: 10px auto;
-  padding-right: 40px; 
+  padding-right: 40px;
 }
 
-.am-input-group input:focus { border-color: #A18D6D; }
+.am-input-group input:focus {
+  border-color: #a18d6d;
+}
 
 .am-submit-btn {
   width: 100%;
   height: 50px;
-  background: #A18D6D;
+  background: #a18d6d;
   color: white;
   border: none;
   border-radius: 25px;
@@ -505,39 +585,77 @@ th {
 }
 
 /* --- App List (alm-) --- */
-.alm-list-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.alm-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
 
 .alm-list-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  background: #F9F8F6;
+  background: #f9f8f6;
   border-radius: 15px;
 }
 
-.alm-list-card h3{
-    font-family: system-ui, -apple-system, sans-serif;
-    margin: 0 0 6px 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #1A1A1A;
+.alm-list-card h3 {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
 }
 
 .alm-status-pill {
-    display: inline-block;
-    padding: 8px 20px;
-    border-radius: 30px;
-    font-family: system-ui, -apple-system, sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.alm-status-pill.pending { background: #FFF9E6; color: #D4A000; }
-.alm-status-pill.approved  { background: #E6F7ED; color: #00A344; }
-.alm-status-pill.rejected  { background: #FFF0F0; color: #D93838; }
+.alm-status-pill.pending {
+  background: linear-gradient(135deg, #fde68a 0%, #e7e41d 100%);
+  color: #000000;
+}
+.alm-status-pill.approved {
+  background: linear-gradient(135deg, #05b646 0%, #018656 100%);
+  color: #ffffff;
+}
+.alm-status-pill.rejected {
+  background: linear-gradient(135deg, #a52a2a 0%, #800000 100%);
+  color: #ffffff;
+}
+.alm-status-pill.ready_to_claim {
+  background: linear-gradient(135deg, #0569ff 0%, #014fc9 100%);
+  color: #ffffff;
+}
 
-@keyframes pmFadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes pmScaleUp { 0% { transform: scale(0.9); } 100% { transform: scale(1); } }
+@keyframes pmFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pmScaleUp {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

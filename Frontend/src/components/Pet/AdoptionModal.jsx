@@ -42,10 +42,10 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
         submissionData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert(response.data);
+      alert(response.data.message);
       onClose();
     } catch (error) {
-      alert(error.response?.data || "Submission failed");
+      alert(error.response?.data?.message || "You already submitted an application for this pet.");
     }
   };
 

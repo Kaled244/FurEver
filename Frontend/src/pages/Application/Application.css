@@ -1,0 +1,599 @@
+/* =========================================
+   1. PAGE LAYOUT (Fixed Position)
+   ========================================= */
+.ap-page-wrapper {
+  width: 100%;
+  background-color: #f9f8f6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ap-main-content {
+  padding: 40px 60px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Keeps everything left-aligned */
+}
+
+.ap-title-section {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.ap-main-title {
+  font-family: "Baloo Tammudu Local", cursive;
+  font-size: 54px;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  line-height: 1.1;
+}
+
+.ap-main-subtitle {
+  font-size: 18px;
+  color: #000000;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+  text-align: left;
+}
+
+/* Filter Row Alignment */
+.ap-filter-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.ap-filter-pill {
+  border: none;
+  background: #d9cfc7;
+  padding: 10px 24px;
+  border-radius: 15px;
+  font-family: "Baloo Tammudu Local", cursive;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.ap-filter-pill.ap-active,
+.ap-filter-pill:hover {
+  background: #a18d6d;
+  color: white;
+}
+
+/* =========================================
+   2. GRID & CARD BASE
+   ========================================= */
+.ap-application-grid {
+  display: grid;
+  /* Adjust minmax to 280px to ensure 4 columns on large screens */
+  grid-template-columns: repeat(auto-fill, 350px);
+  gap: 30px;
+  width: 100%;
+}
+
+.ap-card-v2 {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  transition: 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.ap-card-v2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(161, 141, 109, 0.15);
+}
+
+.ap-card-v2-img-wrapper {
+  position: relative;
+  height: 220px;
+}
+
+.ap-card-v2-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ap-card-v2-info {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ap-card-v2-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.ap-card-v2-pet-name {
+  font-family: "Baloo Tammudu Local", cursive;
+  font-size: 26px;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.ap-card-v2-date {
+  font-size: 14px;
+  color: #000000;
+}
+
+.ap-card-v2-breed {
+  font-size: 14px;
+  color: #3a2525;
+  margin-bottom: 20px;
+}
+
+.ap-card-v2-details-btn {
+  width: 100%;
+  background: #d9cfc7;
+  border: 0px solid #ebe8e3;
+  color: #2e3133;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Added Hover Effect */
+.ap-card-v2-details-btn:hover {
+  background: #a18d6d;
+  border-color: #a18d6d;
+  color: white;
+}
+
+/* =========================================
+   3. STATUS COMPONENTS (Bases)
+   ========================================= */
+.ap-card-v2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 6px;
+  z-index: 5;
+}
+
+.ap-card-v2-status-badge {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  background: #2e3133;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  z-index: 10;
+  border: 2px solid rgba(255, 251, 0, 0.95);
+}
+
+.ap-card-v2-id-badge {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+/* =========================================
+   4. STATUS COLOR GROUPS
+   ========================================= */
+
+/* PENDING - Orange */
+/* .ap-card-v2.status-pending::before {
+  background: #f97316;
+} */
+.ap-card-v2-status-badge.species-pending {
+  border: 2px solid #f97316;
+  color: #ffffff;
+}
+.ap-card-v2.status-pending .ap-card-v2-id-badge {
+  background: rgba(249, 115, 22, 0.85);
+  color: #ffffff;
+}
+
+/* APPROVED - Green */
+/* .ap-card-v2.status-approved::before {
+  background: #22c55e;
+} */
+.ap-card-v2-status-badge.species-approved {
+  border: 2px solid #22c55e;
+  color: #4ade80;
+}
+.ap-card-v2.status-approved .ap-card-v2-id-badge {
+  background: rgba(34, 197, 94, 0.85);
+  color: #000000;
+}
+
+/* READY TO CLAIM - Blue Gradient (#0569ff to #014fc9) */
+/* .ap-card-v2.status-ready_to_claim::before {
+  background: linear-gradient(to bottom, #0569ff, #014fc9);
+} */
+.ap-card-v2-status-badge.species-ready_to_claim {
+  border: 2px solid #0569ff;
+  color: #60a5fa;
+}
+.ap-card-v2.status-ready_to_claim .ap-card-v2-id-badge {
+  background: linear-gradient(135deg, #0569ff 0%, #014fc9 100%);
+  color: #ffffff; /* Switched to white for better contrast on dark blue */
+}
+
+/* REJECTED - Brown/Dark Red Gradient (#A52A2A to #800000) */
+/* .ap-card-v2.status-rejected::before {
+  background: linear-gradient(to bottom, #a52a2a, #e90000);
+} */
+.ap-card-v2-status-badge.species-rejected {
+  border: 2px solid #a52a2a;
+  color: #f87171;
+}
+.ap-card-v2.status-rejected .ap-card-v2-id-badge {
+  background: linear-gradient(135deg, #a52a2a 0%, #800000 100%);
+  color: #ffffff; /* Switched to white for better contrast */
+}
+
+/* ADOPTED - Yellow Gradient (#FDE68A to #E7E41D) */
+/* .ap-card-v2.status-adopted::before {
+  background: linear-gradient(to bottom, #fde68a, #e7e41d);
+} */
+.ap-card-v2-status-badge.species-adopted {
+  border: 2px solid #e7e41d;
+  color: #e7e41d;
+}
+.ap-card-v2.status-adopted .ap-card-v2-id-badge {
+  background: linear-gradient(135deg, #fde68a 0%, #e7e41d 100%);
+  color: #000000;
+}
+
+/* =========================================
+   5. ANIMATIONS & UTILS
+   ========================================= */
+@keyframes gentleSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: gentleSlideUp 0.6s ease forwards;
+}
+
+.uh-claimed-btn {
+  width: 100%;
+  padding: 14px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* =========================================
+   EMPTY STATE DESIGN
+   ========================================= */
+.ap-empty-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  background: white;
+  border-radius: 24px;
+  border: 2px dashed #e5e7eb; /* Dashed border looks great for empty states */
+  text-align: center;
+  grid-column: 1 / -1; /* Makes it span the full width of the grid */
+  margin-top: 20px;
+}
+
+.ap-empty-view svg {
+  color: #a18d6d; /* Matches your active pill color */
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.ap-empty-view h3 {
+  font-family: "Baloo Tammudu Local", cursive;
+  font-size: 24px;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.ap-empty-view p {
+  color: #666;
+  margin-bottom: 24px;
+  max-width: 300px;
+}
+
+.ap-browse-btn {
+  margin-top: 20px;
+  background: #464b4e;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ap-browse-btn:hover {
+  background: #5d6266;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(161, 141, 109, 0.3);
+}
+
+/* Status Tags */
+.ap-status-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+  letter-spacing: 0.05em;
+}
+.ap-status-tag.adopted {
+  background: #dcfce7;
+  color: #166534;
+}
+.ap-status-tag.pending {
+  background: #fef9c3;
+  color: #854d0e;
+}
+.ap-status-tag.approved {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+/* Description Text */
+.ap-description-text {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.6;
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+/* Modern Table */
+.ap-modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ap-modern-table th {
+  background: #f1f5f9;
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.ap-modern-table td {
+  padding: 12px 15px;
+  border-top: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+/* Empty State Box */
+.ap-empty-box {
+  background: #f8fafc;
+  border: 2px dashed #e2e8f0;
+  padding: 20px;
+  text-align: center;
+  color: #94a3b8;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   6. PREMIUM INSPIRED MODAL (Clean & Structured)
+   ========================================= */
+.ap-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.ap-modal-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 580px;
+  border-radius: 24px; /* Matching the inspiration */
+  padding: 35px;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  animation: gentleSlideUp 0.4s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.ap-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #999;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ap-modal-close:hover {
+  color: #1a1a1a;
+}
+
+/* Modal Header Styles */
+.ap-modal-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.ap-modal-badge {
+  display: inline-block;
+  background: #fdf5e6;
+  color: #a18d6d;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+
+.ap-modal-title {
+  font-family: "Baloo Tammudu Local", cursive;
+  font-size: 30px;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  margin: 10px 0 5px 0;
+}
+
+.ap-modal-subtitle {
+  font-size: 14px;
+  color: #000000;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Premium Stats Grid (The Mini-Boxes) */
+.ap-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.ap-info-item {
+  background: #f9f8f6; /* Softer background box from your inspiration */
+  padding: 14px 16px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid #f0eee9;
+}
+
+.ap-info-item label {
+  font-size: 14px;
+  color: #a18d6d;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.ap-info-item p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Response/Description Section */
+.ap-answer-section label {
+  display: block;
+  font-size: 14px;
+  color: #a18d6d;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.ap-answer-box {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #333;
+  background-color: #f8f9fa;
+  border: 1px solid #e2e8f0;
+  padding: 18px 22px;
+  border-radius: 12px;
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* The Claim/Action Button */
+.ap-btn-primary {
+  width: 100%;
+  background: #ffffff;
+  border: 2px solid #ebe8e3;
+  color: #2e3133;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-top: auto;
+}
+
+.ap-btn-primary:hover {
+  background: #a18d6d;
+  border-color: #a18d6d;
+  color: white;
+}

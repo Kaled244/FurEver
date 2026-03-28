@@ -1,236 +1,512 @@
+/* --- Page Layout --- */
 .admin-inbox-page {
+  padding: 40px;
   background-color: #fcfcfb;
   min-height: 100vh;
-  padding: 40px;
   width: 100%;
+  box-sizing: border-box;
+  margin-top: 25px;
+  margin-left: 0px;
 }
 
 .inbox-container {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
+/* --- Header --- */
 .inbox-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .inbox-header h1 {
-  font-family: 'Baloo Tammudu Local', cursive;
+  font-family: "Baloo Tammudu Local", cursive;
   font-size: 38px;
-  color: #1a1a1a;
+  color: #2e3133; /* Upgraded to Admin Charcoal */
   margin: 0;
+  line-height: 1.1;
+}
+
+.inbox-header p {
+  color: #666;
+  font-size: 15px;
+  margin: 5px 0 0 0;
 }
 
 .stats-pill {
-  background: #3a2525;
+  background: #2e3133;
   color: white;
   padding: 8px 20px;
   border-radius: 30px;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 14px;
+  margin: 0 0 10px 0;
+  line-height: 3;
+  margin: 0;
+  letter-spacing: 0.3px;
+  text-align: left;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 700;
 }
 
+/* --- Tabbed Navigation --- */
+.inbox-tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #ebe8e3;
+  padding-bottom: 15px;
+}
+
+.inbox-tab-btn {
+  background: transparent;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.inbox-tab-btn:hover {
+  background: #f9f8f6;
+  color: #333;
+}
+
+.inbox-tab-btn.active {
+  background: #2e3133;
+  color: #ffffff;
+}
+
+/* --- Grid & Uniform Cards --- */
 .apps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
 }
 
 .app-card-premium {
   background: white;
-  border-radius: 30px;
-  padding: 30px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-  border: 1px solid #f0f0f0;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  border: 1px solid #ebe8e3;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  justify-content: space-between;
+  height: 250px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .app-card-premium:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
 }
 
+/* Colored accent border */
+.app-card-premium::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+}
+
+.app-card-premium.status-pending::before {
+  background-color: #f59e0b;
+}
+.app-card-premium.status-approved::before {
+  background-color: #10b981;
+}
+.app-card-premium.status-rejected::before {
+  background-color: #ef4444;
+}
+.app-card-premium.status-ready_to_claim::before {
+  background-color: #0569ff;
+}
+
+/* --- Card Header & Badges --- */
 .card-top {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  align-items: center;
 }
 
 .app-tag {
-  font-size: 12px;
-  font-weight: 800;
-  color: #A18D6D;
-  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 550;
+  color: #a18d6d;
   letter-spacing: 1px;
 }
 
-.status-dot {
+.status-badge {
   font-size: 11px;
-  font-weight: 700;
-  padding: 5px 15px;
+  font-weight: 800;
+  padding: 6px 14px;
   border-radius: 20px;
   text-transform: uppercase;
 }
 
-.status-dot.pending { background: #fff9e6; color: #d4a000; }
-.status-dot.approved { background: #e6f7ed; color: #00a344; }
-.status-dot.rejected { background: #fff0f0; color: #d93838; }
+/* More professional, muted badge colors */
+.status-badge.pending {
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+.status-badge.approved {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+.status-badge.rejected {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+.status-badge.ready_to_claim {
+  background: #dbeafe;
+  color: #3b82f6;
+  border: 1px solid #bfdbfe;
+}
 
-.pet-mini-profile h3 {
-  font-size: 24px;
+/* --- Card Body --- */
+.app-entities {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+  background: #fcfcfb;
+  border: 1px solid #ebe8e3;
+  border-radius: 16px;
+  margin-top: 20px;
+}
+
+.entity-block {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.entity-icon {
+  color: #a18d6d;
+  margin-top: 2px;
+}
+
+.entity-block label {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-family: "Baloo Tammudu Local", cursive;
+  margin: 7px 10px 5px 0;
+  line-height: 1;
+}
+
+.entity-block p {
+  font-size: 14px;
+  line-height: 1;
   margin: 0;
+  letter-spacing: 0.3px;
+  text-align: left;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 700;
   color: #1a1a1a;
 }
 
-.pet-breed {
-  font-size: 14px;
-  color: #888;
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 25px 0;
-  padding: 20px 0;
-  border-top: 1px solid #f5f5f5;
-  border-bottom: 1px solid #f5f5f5;
-}
-
-.info-item label {
-  display: block;
-  font-size: 11px;
-  text-transform: uppercase;
-  color: #aaa;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-
-.info-item p {
-  margin: 0;
-  font-weight: 600;
-  color: #333;
-}
-
-.reason-section label {
+.entity-sub {
   font-size: 12px;
-  font-weight: 700;
   color: #666;
 }
 
-.reason-bubble {
-  margin-top: 10px;
+/* --- Uniform Action Button --- */
+.btn-view-details {
+  width: 100%;
+  padding: 12px;
   background: #f9f8f6;
-  padding: 20px;
-  border-radius: 20px;
-  font-style: italic;
+  color: #2e3133;
+  border: 1px solid #ebe8e3;
+  border-radius: 12px;
+  font-weight: 700;
   font-size: 14px;
-  color: #555;
-  line-height: 1.5;
+  cursor: pointer;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
 }
 
-.card-footer-actions {
-  margin-top: 30px;
+.btn-view-details:hover {
+  background: #2e3133;
+  color: #ffffff;
+  border-color: #2e3133;
+}
+
+/* --- Review Details Modal --- */
+.adm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.adm-modal-content {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.adm-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #ebe8e3;
+  padding-bottom: 15px;
+}
+
+.adm-modal-header h2 {
+  margin: 0;
+  color: #2e3133;
+  font-family: "Baloo Tammudu Local", cursive;
+}
+
+.adm-modal-close {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.adm-modal-close:hover {
+  color: #d93838;
+}
+
+.adm-modal-body label {
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-family: "Baloo Tammudu Local", cursive;
+  margin: 0 10px 15px 0;
+  line-height: 1;
+}
+
+.adm-modal-body p {
+  font-size: 14px;
+  color: #1a1a1a;
+  margin: 0 0 10px 0;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 0.3px;
+  text-align: left;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 700;
+}
+
+.modal-info-split {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 25px;
+}
+
+.modal-info-full {
+  margin-bottom: 25px;
+}
+
+.reason-bubble-large {
+  background: #f9f8f6;
+  padding: 20px;
+  border-radius: 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+  font-style: italic;
+  border: 1px solid #ebe8e3;
+}
+
+/* Modal Action Buttons */
+.adm-modal-actions {
   display: flex;
   gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #ebe8e3;
 }
 
 .btn-approve-admin {
   flex: 2;
-  background: #A18D6D;
+  background: #10b981;
   color: white;
   border: none;
-  padding: 15px;
-  border-radius: 15px;
+  padding: 14px;
+  border-radius: 12px;
   font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
-  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
 }
 
-.btn-approve-admin:hover { background: #3a2525; }
+.btn-approve-admin:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
 
 .btn-reject-admin {
   flex: 1;
-  background: #f0f0f0;
-  color: #888;
+  background: #f3f4f6;
+  color: #4b5563;
   border: none;
-  padding: 15px;
-  border-radius: 15px;
+  padding: 14px;
+  border-radius: 12px;
   font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
 }
 
-.btn-reject-admin:hover { background: #d93838; color: white; }
-
-
-
-.admin-inbox-page {
-  padding: 40px;
-  width: 100%;
+.btn-reject-admin:hover {
+  background: #fee2e2;
+  color: #dc2626;
 }
 
-/* Fits more cards per row (stops them from being too wide) */
-.apps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-  gap: 20px;
-}
-
-/* Compact Card Styling */
-.app-card-premium {
+/* --- Empty States --- */
+.empty-inbox {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
   background: white;
   border-radius: 20px;
-  padding: 20px; /* Reduced from 30px */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-  border: 1px solid #f0f0f0;
-  display: flex;
-  flex-direction: column;
-  height: fit-content; /* CRITICAL: Prevents vertical stretching */
-  transition: transform 0.3s ease;
-}
-
-.pet-mini-profile h3 {
-  font-size: 20px; /* Smaller header */
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 15px 0;
-  padding: 10px 0;
-  border-top: 1px solid #f8f8f8;
-  border-bottom: 1px solid #f8f8f8;
-}
-
-.info-item p {
-  font-size: 13px;
+  border: 1px dashed #d9cfc7;
+  color: #888;
+  font-size: 16px;
   font-weight: 600;
 }
 
-/* Caps the text area so it doesn't grow the card too much */
-.reason-bubble {
-  margin-top: 8px;
-  background: #f9f8f6;
-  padding: 12px;
-  border-radius: 12px;
-  font-size: 13px;
-  line-height: 1.4;
-  max-height: 100px;
-  overflow-y: auto; /* Scroll if reason is too long */
-}
-
-.card-footer-actions {
-  margin-top: 20px;
+.adm-loader {
   display: flex;
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 20px;
+  color: #a18d6d;
+  font-family: "Baloo Tammudu Local", cursive;
 }
 
-.btn-approve-admin, .btn-reject-admin {
-  padding: 10px;
-  font-size: 13px;
-  border-radius: 10px;
+/* Step 2: Ready for Pickup Button */
+.btn-claim-admin {
+  background-color: #4f46e5; /* Clean Indigo */
+  width: 100%;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+}
+
+.btn-claim-admin:hover {
+  background-color: #4338ca; /* Darker indigo */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+}
+
+/* Badge style for the new status */
+.status-ready_to_claim {
+  color: #4338ca;
+}
+
+/* Final Step: Adopted Button (Success Green) */
+.btn-final-adopted {
+  width: 100%;
+  background: #16a34a; /* Vibrant Success Green */
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+}
+
+.btn-final-adopted:hover {
+  background: #15803d; /* Slightly darker on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(22, 163, 74, 0.3);
+}
+
+/* The Card Accent Bar - Updated to Green */
+.app-card-premium.status-adopted::before {
+  background: #16a34a;
+}
+
+/* The Status Badge inside the card */
+.status-badge.adopted {
+  background: #dcfce7; /* Light Green background */
+  color: #15803d; /* Darker Green text */
 }

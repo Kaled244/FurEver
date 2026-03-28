@@ -1,16 +1,17 @@
 /* --- Root Layout --- */
 .help-page-root {
   width: 100%;
-  background-color: #F9F8F6;
+  background-color: #f9f8f6;
   min-height: 100vh;
 }
 
 .help-subtitle {
-  font-family: 'Baloo Tammudu Local', cursive !important;
-  font-size: 20px !important; 
-  color: #000000 !important;
-  display: block !important; /* Ensure it's treated as a block */
-  text-align: left !important; /* Force it to the left */
+  font-size: 18px;
+  color: #000000;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+  text-align: left;
 }
 
 .help-content-inner {
@@ -27,32 +28,26 @@
 }
 
 .help-main-title {
-  font-family: 'Baloo Tammudu Local', cursive;
+  font-family: "Baloo Tammudu Local", cursive;
   font-size: 54px;
-  color: #1A1A1A;
+  color: #1a1a1a;
   margin: 0;
   line-height: 1.1;
 }
 
-.help-subtitle {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 18px;
-  color: #666;
-}
-
 /* --- FAQ Accordion --- */
 .help-premium-card {
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 30px;
   padding: 45px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
   margin-bottom: 30px;
 }
 
 .help-card-title {
-  font-family: 'Baloo Tammudu Local', cursive;
+  font-family: "Baloo Tammudu Local", cursive;
   font-size: 24px;
-  color: #1A1A1A;
+  color: #1a1a1a;
   margin: 0 0 10px 0;
   line-height: 1;
   margin-bottom: 20px;
@@ -65,7 +60,7 @@
 }
 
 .faq-item {
-  border: 2px solid #F9F8F6;
+  border: 2px solid #f9f8f6;
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
@@ -79,23 +74,27 @@
   align-items: center;
   margin: 0;
   letter-spacing: 0.3px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-size: 18px;
   font-weight: 600;
-  color: #1A1A1A;
-
+  color: #1a1a1a;
 }
 
 .faq-item.active {
-  border-color: #A18D6D;
-  background: #FDFBF9;
+  border-color: #a18d6d;
+  background: #fdfbf9;
 }
 
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-out, padding 0.3s ease;
-  background: #FDFBF9;
+  transition:
+    max-height 0.3s ease-out,
+    padding 0.3s ease;
+  background: #fdfbf9;
   padding: 0 25px;
   color: #666;
   line-height: 1.6;
@@ -114,23 +113,23 @@
 }
 
 .contact-box {
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 40px;
   border-radius: 24px;
   text-align: center;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.03);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
 }
 
 .contact-icon {
   font-size: 40px;
-  color: #A18D6D;
+  color: #a18d6d;
   margin-bottom: 20px;
 }
 
 .contact-box h3 {
-  font-family: 'Baloo Tammudu Local', cursive;
+  font-family: "Baloo Tammudu Local", cursive;
   font-size: 24px;
-  color: #1A1A1A;
+  color: #1a1a1a;
   margin: 0 0 10px 0;
   line-height: 1;
 }
@@ -159,16 +158,25 @@
   align-items: center;
   margin: 0;
   letter-spacing: 0.3px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-size: 18px;
   font-weight: 600;
-  color: #1A1A1A;
+  color: #1a1a1a;
 }
 
 /* --- Animations --- */
 @keyframes gentleSlideUp {
-  0% { transform: translateY(20px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .animate-slide-up {

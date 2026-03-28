@@ -14,6 +14,7 @@ import Adopt from './pages/Adopt/Adopt';
 import Profile from './pages/Profile/Profile';
 import About from './pages/About/About';
 import Help from './pages/Help/Help';
+import Application from './pages/Application/Application';
 
 // Admin Page Components
 import AdminManagePets from './pages/AdminManagePets/AdminManagePets';
@@ -67,6 +68,7 @@ const AppContent = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/about" element={<About />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/applications" element={<Application />} />
           
           {/* Admin Routes */}
           <Route path="/admin-dashboard" element={<div style={{padding: '40px'}}><h1>Dashboard coming soon!</h1></div>} />

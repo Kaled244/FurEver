@@ -1,0 +1,295 @@
+/* --- Premium Adopted Pet Card --- */
+.uh-adopted-card {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  width: 105%;
+}
+
+/* Adds a warm, glowing shadow on hover */
+.uh-adopted-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(161, 141, 109, 0.15);
+}
+
+/* --- Image & Badges --- */
+.uh-adopted-img-wrapper {
+  width: 100%;
+  height: 240px;
+  position: relative;
+}
+
+.uh-adopted-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.uh-adopted-badge-species {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #2e3133; /* Dark charcoal for contrast */
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 251, 0, 0.95);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.uh-adopted-furever-badge {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(255, 251, 0, 0.95);
+  backdrop-filter: blur(8px);
+  color: #000000;
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Card Body --- */
+.uh-adopted-info {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.uh-adopted-name {
+  font-family: "Baloo Tammudu Local", cursive;
+  font-size: 28px;
+  color: #1a1a1a;
+  margin: 0 0 20px 0;
+  line-height: 1.1;
+}
+
+/* --- Premium Stats Grid (Mini-boxes instead of plain text) --- */
+.uh-adopted-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Puts them side by side */
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-grow: 1;
+}
+
+.uh-adopted-stats p {
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+  background: #f9f8f6; 
+  padding: 10px 0px 0px 10px;
+  border-radius: 14px;
+  display: flex;
+  gap: 4px;
+
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+
+}
+
+/* The labels inside the boxes */
+.uh-adopted-stats span {
+  font-size: 16px;
+  color: #a18d6d;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+/* --- Proper "Check Details" Button --- */
+.uh-adopted-link-details {
+  width: 100%;
+  background: #D9CFC7;
+  border: 0px solid #ebe8e3;
+  color: #2e3133;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-top: auto;
+}
+
+.uh-adopted-link-details:hover {
+  background: #a18d6d;
+  border-color: #a18d6d;
+  color: white;
+}
+
+/* --- Exact PetCard Modal Styles (Unchanged, already perfect) --- */
+.uh-adopted-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.uh-adopted-modal-box {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 24px;
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.uh-adopted-close-x {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #000000;
+  cursor: pointer;
+}
+
+.uh-adopted-close-x:hover {
+  color: #1a1a1a;
+}
+
+.uh-adopted-modal-title,
+.uh-adopted-health-title {
+  margin: 0 0 15px 0;
+  font-size: 24px;
+  color: #000000;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.uh-adopted-highlight-name {
+  color: #a18d6d;
+}
+
+.uh-adopted-description-text {
+  font-family: system-ui,-apple-system,sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 30px;
+  text-align: center;
+  width: 100%;
+  display: block;
+  background-color: #f8f9fa;
+  border: 1px solid #e2e8f0;
+  padding: 16px 20px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.uh-adopted-health-section {
+  border-top: 1px solid #f0f0f0;
+  padding-top: 20px;
+}
+
+.uh-adopted-health-table {
+  width: 100%;
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #f3eeea;
+}
+
+.uh-adopted-health-table th {
+  padding: 15px;
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.uh-adopted-health-table td {
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 15px;
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.uh-adopted-no-records {
+  font-style: italic;
+  color: #888;
+  margin-top: 10px;
+}
+
+/* Styling for the info inside the modal */
+.uh-modal-header-section {
+  margin-bottom: 20px;
+}
+
+.modal-stats {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.uh-modal-divider {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 20px 0;
+}
+
+.uh-section-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* The Claim Button */
+.uh-claimed-btn {
+  width: 100%;
+  margin: 20px 0;
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.uh-claimed-btn:hover {
+  background-color: #43a047;
+  transform: translateY(-2px);
+}

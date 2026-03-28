@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import PetCard from '../../components/Pet/PetCard';
-import ApplicationListModal from '../../components/Pet/ApplicationListModal';
 import './Adopt.css';
 
 const SPECIES_DATA = {
@@ -50,7 +49,6 @@ const Adopt = () => {
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showAppList, setShowAppList] = useState(false);
 
   const [filters, setFilters] = useState({
     species: 'All Pets',
@@ -136,17 +134,6 @@ const Adopt = () => {
           )}
         </div>
 
-        <button 
-          className="ua-floating-btn" 
-          onClick={() => setShowAppList(true)}
-        >
-          <span className="ua-btn-text">Applications</span>
-        </button>
-
-        <ApplicationListModal 
-          isOpen={showAppList} 
-          onClose={() => setShowAppList(false)} 
-        />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 /* --- Root & Dashboard Layout --- */
 .user-home-page-root {
   width: 100%;
-  background-color: #F9F8F6;
+  background-color: #f9f8f6;
   min-height: 100vh;
   display: block;
 }
@@ -30,24 +30,22 @@
   display: flex;
   flex-direction: column;
   gap: 25px;
-  /* CRITICAL FIX 1: Ensures Dropdown sits on top of everything */
   position: relative;
-  z-index: 100; 
+  z-index: 100;
 }
 
 .uh-main-title {
-  font-family: 'Baloo Tammudu Local', cursive;
+  font-family: "Baloo Tammudu Local", cursive;
   font-size: 54px;
-  color: #1A1A1A;
+  color: #1a1a1a;
   margin: 0;
   line-height: 1.1;
   text-align: left;
 }
 
 .uh-subtitle {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 18px; 
-  color: #444444;
+  font-size: 18px;
+  color: #000000;
   line-height: 1.6;
   margin: 0;
   font-weight: 400;
@@ -62,20 +60,25 @@
 
 .uh-filter-btn {
   border: none;
-  background: #FFFFFF;
+  background: #D9CFC7;
   height: 48px;
-  border-radius: 24px;
+  width: auto;
+  border-radius: 15px;
   padding: 0 30px;
+  font-family: "Baloo Tammudu Local", cursive;
+  font-size: 16px;
   font-weight: 500;
-  color: #666;
+  color: #000000;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
 }
 
 .uh-filter-btn:hover,
 .uh-filter-btn.uh-btn-active {
-  background-color: #A18D6D;
+  background-color: #a18d6d;
   color: white;
   box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
 }
@@ -99,9 +102,9 @@
   justify-content: center;
   padding: 0 30px;
   height: 48px;
-  border-radius: 24px;
-  background: #FFFFFF;
-  color: #666;
+  border-radius: 15px;
+  background: #D9CFC7;
+  color: #000000;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -110,9 +113,9 @@
   min-width: 160px;
 }
 
-.uh-dropdown-trigger:hover, 
+.uh-dropdown-trigger:hover,
 .uh-dropdown-trigger.uh-btn-active {
-  background-color: #A18D6D;
+  background-color: #a18d6d;
   color: white;
   box-shadow: 0 6px 20px rgba(161, 141, 109, 0.3);
 }
@@ -123,12 +126,12 @@
   padding: 8px;
   width: 100%;
   min-width: 220px;
-  left: 0; 
+  left: 0;
   background: #ffffff;
   border-radius: 16px;
   list-style: none;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   animation: uhDropdownPop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -150,330 +153,407 @@
   cursor: pointer;
 }
 
-.uh-dropdown-menu li button:hover{
-  background-color: #D9CFC7;
+.uh-dropdown-menu li button:hover {
+  background-color: #d9cfc7;
   color: #000000;
 }
 
 .user-home-dropdown[open] > summary::before {
-  content: ' ';
+  content: " ";
   display: block;
   position: fixed;
-  top: 0; right: 0; left: 0; bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   z-index: -1;
+}
+
+/* --- Stats Cards (Consolidated & Cleaned) --- */
+.uh-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin: 40px 0;
+  width: 100%;
+}
+
+.uh-stat-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.uh-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(161, 141, 109, 0.1);
+}
+
+.uh-stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f8f6;
+  color: #a18d6d;
+}
+
+/* Specific Stat Icon Colors */
+.uh-stat-card:nth-child(1) .uh-stat-icon { background: #ffebeb; color: #d93838; } 
+.uh-stat-card:nth-child(2) .uh-stat-icon { background: #e0f2fe; color: #0ea5e9; } 
+.uh-stat-card:nth-child(3) .uh-stat-icon { background: #fef3c7; color: #d97706; } 
+
+.uh-stat-content h3 {
+  font-family: 'Baloo Tammudu Local', cursive;
+  font-size: 32px;
+  margin: 0;
+  line-height: 1;
+  color: #1a1a1a;
+}
+
+.uh-stat-content p {
+  margin: 5px 0 0 0;
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* --- Pet Grid & States --- */
 .uh-pet-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 30px;
+  gap: 50px;
   width: 100%;
   justify-items: start;
   margin-bottom: 50px;
-  /* Placed behind the header just in case */
   position: relative;
-  z-index: 1; 
+  z-index: 1;
 }
 
-.uh-loading-msg, 
-.uh-error-msg, 
+.uh-loading-msg,
+.uh-error-msg,
 .uh-empty-msg {
   width: 100%;
   padding: 40px;
   text-align: center;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 16px;
   color: #666;
   font-size: 16px;
 }
 
 .uh-error-msg {
-  color: #D93838;
-  background: #FFEBEB;
+  color: #d93838;
+  background: #ffebeb;
 }
 
-/* --- NEW: One Big Panel for FYP --- */
+/* --- Community Updates Panel - Professional Redesign --- */
 .uh-fyp-container {
-  background: #FFFFFF;
-  border-radius: 32px;
-  padding: 40px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 0;
   width: 100%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02); /* Extremely soft shadow */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
   box-sizing: border-box;
   margin-bottom: 60px;
+  overflow: hidden;
+  border: 1px solid #f0ede8;
 }
 
 .uh-fyp-header {
-  margin-bottom: 30px;
-  width: 100%;
+  padding: 32px 36px 24px 36px;
+  border-bottom: 1px solid #f0ede8;
+  background: #ffffff;
 }
 
 .uh-section-title {
-  font-family: 'Baloo Tammudu Local', cursive;
-  font-size: 36px;
-  color: #1A1A1A;
-  margin: 0 0 5px 0;
-  line-height: 1.2;
+  font-family: "Baloo Tammudu Local", "Baloo 2", cursive;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e2a1e;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.uh-section-subtitle {
+  font-family: system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 15px;
+  color: #7c8b7c;
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 400;
 }
 
 .uh-announcement-feed {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 0;
 }
 
+/* Modern Post Card Design */
 .uh-post-card {
-  background: #F9F8F6; /* Slight off-white to contrast the white panel */
-  padding: 30px;
-  border-radius: 20px;
-  border: 1px solid #EBE8E3;
+  background: #ffffff;
+  padding: 28px 36px;
+  border-bottom: 1px solid #f0ede8;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+  transition: all 0.25s ease;
+  position: relative;
 }
 
+.uh-post-card:last-child {
+  border-bottom: none;
+}
+
+.uh-post-card:hover {
+  background: #fefefc;
+}
+
+/* Post Header with Better Hierarchy */
 .uh-post-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #EBE8E3;
-  padding-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
+/* Modern Tag Styles */
 .uh-post-tag {
-  background: #D9CFC7;
-  color: #3A2525;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f4f2ef;
+  color: #5a6b5a;
+  padding: 5px 14px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  font-family: system-ui, sans-serif;
+}
+
+.uh-post-tag::before {
+  content: "●";
+  font-size: 8px;
+  opacity: 0.7;
 }
 
 .uh-post-tag.urgent {
-  background: #FFEBEB;
-  color: #D93838;
+  background: #fff4ed;
+  color: #d96c2b;
 }
 
+.uh-post-tag.urgent::before {
+  color: #d96c2b;
+}
+
+.uh-post-tag.success {
+  background: #eef5ea;
+  color: #4a7c3a;
+}
+
+.uh-post-tag.tip {
+  background: #eef2fa;
+  color: #4a6f8f;
+}
+
+/* Author Info - Professional Meta */
 .uh-post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #8f9b8f;
+}
+
+.uh-author-avatar {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #e8e3dc 0%, #ddd6ce 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
   font-size: 14px;
-  color: #666;
+  color: #5e4e3e;
 }
 
-.uh-post-meta strong {
-  color: #1A1A1A;
+.uh-author-details {
+  display: flex;
+  flex-direction: column;
 }
 
+.uh-author-name {
+  font-weight: 600;
+  color: #2c3e2c;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.uh-post-date {
+  font-size: 12px;
+  color: #9eae9e;
+}
+
+/* Post Description - Improved Readability */
 .uh-post-description {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #333;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #2d3a2d;
   margin: 0;
+  font-family: system-ui, -apple-system, 'Inter', sans-serif;
 }
 
-/* Smart Image Grid */
+/* Enhanced Image Grid */
 .uh-post-images {
   display: grid;
-  gap: 10px;
-  margin-top: 10px;
-  border-radius: 16px;
+  gap: 12px;
+  margin-top: 4px;
+  border-radius: 20px;
   overflow: hidden;
 }
 
 .uh-post-images.grid-1 {
   grid-template-columns: 1fr;
+  max-width: 100%;
 }
 
 .uh-post-images.grid-2 {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.uh-post-images.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.uh-image-wrapper {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f5f3f0;
+  aspect-ratio: 16 / 10;
+  cursor: pointer;
 }
 
 .uh-post-img {
   width: 100%;
-  height: 350px;
+  height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
 
-.uh-post-img:hover {
-  transform: scale(1.02);
+.uh-image-wrapper:hover .uh-post-img {
+  transform: scale(1.05);
 }
 
-/* --- Sticky Chat Panel --- */
-.uh-chat-panel {
-  width: 380px; /* CRITICAL FIX 3: Made wider as requested */
-  flex-shrink: 0;
-  background: #FFFFFF;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+/* Optional: Image Overlay on Hover */
+.uh-image-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.25s ease;
+  pointer-events: none;
+}
+
+.uh-image-wrapper:hover::after {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+/* Post Footer / Action Bar */
+.uh-post-footer {
   display: flex;
-  flex-direction: column;
-  position: sticky;
-  top: 40px;
-  height: calc(100vh - 80px);
-  overflow: hidden;
-  align-self: flex-start; /* CRITICAL FIX 2: This is what allows 'sticky' to actually work in Flexbox! */
-}
-
-.uh-chat-header {
-  padding: 20px;
-  border-bottom: 1px solid #F0F0F0;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  color: #1A1A1A;
+  gap: 24px;
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px solid #f0ede8;
 }
 
-.uh-chat-header h3 {
-  margin: 0;
-  font-family: 'Baloo Tammudu Local', cursive;
-  font-size: 22px;
-  line-height: 1;
-}
-
-.uh-chat-close-btn {
+.uh-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: transparent;
   border: none;
-  color: #9CA3AF;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  border-radius: 50%;
-  transition: all 0.2s;
-}
-
-.uh-chat-close-btn:hover {
-  background: #F3F4F6;
-  color: #1A1A1A;
-}
-
-.uh-chat-user-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.uh-chat-user-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px;
-  border-radius: 12px;
-  transition: background 0.2s ease;
-  cursor: pointer;
-}
-
-.uh-chat-user-item:hover {
-  background: #F9F8F6;
-}
-
-.uh-chat-avatar {
-  width: 40px;
-  height: 40px;
-  background: #D9CFC7;
-  color: #3A2525;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 16px;
-  position: relative;
-}
-
-.uh-status-dot {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  background: #FFFFFF;
-  border-radius: 50%;
-  border: 2px solid #FFFFFF;
-}
-
-.uh-status-dot.online { color: #10B981; }
-.uh-status-dot.offline { color: #9CA3AF; }
-
-.uh-chat-user-info {
-  flex: 1;
-  overflow: hidden;
-}
-
-.uh-chat-user-info h4 {
-  margin: 0 0 4px 0;
-  font-size: 14px;
-  color: #1A1A1A;
-}
-
-.uh-chat-user-info p {
-  margin: 0;
-  font-size: 12px;
-  color: #666;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.uh-chat-input-area {
-  padding: 15px;
-  border-top: 1px solid #F0F0F0;
-  display: flex;
-  gap: 10px;
-  background: #FAFAFA;
-}
-
-.uh-chat-input-area input {
-  flex: 1;
-  padding: 10px 15px;
-  border-radius: 20px;
-  border: 1px solid #E5E7EB;
+  padding: 6px 0;
   font-size: 13px;
-  background: #FFFFFF;
-  outline: none;
+  font-weight: 500;
+  color: #8a9a8a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: system-ui, sans-serif;
 }
 
-.uh-chat-input-area button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  background: #A18D6D;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+.uh-action-btn:hover {
+  color: #a18d6d;
 }
 
-/* Floating Action Button (Shows when chat is closed) */
-.uh-chat-fab {
-  position: fixed;
-  bottom: 40px;
-  right: 60px;
-  width: 60px;
-  height: 60px;
-  background-color: #A18D6D;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 20px rgba(161, 141, 109, 0.4);
-  cursor: pointer;
+.uh-action-btn svg {
   transition: transform 0.2s ease;
-  z-index: 900;
 }
 
-.uh-chat-fab:hover {
+.uh-action-btn:hover svg {
   transform: scale(1.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .uh-fyp-header {
+    padding: 24px 20px 20px 20px;
+  }
+  
+  .uh-section-title {
+    font-size: 24px;
+  }
+  
+  .uh-post-card {
+    padding: 20px;
+  }
+  
+  .uh-post-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .uh-post-images.grid-2,
+  .uh-post-images.grid-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .uh-image-wrapper {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .uh-fyp-header {
+    padding: 28px 28px 20px 28px;
+  }
+  
+  .uh-post-card {
+    padding: 24px 28px;
+  }
 }
 
 /* --- Animations --- */
@@ -485,4 +565,17 @@
 .animate-slide-up {
   opacity: 0;
   animation: gentleSlideUp 0.5s ease-out forwards;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+  .user-home-content { padding: 32px 40px; }
+  .uh-stats-grid { gap: 16px; }
+}
+
+@media (max-width: 768px) {
+  .user-home-content { padding: 24px 20px; }
+  .uh-stats-grid { grid-template-columns: 1fr; }
+  .uh-main-title { font-size: 40px; }
+  .uh-filter-bar { flex-wrap: wrap; }
 }
