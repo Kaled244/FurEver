@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
 import { Search, CheckCircle, Info } from "lucide-react";
-import { API_ENDPOINTS } from '../../config/apiConfig';
+import { API_ENDPOINTS } from '../../config/apiConfig.js';
 import "./Application.css";
 
 const UserApplications = () => {
