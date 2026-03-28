@@ -14,7 +14,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/pets")
-@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*")
 public class PetController {
 
     private final PetService petService;
@@ -70,7 +69,7 @@ public class PetController {
         pet.setPrice(pPrice);
         
         // This is the URL React will use to show the image
-        pet.setImage("http://localhost:8080/api/pets/images/" + fileName); 
+        pet.setImage("/api/pets/images/" + fileName); 
 
         return ResponseEntity.ok(petService.addPet(pet));
     }
@@ -115,7 +114,7 @@ public class PetController {
             String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
             Path filePath = Paths.get("uploads/").resolve(fileName);
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            pet.setImage("http://localhost:8080/api/pets/images/" + fileName);
+            pet.setImage("/api/pets/images/" + fileName);
         }
 
         pet.setName(pName);
