@@ -9,10 +9,8 @@ import java.util.List;
 @Repository
 public interface PetRepository extends JpaRepository<PetEntity, Integer> {
 
-    @Query("SELECT p FROM PetEntity p " +
-           "JOIN ApplicationEntity a ON p.id = a.pet.id " +
-           "WHERE a.user.id = :userId " +
-           "AND a.status = 'APPROVED' " +
-           "AND p.status = 'adopted'")
+    @Query("SELECT p FROM PetEntity p WHERE p.user.id = :userId AND p.status = 'adopted'")
     List<PetEntity> findAdoptedPetsByUserId(@Param("userId") Integer userId);
+
+    long countByStatus(String status);
 }

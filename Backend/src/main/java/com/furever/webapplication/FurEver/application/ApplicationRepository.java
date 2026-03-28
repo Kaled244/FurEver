@@ -10,4 +10,5 @@ import java.util.List;
 public interface ApplicationRepository extends JpaRepository<ApplicationEntity, Integer> {
     boolean existsByUserAndPet(UserEntity user, PetEntity pet);
     List<ApplicationEntity> findByUser(UserEntity user);
+    long countByStatus(String status);
 }

@@ -2,6 +2,7 @@ package com.furever.webapplication.FurEver.pets;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.furever.webapplication.FurEver.healthrecords.HealthRecordsEntity;
+import com.furever.webapplication.FurEver.user.UserEntity; // IMPORT ADDED
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -50,6 +51,11 @@ public class PetEntity {
     @JsonProperty("pDescription")
     private String description;
 
+    // --- NEW FIELD ADDED HERE ---
+    @ManyToOne
+    @JoinColumn(name = "user_id") // This links the pet to the owner in the DB
+    private UserEntity user;
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "p_id", referencedColumnName = "p_id", insertable = false, updatable = false)
     @JsonProperty("healthRecords")
@@ -78,6 +84,10 @@ public class PetEntity {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
     
+    // --- NEW GETTER AND SETTER ADDED HERE ---
+    public UserEntity getUser() { return user; }
+    public void setUser(UserEntity user) { this.user = user; }
+
     public List<HealthRecordsEntity> getHealthRecords() { return healthRecords; }
     public void setHealthRecords(List<HealthRecordsEntity> healthRecords) { this.healthRecords = healthRecords; }
 }

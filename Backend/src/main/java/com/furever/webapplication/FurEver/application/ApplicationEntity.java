@@ -14,11 +14,11 @@ public class ApplicationEntity {
     @Column(name = "app_id")
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "p_id", nullable = false)
     private PetEntity pet;
 
@@ -46,7 +46,7 @@ public class ApplicationEntity {
 
     public ApplicationEntity() {}
 
-    // Getters and Setters
+    // Getters and Setters...
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public UserEntity getUser() { return user; }
