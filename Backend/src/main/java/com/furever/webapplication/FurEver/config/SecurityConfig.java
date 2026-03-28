@@ -40,32 +40,34 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(AbstractHttpConfigurer::disable)
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/api/auth/**", "/api/health/**").permitAll()
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/health/**").permitAll()
 
-                // User Protected Routes
-                .requestMatchers("/api/pets/my-pets").authenticated() 
-                .requestMatchers("/api/profile/**").authenticated()
-                .requestMatchers("/api/applications/**").authenticated()
-                
-                // --- ADMIN CONSOLIDATED RULES ---
-                // We use hasRole("ADMIN") because your Filter adds the "ROLE_" prefix already!
-                .requestMatchers(HttpMethod.POST, "/api/pets/add").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/pets/update/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/pets/**").hasRole("ADMIN")
-                
-                // --- PUBLIC GET RULES ---
-                // Allow everyone to see pets and the uploaded images
-                .requestMatchers(HttpMethod.GET, "/api/pets", "/api/pets/**").permitAll() 
-                .requestMatchers("/uploads/**").permitAll() // Ensure static images are public
-            
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                        .requestMatchers("/", "/index.html").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/health/**").permitAll()
+
+                        // User Protected Routes
+                        .requestMatchers("/api/pets/my-pets").authenticated()
+                        .requestMatchers("/api/profile/**").authenticated()
+                        .requestMatchers("/api/applications/**").authenticated()
+
+                        // --- ADMIN CONSOLIDATED RULES ---
+                        // We use hasRole("ADMIN") because your Filter adds the "ROLE_" prefix already!
+                        .requestMatchers(HttpMethod.POST, "/api/pets/add").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/pets/update/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/pets/**").hasRole("ADMIN")
+
+                        // --- PUBLIC GET RULES ---
+                        // Allow everyone to see pets and the uploaded images
+                        .requestMatchers(HttpMethod.GET, "/api/pets", "/api/pets/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll() // Ensure static images are public
+
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -73,16 +75,19 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        
-        // Parse comma-separated origins from environment variable
+
+        // This pulls from the Render variable we just set
         List<String> origins = Arrays.asList(corsOrigins.split(","));
         configuration.setAllowedOrigins(origins);
-        
+
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+
+        // Change this line to allow all headers to prevent "Header not allowed" 403s
+        configuration.setAllowedHeaders(List.of("*"));
+
         configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L); // Cache preflight for 1 hour
-        
+        configuration.setMaxAge(3600L);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
