@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_ENDPOINTS } from '../../config/apiConfig.js';
+import { API_ENDPOINTS } from '../../api/config';
 import './Profile.css';
 import eyeOpen from '../../assets/eyeopen.png';
 import eyeClose from '../../assets/eyeclose.png';
