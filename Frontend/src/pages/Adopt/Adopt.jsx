@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import PetCard from '../../components/Pet/PetCard';
+import { API_ENDPOINTS } from '../../config/apiConfig';
 import './Adopt.css';
 
 const SPECIES_DATA = {
