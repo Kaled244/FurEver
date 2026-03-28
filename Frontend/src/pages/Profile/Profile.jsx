@@ -31,7 +31,8 @@ const Profile = () => {
     const fetchProfileData = async () => {
       try {
         setLoading(true);
-        const userRes = await axios.get('http://localhost:8080/api/profile/me', {
+        // eslint-disable-next-line no-undef
+        const userRes = await axios.get(API_ENDPOINTS.PROFILE_ME, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         
@@ -42,7 +43,8 @@ const Profile = () => {
             l_name: userData.l_name || userData.lName || ""
         });
 
-        const appRes = await axios.get('http://localhost:8080/api/applications/my-submissions', {
+        // eslint-disable-next-line no-undef
+        const appRes = await axios.get(API_ENDPOINTS.APPLICATIONS_MY_SUBMISSIONS, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         // Handle standardized ApiResponse mapping for applications Array
@@ -95,7 +97,8 @@ const Profile = () => {
         formData.append('avatar', avatarFile);
       }
       
-      const response = await axios.put('http://localhost:8080/api/profile/update', formData, {
+      // eslint-disable-next-line no-undef
+      const response = await axios.put(API_ENDPOINTS.PROFILE_UPDATE, formData, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -127,7 +130,8 @@ const Profile = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.put('http://localhost:8080/api/profile/change-password', passwordData, {
+      // eslint-disable-next-line no-undef
+      await axios.put(API_ENDPOINTS.PROFILE_CHANGE_PASSWORD, passwordData, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       alert("Password updated successfully!");

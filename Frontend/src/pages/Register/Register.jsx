@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Register.css';
+import { API_ENDPOINTS } from '../../api/config';
 
 import catsBg from '../../assets/Cats.jpg';
 import lock from '../../assets/lock.png';
@@ -44,7 +45,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/auth/register', {
+      const response = await fetch(API_ENDPOINTS.AUTH_REGISTER, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

@@ -27,7 +27,8 @@ const AdminApplications = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:8080/api/applications/all",
+        // eslint-disable-next-line no-undef
+        API_ENDPOINTS.APPLICATIONS_ALL,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const appData = response.data.data || [];
@@ -56,7 +57,8 @@ const AdminApplications = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:8080/api/applications/${id}/status`,
+        // eslint-disable-next-line no-undef
+        API_ENDPOINTS.APPLICATIONS_UPDATE_STATUS(id),
         { status: newStatus },
         {
           headers: {

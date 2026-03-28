@@ -38,7 +38,8 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/applications/submit",
+        // eslint-disable-next-line no-undef
+        API_ENDPOINTS.APPLICATIONS_SUBMIT,
         submissionData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -59,7 +59,8 @@ const Adopt = () => {
     const fetchPets = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:8080/api/pets');
+        // eslint-disable-next-line no-undef
+        const response = await axios.get(API_ENDPOINTS.PETS_GET_ALL);
         setPets(response.data);
       } catch (error) {
         console.error("Failed to fetch pets:", error);

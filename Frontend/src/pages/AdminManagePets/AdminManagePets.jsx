@@ -41,7 +41,8 @@ const AdminManagePets = () => {
 
   const fetchPets = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/pets');
+      // eslint-disable-next-line no-undef
+      const response = await axios.get(API_ENDPOINTS.PETS_GET_ALL);
       if (Array.isArray(response.data)) setPets(response.data);
     } catch (err) {
       console.error("❌ Error fetching pets:", err);
@@ -105,8 +106,10 @@ const AdminManagePets = () => {
     try {
       const token = localStorage.getItem('token');
       const url = editingId 
-        ? `http://localhost:8080/api/pets/update/${editingId}` 
-        : `http://localhost:8080/api/pets/add`;
+        // eslint-disable-next-line no-undef
+        ? API_ENDPOINTS.PETS_UPDATE(editingId)
+        // eslint-disable-next-line no-undef
+        : API_ENDPOINTS.PETS_ADD;
       
       await axios({
         method: editingId ? 'put' : 'post',
@@ -130,7 +133,8 @@ const AdminManagePets = () => {
     if (!window.confirm("Are you sure you want to remove this pet? This will also delete the image.")) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:8080/api/pets/${id}`, {
+      // eslint-disable-next-line no-undef
+      await axios.delete(API_ENDPOINTS.PETS_DELETE(id), {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchPets();

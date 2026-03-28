@@ -27,7 +27,8 @@ const UserApplications = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:8080/api/applications/my-submissions",
+        // eslint-disable-next-line no-undef
+        API_ENDPOINTS.APPLICATIONS_MY_SUBMISSIONS,
         { headers: { Authorization: `Bearer ${token}` } },
       );
       const data = response.data.data || response.data;
@@ -43,7 +44,8 @@ const UserApplications = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:8080/api/applications/${appId}/status`,
+        // eslint-disable-next-line no-undef
+        API_ENDPOINTS.APPLICATIONS_UPDATE_STATUS(appId),
         { status: "READY_TO_CLAIM" },
         { headers: { Authorization: `Bearer ${token}` } },
       );
@@ -111,7 +113,8 @@ const UserApplications = () => {
                       app.pet?.pImage?.startsWith("http")
                         ? app.pet.pImage
                         : app.pet?.pImage
-                          ? `http://localhost:8080/uploads/${app.pet.pImage}`
+                          // eslint-disable-next-line no-undef
+                          ? API_ENDPOINTS.UPLOADS(app.pet.pImage)
                           : "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=400"
                     }
                     alt={app.pet?.pName || "Pet"}
