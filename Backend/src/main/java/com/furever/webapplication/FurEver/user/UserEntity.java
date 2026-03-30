@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {@Index(name = "idx_username", columnList = "username")})
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,7 @@ public class UserEntity {
     @Column(name = "l_name")
     private String lName;
 
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
