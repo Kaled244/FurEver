@@ -42,8 +42,7 @@ public class ApplicationController {
     }
 
     @PostMapping("/submit")
-    @PreAuthorize("hasAuthority('ADOPTER')")
-    public ResponseEntity<ApiResponse<ApplicationEntity>> submitApplication(
+    @PreAuthorize("hasRole('ADOPTER')")
             @RequestBody ApplicationRequest request) {
         
         // Validate required fields
