@@ -52,13 +52,12 @@ public class AuthController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
 
-        // Generate token pair for mobile-friendly auth
-        Map<String, Object> tokens = refreshTokenService.generateTokenPair(user.getUsername(), user.getRole());
+        // Generate ONLY access token for web (skip refresh token overhead)
+        String accessToken = jwtService.generateToken(user.getUsername(), user.getRole());
 
         Map<String, Object> data = Map.of(
             "message", "User registered as " + user.getRole(),
-            "token", tokens.get("accessToken"),      // For frontend compatibility
-            "tokens", tokens,                         // For mobile clients
+            "token", accessToken,
             "role", user.getRole(),
             "username", user.getUsername()
         );
@@ -91,12 +90,11 @@ public class AuthController {
         }
 
         if (passwordEncoder.matches(password, user.getPassword())) {
-            // Generate token pair for better mobile support
-            Map<String, Object> tokens = refreshTokenService.generateTokenPair(user.getUsername(), user.getRole());
+            // Generate ONLY access token for web (skip refresh token overhead)
+            String accessToken = jwtService.generateToken(user.getUsername(), user.getRole());
 
             Map<String, Object> data = Map.of(
-                "token", tokens.get("accessToken"),  // For frontend compatibility
-                "tokens", tokens,                     // For mobile clients
+                "token", accessToken,
                 "role", user.getRole(),
                 "username", user.getUsername()
             );
