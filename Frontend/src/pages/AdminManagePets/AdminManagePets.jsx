@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Plus, Trash2, Edit, X, Search, ChevronDown, Upload } from 'lucide-react';
+import { API_ENDPOINTS } from '../../api/config';
+import { NotificationContext } from "../../components/Notification/NotificationContext";
 import './AdminManagePets.css';
 
 const SPECIES_DATA = {
@@ -11,6 +13,7 @@ const SPECIES_DATA = {
 };
 
 const AdminManagePets = () => {
+  const showNotification = useContext(NotificationContext);
   const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
   
   const [pets, setPets] = useState([]);
@@ -51,7 +54,6 @@ const AdminManagePets = () => {
 
   const fetchPets = async () => {
     try {
-      // eslint-disable-next-line no-undef
       const response = await axios.get(API_ENDPOINTS.PETS_GET_ALL);
       if (Array.isArray(response.data)) setPets(response.data);
     } catch (err) {
@@ -116,9 +118,7 @@ const AdminManagePets = () => {
     try {
       const token = localStorage.getItem('token');
       const url = editingId 
-        // eslint-disable-next-line no-undef
         ? API_ENDPOINTS.PETS_UPDATE(editingId)
-        // eslint-disable-next-line no-undef
         : API_ENDPOINTS.PETS_ADD;
       
       await axios({
@@ -133,9 +133,10 @@ const AdminManagePets = () => {
       setSelectedFile(null);
       setPreview(null);
       fetchPets();
+      showNotification(editingId ? "Pet updated successfully!" : "Pet added successfully!", "success");
     // eslint-disable-next-line no-unused-vars
     } catch (err) {
-      alert("Operation failed. Check if the backend update route exists.");
+      showNotification("Operation failed. Check if the backend update route exists.", "error");
     }
   };
 
@@ -143,14 +144,14 @@ const AdminManagePets = () => {
     if (!window.confirm("Are you sure you want to remove this pet? This will also delete the image.")) return;
     try {
       const token = localStorage.getItem('token');
-      // eslint-disable-next-line no-undef
       await axios.delete(API_ENDPOINTS.PETS_DELETE(id), {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchPets();
+      showNotification("Pet deleted successfully!", "success");
     // eslint-disable-next-line no-unused-vars
     } catch (err) {
-      alert("Delete failed.");
+      showNotification("Delete failed.", "error");
     }
   };
 

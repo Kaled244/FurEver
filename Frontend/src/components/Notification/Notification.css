@@ -1,13 +1,12 @@
-/* Container centered at the top of the viewport */
+/* Container positioned at the top right of the viewport */
 .notification-container {
   position: fixed;
   top: 30px;
-  left: 50%;
-  transform: translateX(-50%); /* This perfectly centers the container */
+  right: 30px; /* Position to the right */
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Ensures toasts stack neatly in the middle */
+  align-items: flex-end; /* Ensures toasts align to the right edge */
   gap: 12px;
   width: auto;
 }
@@ -50,14 +49,14 @@
   margin-right: 12px;
 }
 
-/* Smooth drop-down animation since it's centered */
+/* Smooth slide-in animation from the right */
 @keyframes toastDrop {
   from {
-    transform: translateY(-100px);
+    transform: translateX(100%);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateX(0);
     opacity: 1;
   }
 }

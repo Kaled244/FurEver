@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { NotificationContext } from "../../components/Notification/NotificationContext";
 import {
   Clock,
   CheckCircle,
@@ -14,6 +15,7 @@ import {
 import "./AdminApplications.css";
 
 const AdminApplications = () => {
+  const showNotification = useContext(NotificationContext);
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("PENDING");
@@ -73,10 +75,10 @@ const AdminApplications = () => {
       );
 
       setSelectedApp(null);
-      alert(`Success! Application is now ${newStatus}.`);
+      showNotification(`Success! Application is now ${newStatus}.`, "success");
     } catch (error) {
       console.error("❌ Status update failed:", error);
-      alert("Failed to update status. Check backend console.");
+      showNotification("Failed to update status. Check backend console.", "error");
     }
   };
 

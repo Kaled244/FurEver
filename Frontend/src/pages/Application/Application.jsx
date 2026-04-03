@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
 import { Search, CheckCircle, Info } from "lucide-react";
 import { API_ENDPOINTS } from '../../api/config';
+import { NotificationContext } from "../../components/Notification/NotificationContext";
 import "./Application.css";
 
 const UserApplications = () => {
   const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+  const showNotification = useContext(NotificationContext);
   
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,7 +40,6 @@ const UserApplications = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        // eslint-disable-next-line no-undef
         API_ENDPOINTS.APPLICATIONS_MY_SUBMISSIONS,
         { headers: { Authorization: `Bearer ${token}` } },
       );
@@ -55,7 +56,6 @@ const UserApplications = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        // eslint-disable-next-line no-undef
         API_ENDPOINTS.APPLICATIONS_UPDATE_STATUS(appId),
         { status: "READY_TO_CLAIM" },
         { headers: { Authorization: `Bearer ${token}` } },
@@ -67,10 +67,10 @@ const UserApplications = () => {
         ),
       );
       setSelectedApp(null);
-      alert(`${petName} is ready for pick-up!`);
+      showNotification(`${petName} is ready for pick-up!`, "success");
       // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      alert("Error updating status. Please check backend.");
+      showNotification("Error updating status. Please check backend.", "error");
     }
   };
 

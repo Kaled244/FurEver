@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { API_ENDPOINTS } from '../../api/config';
+import { NotificationContext } from '../../components/Notification/NotificationContext';
 import './Profile.css';
 import eyeOpen from '../../assets/eyeopen.png';
 import eyeClose from '../../assets/eyeclose.png';
 
 const Profile = () => {
+  const showNotification = useContext(NotificationContext);
   const [user, setUser] = useState({ name: "", l_name: "", email: "", address: "", role: "", username: "", avatarUrl: "" });
   const [applications, setApplications] = useState([]);
   const [, setLoading] = useState(true);
@@ -32,7 +34,6 @@ const Profile = () => {
     const fetchProfileData = async () => {
       try {
         setLoading(true);
-        // eslint-disable-next-line no-undef
         const userRes = await axios.get(API_ENDPOINTS.PROFILE_ME, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -44,7 +45,6 @@ const Profile = () => {
             l_name: userData.l_name || userData.lName || ""
         });
 
-        // eslint-disable-next-line no-undef
         const appRes = await axios.get(API_ENDPOINTS.APPLICATIONS_MY_SUBMISSIONS, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -98,7 +98,6 @@ const Profile = () => {
         formData.append('avatar', avatarFile);
       }
       
-      // eslint-disable-next-line no-undef
       const response = await axios.put(API_ENDPOINTS.PROFILE_UPDATE, formData, {
         headers: { 
           'Authorization': `Bearer ${token}`,
@@ -107,7 +106,7 @@ const Profile = () => {
       });
       
       const updatedUser = response.data;
-      alert("Profile updated successfully!");
+      showNotification("Profile updated successfully!");
       
       setUser({ 
           ...user, 
@@ -119,33 +118,32 @@ const Profile = () => {
       setShowEditProfileModal(false);
     } catch (error) {
       console.error("Update Error:", error);
-      alert("Error updating profile.");
+      showNotification("Error updating profile.", "error");
     }
   };
 
   const handlePasswordChange = async () => {
     if (!passwordData.currentPassword || !passwordData.newPassword) {
-      alert("Please fill in both fields.");
+      showNotification("Please fill in both fields.", "error");
       return;
     }
 
     try {
       const token = localStorage.getItem('token');
-      // eslint-disable-next-line no-undef
       await axios.put(API_ENDPOINTS.PROFILE_CHANGE_PASSWORD, passwordData, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      alert("Password updated successfully!");
+      showNotification("Password updated successfully!");
       setShowPasswordModal(false);
       setPasswordData({ currentPassword: "", newPassword: "" });
     // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      alert("Error updating password.");
+      showNotification("Error updating password.", "error");
     }
   };
 
   const handleDeleteAccount = () => {
-    alert("Account deletion request submitted.");
+    showNotification("Account deletion request submitted.");
     setShowDeleteModal(false);
   };
 

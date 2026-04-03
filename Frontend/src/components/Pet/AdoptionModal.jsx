@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
 import { API_ENDPOINTS } from "../../api/config";
+import { NotificationContext } from "../Notification/NotificationContext";
 
 const AdoptionModal = ({ pet, isOpen, onClose }) => {
+  const showNotification = useContext(NotificationContext);
   const [formData, setFormData] = useState({
     app_new_pet_name: "",
     app_contact: "",
@@ -24,7 +26,7 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("Please log in to adopt a pet!");
+      showNotification("Please log in to adopt a pet!", "error");
       return;
     }
 
@@ -42,13 +44,12 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
 
     try {
       const response = await axios.post(
-        // eslint-disable-next-line no-undef
         API_ENDPOINTS.APPLICATIONS_SUBMIT,
         submissionData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       console.log("✅ Application submitted:", response.data);
-      alert(response.data.message);
+      showNotification(response.data.message, "success");
       onClose();
     } catch (error) {
       console.error("❌ Application submit error:", error);
@@ -56,7 +57,7 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
         || error.response?.statusText 
         || error.message 
         || "Failed to submit application. Please try again.";
-      alert(errorMessage);
+      showNotification(errorMessage, "error");
     }
   };
 
