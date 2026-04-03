@@ -42,7 +42,7 @@ public class ApplicationController {
     }
 
     @PostMapping("/submit")
-    @PreAuthorize("hasRole('ADOPTER')")
+    @PreAuthorize("hasAuthority('ADOPTER')")
     public ResponseEntity<ApiResponse<ApplicationEntity>> submitApplication(
             @RequestBody ApplicationRequest request) {
         
