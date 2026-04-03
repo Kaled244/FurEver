@@ -6,16 +6,29 @@ import './PetCard.css';
 const PetCard = ({ pet }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
   if (!pet) return null;
+
+  // Helper function to construct full image URL
+  const getPetImage = (imagePath) => {
+    if (!imagePath) return "https://placehold.co/400x300?text=Pet+Photo";
+    if (imagePath.startsWith("http")) return imagePath; // External link
+    if (imagePath.startsWith("/api/")) return `${BASE_URL}${imagePath}`; // API endpoint
+    return `${BASE_URL}/uploads/${imagePath}`; // Local upload
+  };
 
   return (
     <div className="pc-card-container">
       <div className="pc-image-wrapper">
         <img 
-          src={pet.pImage || "https://placehold.co/400x300?text=Pet+Photo"} 
+          src={getPetImage(pet.pImage)} 
           alt={pet.pName} 
           className="pc-main-img"
+          onError={(e) => { 
+            e.target.onerror = null; 
+            e.target.src = "https://placehold.co/400x300?text=Pet+Photo"; 
+          }}
         />
         <div className="pc-badge-species">{pet.pSpecies}</div>
         <div className={`pc-badge-status ${(pet.pStatus || "").toLowerCase()}`}>

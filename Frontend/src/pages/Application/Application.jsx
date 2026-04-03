@@ -6,6 +6,8 @@ import { API_ENDPOINTS } from '../../api/config';
 import "./Application.css";
 
 const UserApplications = () => {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+  
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState("ALL");
@@ -18,6 +20,14 @@ const UserApplications = () => {
     "READY_TO_CLAIM",
     "ADOPTED",
   ];
+
+  // Helper function to construct full image URL
+  const getPetImage = (imagePath) => {
+    if (!imagePath) return "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=400";
+    if (imagePath.startsWith("http")) return imagePath;
+    if (imagePath.startsWith("/api/")) return `${BASE_URL}${imagePath}`;
+    return `${BASE_URL}/uploads/${imagePath}`;
+  };
 
   useEffect(() => {
     fetchMySubmissions();
@@ -110,14 +120,7 @@ const UserApplications = () => {
               >
                 <div className="ap-card-v2-img-wrapper">
                   <img
-                    src={
-                      app.pet?.pImage?.startsWith("http")
-                        ? app.pet.pImage
-                        : app.pet?.pImage
-                          // eslint-disable-next-line no-undef
-                          ? API_ENDPOINTS.UPLOADS(app.pet.pImage)
-                          : "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=400"
-                    }
+                    src={getPetImage(app.pet?.pImage)}
                     alt={app.pet?.pName || "Pet"}
                     className="ap-card-v2-img"
                     referrerPolicy="no-referrer"

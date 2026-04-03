@@ -11,6 +11,8 @@ const SPECIES_DATA = {
 };
 
 const AdminManagePets = () => {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+  
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -21,6 +23,14 @@ const AdminManagePets = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({ species: 'All Pets', breed: 'All Breeds' });
+
+  // Helper function to construct full image URL
+  const getPetImage = (imagePath) => {
+    if (!imagePath) return 'https://via.placeholder.com/50';
+    if (imagePath.startsWith("http")) return imagePath;
+    if (imagePath.startsWith("/api/")) return `${BASE_URL}${imagePath}`;
+    return `${BASE_URL}/uploads/${imagePath}`;
+  };
 
   const initialFormState = {
     pName: '',
@@ -221,7 +231,7 @@ const AdminManagePets = () => {
             {filteredPets.map(pet => (
               <tr key={pet.pId}>
                 <td>
-                  <img src={pet.pImage || 'https://via.placeholder.com/50'} alt="" className="table-thumb" />
+                  <img src={getPetImage(pet.pImage)} alt="" className="table-thumb" />
                 </td>
                 <td>
                   <div className="name-cell">
@@ -289,7 +299,7 @@ const AdminManagePets = () => {
                 </label>
                 {preview && (
                   <div className="adm-preview-box">
-                    <img src={preview} alt="Preview" />
+                    <img src={typeof preview === 'string' && preview.startsWith('blob:') ? preview : (typeof preview === 'string' ? getPetImage(preview) : preview)} alt="Preview" />
                   </div>
                 )}
               </div>
