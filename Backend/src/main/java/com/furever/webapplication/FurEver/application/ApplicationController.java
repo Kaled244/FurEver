@@ -63,7 +63,11 @@ public class ApplicationController {
                 .orElseThrow(() -> new RuntimeException("Pet not found"));
 
         // Check if user already has an ACTIVE application for this pet
-        if (applicationRepository.existsActiveApplicationByUserAndPet(user, pet)) {
+        boolean hasActiveApp = applicationRepository.existsActiveApplicationByUserAndPet(user, pet);
+        System.out.println("🔍 Duplicate check - User: " + user.getUsername() + ", Pet: " + pet.getName() + ", Has Active App: " + hasActiveApp);
+        
+        if (hasActiveApp) {
+            System.out.println("❌ User " + user.getUsername() + " already has active application for pet " + pet.getName());
             return ResponseEntity.badRequest()
                     .body(new ApiResponse<>("You already submitted an application for this pet.", 400));
         }
@@ -79,6 +83,7 @@ public class ApplicationController {
         application.setStatus("PENDING");
 
         ApplicationEntity savedApp = applicationRepository.save(application);
+        System.out.println("✅ Application created - User: " + user.getUsername() + ", Pet: " + pet.getName() + ", AppId: " + savedApp.getId());
 
         return ResponseEntity.ok(new ApiResponse<>(savedApp, "Application submitted!", 200));
     }
