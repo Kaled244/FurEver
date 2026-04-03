@@ -62,8 +62,7 @@ public class ApplicationController {
                 .orElseThrow(() -> new RuntimeException("Pet not found"));
 
         // Check if user already has an ACTIVE application for this pet
-        boolean hasActiveApp = applicationRepository.existsActiveApplicationByUserAndPet(user, pet);
-        System.out.println("🔍 Duplicate check - User: " + user.getUsername() + ", Pet: " + pet.getName() + ", Has Active App: " + hasActiveApp);
+        boolean hasActiveApp = applicationRepository.existsByUserAndPetAndStatusNot(user, pet, "REJECTED");
         
         if (hasActiveApp) {
             System.out.println("❌ User " + user.getUsername() + " already has active application for pet " + pet.getName());

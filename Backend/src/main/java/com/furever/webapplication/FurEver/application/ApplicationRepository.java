@@ -10,12 +10,10 @@ import java.util.List;
 @Repository
 public interface ApplicationRepository extends JpaRepository<ApplicationEntity, Integer> {
     boolean existsByUserAndPet(UserEntity user, PetEntity pet);
-    
+
     // Check for active applications (not rejected)
-    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM ApplicationEntity a " +
-           "WHERE a.user = :user AND a.pet = :pet AND a.status NOT IN ('REJECTED')")
-    boolean existsActiveApplicationByUserAndPet(UserEntity user, PetEntity pet);
-    
+    boolean existsByUserAndPetAndStatusNot(UserEntity user, PetEntity pet, String status);
+
     List<ApplicationEntity> findByUser(UserEntity user);
     long countByStatus(String status);
 }
