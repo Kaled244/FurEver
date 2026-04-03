@@ -2,15 +2,14 @@ package com.furever.webapplication.FurEver.pets;
 
 import com.furever.webapplication.FurEver.user.UserEntity;
 import com.furever.webapplication.FurEver.user.UserRepository;
+import com.furever.webapplication.FurEver.storage.SupabaseStorageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.*;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/pets")
@@ -19,11 +18,13 @@ public class PetController {
     private final PetService petService;
     private final PetRepository petRepository;
     private final UserRepository userRepository;
+    private final SupabaseStorageService storageService;
 
-    public PetController(PetService petService, PetRepository petRepository, UserRepository userRepository) {
+    public PetController(PetService petService, PetRepository petRepository, UserRepository userRepository, SupabaseStorageService storageService) {
         this.petService = petService;
         this.petRepository = petRepository;
         this.userRepository = userRepository;
+        this.storageService = storageService;
     }
 
     // 1. GET ALL PETS (Public)
@@ -32,7 +33,7 @@ public class PetController {
         return ResponseEntity.ok(petRepository.findAll());
     }
 
-    // 2. ADD PET (Admin Only - Handles File Upload)
+    // 2. ADD PET (Admin Only - Handles File Upload via Supabase)
     @PostMapping("/add")
     public ResponseEntity<PetEntity> addPet(
         @RequestParam("pImage") MultipartFile file, 
@@ -44,18 +45,15 @@ public class PetController {
         @RequestParam("pDescription") String pDescription,
         @RequestParam("pStatus") String pStatus,
         @RequestParam("pPrice") String pPrice
-    ) throws IOException {
+    ) throws Exception {
 
-        // Save file to "uploads" folder in project root
-        String uploadDir = "uploads/";
-        Path uploadPath = Paths.get(uploadDir);
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
+        // Upload to Supabase instead of local storage
+        String imageUrl;
+        if (file != null && !file.isEmpty()) {
+            imageUrl = storageService.uploadImage(file);
+        } else {
+            imageUrl = "https://placehold.co/400x300?text=No+Photo";
         }
-
-        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-        Path filePath = uploadPath.resolve(fileName);
-        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
         // Map to Entity
         PetEntity pet = new PetEntity();
@@ -68,18 +66,19 @@ public class PetController {
         pet.setStatus(pStatus);
         pet.setPrice(pPrice);
         
-        // This is the URL React will use to show the image
-        pet.setImage("/api/pets/images/" + fileName); 
+        // Store the Supabase URL directly
+        pet.setImage(imageUrl); 
 
         return ResponseEntity.ok(petService.addPet(pet));
     }
 
-    // 3. GET IMAGES (Allows browser to see the uploaded files)
+    // 3. GET IMAGES (Legacy endpoint - Returns 404 since we use Supabase now)
     @GetMapping("/images/{filename:.+}")
     @ResponseBody
-    public org.springframework.core.io.Resource getImage(@PathVariable String filename) throws IOException {
-        Path filePath = Paths.get("uploads/").resolve(filename);
-        return new org.springframework.core.io.UrlResource(filePath.toUri());
+    public ResponseEntity<?> getImage(@PathVariable String filename) {
+        // Images are now served directly from Supabase URLs in the database
+        // This endpoint is deprecated
+        return ResponseEntity.status(404).body("Images are stored in Supabase. Access them via the pet object's pImage URL.");
     }
 
     // 4. GET MY ADOPTED PETS
@@ -104,17 +103,15 @@ public class PetController {
         @RequestParam("pDescription") String pDescription,
         @RequestParam("pStatus") String pStatus,
         @RequestParam("pPrice") String pPrice
-    ) throws IOException {
+    ) throws Exception {
         
         PetEntity pet = petRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Pet not found"));
 
-        // If a new image is provided, upload it and update the path
+        // If a new image is provided, upload it to Supabase
         if (file != null && !file.isEmpty()) {
-            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-            Path filePath = Paths.get("uploads/").resolve(fileName);
-            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            pet.setImage("/api/pets/images/" + fileName);
+            String imageUrl = storageService.uploadImage(file);
+            pet.setImage(imageUrl);
         }
 
         pet.setName(pName);
@@ -129,24 +126,14 @@ public class PetController {
         return ResponseEntity.ok(petRepository.save(pet));
     }
 
-    // 6. DELETE PET (Admin Only - Includes file cleanup)
+    // 6. DELETE PET (Admin Only)
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePet(@PathVariable Integer id) {
         return petRepository.findById(id).map(pet -> {
-            try {
-                // Delete the physical image file from the /uploads folder
-                String imageUrl = pet.getImage();
-                if (imageUrl != null && imageUrl.contains("/images/")) {
-                    String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
-                    Path filePath = Paths.get("uploads/").resolve(fileName);
-                    Files.deleteIfExists(filePath);
-                }
-                
-                petRepository.delete(pet);
-                return ResponseEntity.ok().build();
-            } catch (IOException e) {
-                return ResponseEntity.internalServerError().body("Failed to delete image file");
-            }
+            // Images are stored in Supabase, so no local file cleanup needed
+            // Supabase will handle storage cleanup
+            petRepository.delete(pet);
+            return ResponseEntity.ok().body("Pet deleted successfully");
         }).orElse(ResponseEntity.notFound().build());
     }
 }
