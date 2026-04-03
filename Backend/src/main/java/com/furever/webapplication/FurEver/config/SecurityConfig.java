@@ -71,18 +71,25 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // This pulls from the Render variable we just set
-        List<String> origins = Arrays.asList(corsOrigins.split(","));
-        configuration.setAllowedOrigins(origins);
+        // Parse origins and trim whitespace
+        List<String> origins = Arrays.stream(corsOrigins.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
+        
+        // If wildcard pattern detected, use allowedOriginPatterns instead
+        if (origins.stream().anyMatch(o -> o.contains("*"))) {
+            configuration.setAllowedOriginPatterns(origins);
+        } else {
+            configuration.setAllowedOrigins(origins);
+        }
 
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-
-        // Change this line to allow all headers to prevent "Header not allowed" 403s
         configuration.setAllowedHeaders(List.of("*"));
-
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
