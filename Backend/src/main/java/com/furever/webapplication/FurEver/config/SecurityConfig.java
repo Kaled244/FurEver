@@ -71,30 +71,27 @@ public class SecurityConfig {
     }
 
     @Bean
-    @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        // Parse origins and trim whitespace
-        List<String> origins = Arrays.stream(corsOrigins.split(","))
-                .map(String::trim)
-                .filter(s -> !s.isEmpty())
-                .toList();
+        CorsConfiguration config = new CorsConfiguration();
         
-        // If wildcard pattern detected, use allowedOriginPatterns instead
-        if (origins.stream().anyMatch(o -> o.contains("*"))) {
-            configuration.setAllowedOriginPatterns(origins);
+        List<String> originsList = Arrays.stream(corsOrigins.split(","))
+            .map(String::trim)
+            .filter(s -> !s.isEmpty())
+            .toList();
+        
+        if (originsList.stream().anyMatch(o -> o.contains("*"))) {
+            config.setAllowedOriginPatterns(originsList);
         } else {
-            configuration.setAllowedOrigins(origins);
+            config.setAllowedOrigins(originsList);
         }
-
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L);
-
+        
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
+        
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
 }
