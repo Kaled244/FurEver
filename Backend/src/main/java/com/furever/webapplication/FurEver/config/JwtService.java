@@ -51,7 +51,9 @@ public class JwtService {
     }
 
     public String extractRole(String token) {
-        return extractClaim(token, claims -> claims.get("role", String.class));
+        String role = extractClaim(token, claims -> claims.get("role", String.class));
+        System.out.println("🔑 Extracted role from JWT: " + role);
+        return role;
     }
 
     public String extractUsername(String token) {

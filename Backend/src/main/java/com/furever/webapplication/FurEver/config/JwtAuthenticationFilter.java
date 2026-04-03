@@ -71,7 +71,7 @@ protected void doFilterInternal(
             // FINALLY: Put the user in the security context
             SecurityContextHolder.getContext().setAuthentication(authToken);
             
-            System.out.println("✅ User authenticated: " + username + " with role: " + formattedRole);
+            System.out.println("✅ User authenticated: " + username + " | Role: " + role + " | Authority: " + formattedRole);
         }
     } catch (Exception e) {
         // If the token is expired or fake, we DON'T block the request here.
