@@ -53,6 +53,12 @@ public class ApplicationController {
         PetEntity pet = petRepository.findById(request.petId())
                 .orElseThrow(() -> new RuntimeException("Pet not found"));
 
+        // Check if user already has an application for this pet
+        if (applicationRepository.existsByUserAndPet(user, pet)) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse<>("You already submitted an application for this pet.", 400));
+        }
+
         ApplicationEntity application = new ApplicationEntity();
         application.setUser(user);
         application.setPet(pet);
