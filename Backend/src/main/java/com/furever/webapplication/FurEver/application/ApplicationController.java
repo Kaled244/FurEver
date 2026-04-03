@@ -43,7 +43,7 @@ public class ApplicationController {
 
     @PostMapping("/submit")
     @PreAuthorize("hasRole('ADOPTER')")
-            @RequestBody ApplicationRequest request) {
+    public ResponseEntity<ApiResponse<ApplicationEntity>> submitApplication(@RequestBody ApplicationRequest request) {
         
         // Validate required fields
         if (request.petId() == null || request.appContact() == null || 
