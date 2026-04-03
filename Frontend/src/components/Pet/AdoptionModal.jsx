@@ -36,6 +36,9 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
       appAnswer: formData.app_answer,
     };
 
+    console.log("📤 Submitting application:", submissionData);
+    console.log("🔑 Token:", token ? "✓ Present" : "✗ Missing");
+
     try {
       const response = await axios.post(
         // eslint-disable-next-line no-undef
@@ -43,10 +46,16 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
         submissionData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      console.log("✅ Application submitted:", response.data);
       alert(response.data.message);
       onClose();
     } catch (error) {
-      alert(error.response?.data?.message || "You already submitted an application for this pet.");
+      console.error("❌ Application submit error:", error);
+      const errorMessage = error.response?.data?.message 
+        || error.response?.statusText 
+        || error.message 
+        || "Failed to submit application. Please try again.";
+      alert(errorMessage);
     }
   };
 

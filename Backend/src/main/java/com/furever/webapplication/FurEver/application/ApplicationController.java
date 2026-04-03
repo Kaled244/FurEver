@@ -45,6 +45,15 @@ public class ApplicationController {
     @PreAuthorize("hasRole('ADOPTER')")
     public ResponseEntity<ApiResponse<ApplicationEntity>> submitApplication(
             @RequestBody ApplicationRequest request) {
+        
+        // Validate required fields
+        if (request.petId() == null || request.appContact() == null || 
+            request.appContact().trim().isEmpty() || request.appAnswer() == null || 
+            request.appAnswer().trim().isEmpty()) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse<>("All fields are required", 400));
+        }
+        
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         UserEntity user = userRepository.findByUsername(username)
