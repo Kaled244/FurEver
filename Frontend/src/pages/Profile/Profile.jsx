@@ -136,9 +136,9 @@ const Profile = () => {
       showNotification("Password updated successfully!");
       setShowPasswordModal(false);
       setPasswordData({ currentPassword: "", newPassword: "" });
-    // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      showNotification("Error updating password.", "error");
+      const errorMessage = error.response?.data?.message || "Error updating password.";
+      showNotification(errorMessage, "error");
     }
   };
 

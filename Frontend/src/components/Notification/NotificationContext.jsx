@@ -7,14 +7,18 @@ export const NotificationContext = createContext(null);
 export const NotificationProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
 
+  const removeNotification = useCallback((id) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  }, []);
+
   const showNotification = useCallback((message, type = 'success') => {
     const id = Date.now();
     setNotifications((prev) => [...prev, { id, message, type }]);
 
     setTimeout(() => {
-      setNotifications((prev) => prev.filter((n) => n.id !== id));
-    }, 3000);
-  }, []);
+      removeNotification(id);
+    }, 8000);
+  }, [removeNotification]);
 
   return (
     <NotificationContext.Provider value={showNotification}>
@@ -22,8 +26,13 @@ export const NotificationProvider = ({ children }) => {
       <div className="notification-container">
         {notifications.map((n) => (
           <div key={n.id} className={`toast ${n.type}`}>
-            <span className="toast-icon">{n.type === 'success' ? '🐾' : '⚠️'}</span>
-            <span className="toast-message">{n.message}</span>
+            <div className="toast-content">
+              <span className="toast-icon">{n.type === 'success' ? '🐾' : '⚠️'}</span>
+              <span className="toast-message">{n.message}</span>
+            </div>
+            <button className="toast-close" onClick={() => removeNotification(n.id)}>
+              &times;
+            </button>
           </div>
         ))}
       </div>
