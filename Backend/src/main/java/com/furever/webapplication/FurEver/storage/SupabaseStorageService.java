@@ -35,7 +35,8 @@ public class SupabaseStorageService {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(supabaseKey);
         headers.set("apikey", supabaseKey);
-        String contentType = file.getContentType() != null ? file.getContentType() : "application/octet-stream";
+        String rawContentType = file.getContentType();
+        String contentType = rawContentType != null ? rawContentType : "application/octet-stream";
         headers.setContentType(MediaType.parseMediaType(contentType));
 
         // 4. Send the Request

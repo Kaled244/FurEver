@@ -13,6 +13,7 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
     app_experience: "FIRST_TIMER",
     app_answer: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -23,12 +24,16 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     const token = localStorage.getItem("token");
 
     if (!token) {
       showNotification("Please log in to adopt a pet!", "error");
       return;
     }
+
+    setIsSubmitting(true);
 
     const submissionData = {
       petId: pet.pId || pet.id,
@@ -58,6 +63,8 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
         || error.message 
         || "Failed to submit application. Please try again.";
       showNotification(errorMessage, "error");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -108,7 +115,9 @@ const AdoptionModal = ({ pet, isOpen, onClose }) => {
             <textarea name="app_answer" rows="4" value={formData.app_answer} onChange={handleChange} required></textarea>
           </div>
 
-          <button type="submit" className="am-submit-btn">Submit Application</button>
+          <button type="submit" className="am-submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit Application"}
+          </button>
         </form>
       </div>
     </div>,
