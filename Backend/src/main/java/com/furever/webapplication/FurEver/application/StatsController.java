@@ -36,6 +36,12 @@ public class StatsController {
         stats.put("totalAdopted", petRepository.countByStatus("adopted"));
         stats.put("activeMembers", userRepository.count());
         stats.put("successStories", appRepository.countByStatus("APPROVED"));
+        
+        // New analytics
+        stats.put("totalPets", petRepository.count());
+        stats.put("totalAvailablePets", petRepository.countByStatus("AVAILABLE") + petRepository.countByStatus("available"));
+        stats.put("totalPendingApplications", appRepository.countByStatus("PENDING"));
+        stats.put("totalRejectedApplications", appRepository.countByStatus("REJECTED"));
 
         return ResponseEntity.ok(new ApiResponse<>(stats, "Stats loaded successfully", 200));
     }

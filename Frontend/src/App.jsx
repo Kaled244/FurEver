@@ -17,6 +17,7 @@ import Help from './pages/Help/Help';
 import Application from './pages/Application/Application';
 
 // Admin Page Components
+import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import AdminManagePets from './pages/AdminManagePets/AdminManagePets';
 import AdminApplications from './pages/AdminApplication/AdminApplications';
 const AppContent = () => {
@@ -71,7 +72,7 @@ const AppContent = () => {
           <Route path="/applications" element={<Application />} />
           
           {/* Admin Routes */}
-          <Route path="/admin-dashboard" element={<div style={{padding: '40px'}}><h1>Dashboard coming soon!</h1></div>} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin/applications" element={<AdminApplications />} />
           <Route path="/admin/manage-pets" element={<AdminManagePets />} />
           <Route path="/admin/users" element={<div style={{padding: '40px'}}><h1>User Management coming soon!</h1></div>} />
