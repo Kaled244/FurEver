@@ -367,3 +367,4 @@
   height: 100%;
   object-fit: cover;
 }
+  .health-btn:hover { background: #e0f2fe; color: #0ea5e9; }
