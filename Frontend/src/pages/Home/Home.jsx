@@ -96,7 +96,7 @@ const Home = () => {
           description: "This sweet Golden Retriever mix was found abandoned near the shelter. Needs a temporary foster or forever home ASAP! He loves kids, other dogs, and playing fetch.",
           images: [
             "https://images.dog.ceo/breeds/retriever-golden/n02099601_2691.jpg",
-            "https://tse4.mm.bing.net/th/id/OIP.F2n8lG77WJwtWolnzDzkEwHaJ4?pid=Api&P=0&h=180"
+            "https://allbigdogbreeds.com/wp-content/gallery/golden-retriever-1/Golden-Retriever-5.jpg"
           ],
         },
         {
@@ -105,7 +105,9 @@ const Home = () => {
           author: "Admin Sarah",
           date: "5 hours ago",
           description: "Max finally found his forever home! ❤️ After waiting 8 months at our shelter, he has officially been adopted by the wonderful Miller family. Have a great life, Max!",
-          images: ["https://tse2.mm.bing.net/th/id/OIP.VRmvafIrCLo4xkO-yh25bAHaDo?pid=Api&P=0&h=180"],
+          images: ["https://tse2.mm.bing.net/th/id/OIP.VRmvafIrCLo4xkO-yh25bAHaDo?pid=Api&P=0&h=180",
+            "https://dogtime.com/wp-content/uploads/sites/12/2023/07/GettyImages-1454565264.jpg"
+          ],
         },
         {
           id: 3,
