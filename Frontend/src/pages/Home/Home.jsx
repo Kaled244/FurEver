@@ -105,7 +105,7 @@ const Home = () => {
           author: "Admin Sarah",
           date: "5 hours ago",
           description: "Max finally found his forever home! ❤️ After waiting 8 months at our shelter, he has officially been adopted by the wonderful Miller family. Have a great life, Max!",
-          images: ["https://images.dog.ceo/breeds/beagle/n02088364_12702.jpg"],
+          images: ["https://preview.redd.it/zfmbxrsdfpj91.jpg?auto=webp&s=7eb1eaffe0ae5884a4e5e9d8060c940e1f6a8fe5"],
         },
         {
           id: 3,
@@ -114,8 +114,8 @@ const Home = () => {
           date: "1 day ago",
           description: "Summer is here! Don't forget that asphalt gets extremely hot for your pet's paws during midday. Walk them early morning or late evening, and always bring water.",
           images: [
-             "https://images.dog.ceo/breeds/pug/n02110958_4647.jpg",
-             "https://images.dog.ceo/breeds/pug/n02110958_14781.jpg"
+             "https://tse2.mm.bing.net/th/id/OIP.WIu8ITTCow1Fl2GVGSASvAHaGK?pid=Api&P=0&h=180",
+             "https://animalsbreeds.com/wp-content/uploads/2014/07/Pug-2.jpg"
           ],
         },
         {
