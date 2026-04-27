@@ -42,6 +42,10 @@ export const API_ENDPOINTS = {
   // Stats
   STATS_DASHBOARD: `${API_BASE_URL}/api/stats/dashboard`,
 
+  // Health Records
+  HEALTH_GET_BY_PET: (id) => `${API_BASE_URL}/api/health/pet/${id}`,
+  HEALTH_ADD: `${API_BASE_URL}/api/health/add`,
+
   // Uploads
   UPLOADS: (filename) => `${API_BASE_URL}/uploads/${filename}`,
 };

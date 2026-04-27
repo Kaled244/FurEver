@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { Plus, Trash2, Edit, X, Search, ChevronDown, Upload } from 'lucide-react';
+import { Plus, Trash2, Edit, X, Search, ChevronDown, Upload, Activity } from 'lucide-react';
 import { API_ENDPOINTS } from '../../api/config';
 import { NotificationContext } from "../../components/Notification/NotificationContext";
 import './AdminManagePets.css';
@@ -26,6 +26,13 @@ const AdminManagePets = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({ species: 'All Pets', breed: 'All Breeds' });
+
+  // Health Records state
+  const [showHealthModal, setShowHealthModal] = useState(false);
+  const [healthRecords, setHealthRecords] = useState([]);
+  const [activePetForHealth, setActivePetForHealth] = useState(null);
+  const [healthForm, setHealthForm] = useState({ vacDate: '', vacType: '' });
+  const [healthLoading, setHealthLoading] = useState(false);
 
   // Helper function to construct full image URL
   const getPetImage = (imagePath) => {
@@ -155,6 +162,45 @@ const AdminManagePets = () => {
     }
   };
 
+  const handleHealthClick = async (pet) => {
+    setActivePetForHealth(pet);
+    setShowHealthModal(true);
+    setHealthLoading(true);
+    try {
+      const response = await axios.get(API_ENDPOINTS.HEALTH_GET_BY_PET(pet.pId));
+      setHealthRecords(response.data || []);
+    } catch (error) {
+      console.error("Failed to load health records", error);
+      showNotification("Failed to load health records", "error");
+    } finally {
+      setHealthLoading(false);
+    }
+  };
+
+  const handleHealthSubmit = async (e) => {
+    e.preventDefault();
+    if (!healthForm.vacDate || !healthForm.vacType) {
+       showNotification("Please fill all health record fields", "error");
+       return;
+    }
+    
+    try {
+      const data = {
+        pId: activePetForHealth.pId,
+        vacDate: healthForm.vacDate,
+        vacType: healthForm.vacType
+      };
+      
+      const response = await axios.post(API_ENDPOINTS.HEALTH_ADD, data);
+      setHealthRecords([...healthRecords, response.data]);
+      setHealthForm({ vacDate: '', vacType: '' });
+      showNotification("Health record added successfully!", "success");
+    } catch(err) {
+      console.error("Failed to add health record", err);
+      showNotification("Failed to add health record", "error");
+    }
+  };
+
   if (loading) return <div className="adm-loader">Fetching Fuzzy Pets...</div>;
 
   return (
@@ -247,6 +293,7 @@ const AdminManagePets = () => {
                   </span>
                 </td>
                 <td className="table-actions">
+                  <button className="health-btn" onClick={() => handleHealthClick(pet)} title="Health Records"><Activity size={16} /></button>
                   {/* Fixed: Bound handleEditClick */}
                   <button className="edit-btn" onClick={() => handleEditClick(pet)}><Edit size={16} /></button>
                   <button className="delete-btn" onClick={() => deletePet(pet.pId)}><Trash2 size={16} /></button>
@@ -308,6 +355,67 @@ const AdminManagePets = () => {
               <textarea name="pDescription" placeholder="Pet Biography/Description..." value={formData.pDescription} onChange={handleInputChange} required></textarea>
               <button type="submit" className="save-pet-btn">
                 {editingId ? "Update Pet Details" : "Save new pet"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* HEALTH RECORDS MODAL */}
+      {showHealthModal && activePetForHealth && (
+        <div className="pet-modal-overlay">
+          <div className="pet-modal-content animate-pop" style={{ maxWidth: '600px' }}>
+            <div className="modal-header">
+              <h2>Health Records: {activePetForHealth.pName}</h2>
+              <button className="close-modal" onClick={() => setShowHealthModal(false)}><X /></button>
+            </div>
+            
+            <div className="health-records-container" style={{ maxHeight: '300px', overflowY: 'auto', marginBottom: '20px', padding: '10px', background: '#f9f8f6', borderRadius: '12px' }}>
+              {healthLoading ? (
+                <p>Loading records...</p>
+              ) : healthRecords.length === 0 ? (
+                <p style={{textAlign: 'center', color: '#888', fontStyle: 'italic', margin: '20px 0'}}>No health records found for {activePetForHealth.pName}.</p>
+              ) : (
+                <table className="adm-table" style={{ margin: 0 }}>
+                  <thead>
+                    <tr>
+                      <th style={{ padding: '10px' }}>Date</th>
+                      <th style={{ padding: '10px' }}>Treatment / Vaccine Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {healthRecords.map((r, i) => (
+                      <tr key={i}>
+                        <td style={{ padding: '10px', fontSize: '14px' }}>{new Date(r.vacDate).toLocaleDateString()}</td>
+                        <td style={{ padding: '10px', fontSize: '14px' }}>{r.vacType}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+
+            <form onSubmit={handleHealthSubmit} className="pet-form">
+              <h3 style={{ fontSize: '16px', margin: '0 0 15px 0', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>Add New Record</h3>
+              <div className="form-row">
+                <input 
+                  type="date" 
+                  name="vacDate" 
+                  value={healthForm.vacDate} 
+                  onChange={(e) => setHealthForm({...healthForm, vacDate: e.target.value})} 
+                  required 
+                />
+                <input 
+                  type="text" 
+                  name="vacType" 
+                  placeholder="e.g. Rabies Vaccine, General Checkup" 
+                  value={healthForm.vacType} 
+                  onChange={(e) => setHealthForm({...healthForm, vacType: e.target.value})} 
+                  required 
+                />
+              </div>
+              <button type="submit" className="save-pet-btn" style={{ background: '#0ea5e9' }}>
+                Add Record
               </button>
             </form>
           </div>
