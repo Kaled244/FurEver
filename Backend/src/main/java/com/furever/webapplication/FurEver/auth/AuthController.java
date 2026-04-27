@@ -90,16 +90,29 @@ public class AuthController {
         }
 
         if (passwordEncoder.matches(password, user.getPassword())) {
+            
+            // Fix null roles natively in DB for legacy accounts if missing
+            String role = user.getRole();
+            if (role == null || role.isBlank()) {
+                if ("admin".equalsIgnoreCase(user.getUsername()) || (user.getEmail() != null && user.getEmail().endsWith("@fureveradmin.com"))) {
+                    role = "ADMIN";
+                } else {
+                    role = "ADOPTER";
+                }
+                user.setRole(role);
+                userService.saveUser(user); // Auto-update to the DB
+            }
+
             // Generate ONLY access token for web (skip refresh token overhead)
-            String accessToken = jwtService.generateToken(user.getUsername(), user.getRole());
+            String accessToken = jwtService.generateToken(user.getUsername(), role);
 
-            Map<String, Object> data = Map.of(
-                "token", accessToken,
-                "role", user.getRole(),
-                "username", user.getUsername()
-            );
+            java.util.Map<String, Object> data = new java.util.HashMap<>();
+            data.put("token", accessToken);
+            data.put("role", role);
+            data.put("username", user.getUsername());
+            data.put("name", user.getName()); // Add name as it's used in the frontend
 
-            return ResponseEntity.ok(new ApiResponse<Map<String, Object>>(data, "Login successful", 200));
+            return ResponseEntity.ok(new ApiResponse<java.util.Map<String, Object>>(data, "Login successful", 200));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
                 new ApiResponse<String>("Invalid credentials", 401)
