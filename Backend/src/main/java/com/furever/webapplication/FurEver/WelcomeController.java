@@ -12,8 +12,8 @@ public class WelcomeController {
     @GetMapping("/")
     public ResponseEntity<?> welcome() {
         return ResponseEntity.ok(Map.of(
-            "message", "FurEver Backend is running!",
-            "status", "healthy",
+            "message", "FurEver Backend is live",
+            "status", "working",
             "version", "0.0.1-SNAPSHOT",
             "api_docs", "https://furever-backend-bn81.onrender.com/api/pets"
         ));
