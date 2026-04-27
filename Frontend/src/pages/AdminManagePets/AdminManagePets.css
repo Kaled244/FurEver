@@ -209,7 +209,7 @@
 }
 
 .status-tag.available { background: #E6F7ED; color: #00A344; }
-.status-tag.adopted { background: #F2F2F2; color: #888; }
+.status-tag.adopted { background: #e5ff00; color: #000000; }
 
 .table-actions {
   display: flex;
