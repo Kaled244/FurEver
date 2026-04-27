@@ -188,7 +188,10 @@ const Home = () => {
           
           {/* Announcements Feed */}
           <div className="uh-fyp-container animate-slide-up">
-             <h2 className="uh-section-title">Community Updates</h2>
+             <div className="uh-fyp-header">
+               <h2 className="uh-section-title">Community Updates</h2>
+               <p className="uh-section-subtitle">Stay connected with our latest news and rescue stories.</p>
+             </div>
              <div className="uh-announcement-feed">
                 {announcements.map((post) => (
                   <div key={post.id} className="uh-post-card">
