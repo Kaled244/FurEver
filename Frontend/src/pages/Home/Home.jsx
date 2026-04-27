@@ -95,7 +95,6 @@ const Home = () => {
           date: "2 hours ago",
           description: "This sweet Golden Retriever mix was found abandoned near the shelter. Needs a temporary foster or forever home ASAP! He loves kids, other dogs, and playing fetch.",
           images: [
-            "https://images.dog.ceo/breeds/retriever-golden/n02099601_3004.jpg",
             "https://images.dog.ceo/breeds/retriever-golden/n02099601_2691.jpg"
           ],
         },
@@ -105,7 +104,7 @@ const Home = () => {
           author: "Admin Sarah",
           date: "5 hours ago",
           description: "Max finally found his forever home! ❤️ After waiting 8 months at our shelter, he has officially been adopted by the wonderful Miller family. Have a great life, Max!",
-          images: ["https://preview.redd.it/zfmbxrsdfpj91.jpg?auto=webp&s=7eb1eaffe0ae5884a4e5e9d8060c940e1f6a8fe5"],
+          images: ["https://images.unsplash.com/photo-1537151608804-ea2f141470b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
         },
         {
           id: 3,
@@ -114,8 +113,8 @@ const Home = () => {
           date: "1 day ago",
           description: "Summer is here! Don't forget that asphalt gets extremely hot for your pet's paws during midday. Walk them early morning or late evening, and always bring water.",
           images: [
-             "https://tse2.mm.bing.net/th/id/OIP.WIu8ITTCow1Fl2GVGSASvAHaGK?pid=Api&P=0&h=180",
-             "https://animalsbreeds.com/wp-content/uploads/2014/07/Pug-2.jpg"
+             "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+             "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
           ],
         },
         {
