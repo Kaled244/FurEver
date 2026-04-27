@@ -95,7 +95,8 @@ const Home = () => {
           date: "2 hours ago",
           description: "This sweet Golden Retriever mix was found abandoned near the shelter. Needs a temporary foster or forever home ASAP! He loves kids, other dogs, and playing fetch.",
           images: [
-            "https://images.dog.ceo/breeds/retriever-golden/n02099601_2691.jpg"
+            "https://images.dog.ceo/breeds/retriever-golden/n02099601_2691.jpg",
+            "https://tse4.mm.bing.net/th/id/OIP.F2n8lG77WJwtWolnzDzkEwHaJ4?pid=Api&P=0&h=180"
           ],
         },
         {
@@ -104,7 +105,7 @@ const Home = () => {
           author: "Admin Sarah",
           date: "5 hours ago",
           description: "Max finally found his forever home! ❤️ After waiting 8 months at our shelter, he has officially been adopted by the wonderful Miller family. Have a great life, Max!",
-          images: ["https://images.unsplash.com/photo-1537151608804-ea2f141470b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
+          images: ["https://tse2.mm.bing.net/th/id/OIP.VRmvafIrCLo4xkO-yh25bAHaDo?pid=Api&P=0&h=180"],
         },
         {
           id: 3,
