@@ -93,16 +93,38 @@ const Home = () => {
           tag: "URGENT ADOPTER NEEDED",
           author: "Admin Kyle",
           date: "2 hours ago",
-          description: "This sweet Golden Retriever mix was found abandoned near the shelter. Needs a home ASAP!",
-          images: ["https://images.dog.ceo/breeds/retriever-golden/n02099601_3004.jpg"],
+          description: "This sweet Golden Retriever mix was found abandoned near the shelter. Needs a temporary foster or forever home ASAP! He loves kids, other dogs, and playing fetch.",
+          images: [
+            "https://images.dog.ceo/breeds/retriever-golden/n02099601_3004.jpg",
+            "https://images.dog.ceo/breeds/retriever-golden/n02099601_2691.jpg"
+          ],
         },
         {
           id: 2,
           tag: "SUCCESS STORY",
           author: "Admin Sarah",
           date: "5 hours ago",
-          description: "Max finally found his forever home! ❤️",
+          description: "Max finally found his forever home! ❤️ After waiting 8 months at our shelter, he has officially been adopted by the wonderful Miller family. Have a great life, Max!",
           images: ["https://images.dog.ceo/breeds/beagle/n02088364_12702.jpg"],
+        },
+        {
+          id: 3,
+          tag: "PET CARE TIP",
+          author: "Dr. Emily",
+          date: "1 day ago",
+          description: "Summer is here! Don't forget that asphalt gets extremely hot for your pet's paws during midday. Walk them early morning or late evening, and always bring water.",
+          images: [
+             "https://images.dog.ceo/breeds/pug/n02110958_4647.jpg",
+             "https://images.dog.ceo/breeds/pug/n02110958_14781.jpg"
+          ],
+        },
+        {
+          id: 4,
+          tag: "EVENT",
+          author: "Admin Kyle",
+          date: "2 days ago",
+          description: "Join us this weekend for the FurEver Pet Carnival! We'll have food, games, and lots of lovely pets waiting to meet you. Entry is free.",
+          images: [],
         }
       ]);
     };
@@ -196,11 +218,25 @@ const Home = () => {
                 {announcements.map((post) => (
                   <div key={post.id} className="uh-post-card">
                     <div className="uh-post-header">
-                      <span className={`uh-post-tag ${post.tag.includes("URGENT") ? "urgent" : ""}`}>{post.tag}</span>
-                      <div className="uh-post-meta"><strong>{post.author}</strong> • {post.date}</div>
+                      <span className={`uh-post-tag ${post.tag.includes("URGENT") ? "urgent" : post.tag.includes("SUCCESS") ? "success" : "tip"}`}>{post.tag}</span>
+                      <div className="uh-post-meta">
+                        <div className="uh-author-avatar">{post.author.charAt(0)}</div>
+                        <div className="uh-author-details">
+                          <span className="uh-author-name">{post.author}</span>
+                          <span className="uh-post-date">{post.date}</span>
+                        </div>
+                      </div>
                     </div>
-                    <p>{post.description}</p>
-                    {post.images?.[0] && <img src={post.images[0]} alt="update" className="uh-post-img" />}
+                    <p className="uh-post-description">{post.description}</p>
+                    {post.images && post.images.length > 0 && (
+                      <div className={`uh-post-images grid-${Math.min(post.images.length, 3)}`}>
+                        {post.images.map((img, idx) => (
+                          <div key={idx} className="uh-image-wrapper">
+                            <img src={img} alt="update" className="uh-post-img" />
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
              </div>
