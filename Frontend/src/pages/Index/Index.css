@@ -225,7 +225,7 @@ body {
   padding: 15px 35px;
   
   /* Modern frosted glass effect */
-  background: rgba(255, 255, 255, 0.6);
+  background: #a18d6d;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.8);

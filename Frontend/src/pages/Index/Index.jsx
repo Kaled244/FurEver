@@ -8,7 +8,7 @@ import paw from "../../assets/paw.png";
 import mobileImg from "../../assets/Mobile.png";
 
 // --- NEW ASSET IMPORTS ---
-import LogoAmpathy from "../../assets/LogoAmpathy.png";
+import Logo from "../../assets/Logo.png";
 import grayTabby from "../../assets/GrayTabby.png";
 import mochii1 from "../../assets/Mochii1.png"; // Re-added
 import puppy from "../../assets/Puppy.png";
@@ -25,8 +25,8 @@ const Index = () => {
         <div className="logo-container">
           <div className="logo-wrapper">
             <img
-              src={LogoAmpathy}
-              alt="Ampathy Logo"
+              src={Logo}
+              alt="FurEver Logo"
               className="logo-image-holder"
             />
             <div className="top-logo-text">FurEver</div>
