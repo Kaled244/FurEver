@@ -6,8 +6,8 @@ import { NotificationContext } from "../../components/Notification/NotificationC
 import './AdminManagePets.css';
 
 const SPECIES_DATA = {
-  Dog: ['Golden Retriever', 'German Shepherd', 'Beagle', 'Poodle', 'Bulldog', 'Labrador', 'Pug', 'Husky', 'Aspin'],
-  Cat: ['Persian', 'Maine Coon', 'Siamese', 'British Shorthair', 'Bengal', 'Ragdoll', 'Puspin'],
+  Dog: ['Golden Ret', 'German Shep', 'Beagle', 'Poodle', 'Bulldog', 'Labrador', 'Pug', 'Husky', 'Aspin', 'Maltese', 'Shitzu'],
+  Cat: ['Persian', 'Main Coon', 'Siamese', 'British Shorthair', 'Bengal', 'Rogdoll', 'Puspin', 'Tabby'],
   Bird: ['Parrot', 'Canary', 'Cockatiel', 'Lovebird'],
   Rabbit: ['Holland Lop', 'Netherland Dwarf', 'Lionhead']
 };

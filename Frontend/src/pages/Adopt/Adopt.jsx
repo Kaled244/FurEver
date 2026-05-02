@@ -5,8 +5,8 @@ import { API_ENDPOINTS } from '../../api/config';
 import './Adopt.css';
 
 const SPECIES_DATA = {
-  'Dog': ['Aspin', 'Golden Retriever', 'Askal', 'Poodle', 'Bulldog', 'Beagle', 'Chihuahua'],
-  'Cat': ['Puspin', 'Siamese', 'Persian', 'Maine Coon', 'Bengal', 'Munchkin', 'Tabby'],
+  'Dog': ['Golden Ret', 'German Shep', 'Beagle', 'Poodle', 'Bulldog', 'Labrador', 'Pug', 'Husky', 'Aspin', 'Maltese', 'Shitzu'],
+  'Cat': ['Persian', 'Main Coon', 'Siamese', 'British Shorthair', 'Bengal', 'Rogdoll', 'Puspin', 'Tabby'],
   'Rabbit': ['Dutch', 'Lionhead', 'Rex', 'Netherland Dwarf'],
   'Bird': ['Parrot', 'Canary', 'Lovebird', 'Cockatiel', 'African Grey']
 };
