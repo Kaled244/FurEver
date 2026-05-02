@@ -181,34 +181,6 @@ const AdminDashboard = () => {
             <p>Happily Adopted</p>
           </div>
         </div>
-      </div>
-
-      <div className="charts-section" style={{ marginTop: '2rem', padding: '1.5rem', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)' }}>
-        <h2 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#b85042', fontFamily: '"Paytone One", sans-serif' }}>Adoptions Overview</h2>
-        <div style={{ height: '400px', width: '100%' }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={chartData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip 
-                cursor={{ fill: 'rgba(231, 169, 119, 0.2)' }}
-                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}
-              />
-              <Legend />
-              <Bar dataKey="adopted" name="Pets Adopted" fill="#b85042" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
 
         {/* User Stats */}
         <div className="stat-card">
@@ -250,6 +222,33 @@ const AdminDashboard = () => {
             <h3>{stats.totalRejectedApplications}</h3>
             <p>Rejected Applications</p>
           </div>
+        </div>
+      </div>
+
+      <div className="charts-section" style={{ marginTop: '2rem', padding: '1.5rem', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)' }}>
+        <h2 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#b85042', fontFamily: '"Paytone One", sans-serif' }}>Adoptions Overview</h2>
+        <div style={{ height: '400px', width: '100%' }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={chartData}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip 
+                cursor={{ fill: 'rgba(231, 169, 119, 0.2)' }}
+                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}
+              />
+              <Legend />
+              <Bar dataKey="adopted" name="Pets Adopted" fill="#b85042" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
       
