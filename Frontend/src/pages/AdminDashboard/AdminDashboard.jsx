@@ -50,12 +50,12 @@ const AdminDashboard = () => {
       const data = response.data.data || response.data;
       
       const adoptedByMonth = data.adoptedByMonth || [
-        { month: 'Jan', adopted: 12 },
-        { month: 'Feb', adopted: 19 },
-        { month: 'Mar', adopted: 15 },
-        { month: 'Apr', adopted: 22 },
-        { month: 'May', adopted: 25 },
-        { month: 'Jun', adopted: 18 },
+        { month: 'Jan', adopted: 0 },
+        { month: 'Feb', adopted: 0 },
+        { month: 'Mar', adopted: 0 },
+        { month: 'Apr', adopted: 0 },
+        { month: 'May', adopted: 0 },
+        { month: 'Jun', adopted: 0 },
       ];
 
       setStats({
@@ -90,12 +90,12 @@ const AdminDashboard = () => {
         const data = response.data.data || response.data;
         
         const adoptedByMonth = data.adoptedByMonth || [
-          { month: 'Jan', adopted: 12 },
-          { month: 'Feb', adopted: 19 },
-          { month: 'Mar', adopted: 15 },
-          { month: 'Apr', adopted: 22 },
-          { month: 'May', adopted: 25 },
-          { month: 'Jun', adopted: 18 },
+          { month: 'Jan', adopted: 0 },
+          { month: 'Feb', adopted: 0 },
+          { month: 'Mar', adopted: 0 },
+          { month: 'Apr', adopted: 0 },
+          { month: 'May', adopted: 0 },
+          { month: 'Jun', adopted: 0 },
         ];
 
         if (mounted) {
