@@ -61,7 +61,7 @@ body {
 }
 
 .logo-image-holder {
-  width: 170px;
+  width: 130px;
   height: auto;
 }
 
@@ -70,7 +70,7 @@ body {
   font-weight: 200px;
   color: #1A1A1A;
   margin-top: 15px;
-  margin-left: 150px;
+  margin-left: 120px;
   position: absolute;
 }
 
@@ -80,8 +80,8 @@ body {
   color: #313641; 
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  margin-left: 150px; 
-  margin-top: -32px;
+  margin-left: 120px; 
+  margin-top: -40px;
   font-weight: 700;
 }
 
@@ -223,15 +223,12 @@ body {
   display: inline-flex;
   align-items: center;
   padding: 15px 35px;
-  
-  /* Modern frosted glass effect */
-  background: #a18d6d;
+  background: #ffffff;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 50px; /* Sleek pill shape */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06); /* Soft, airy shadow */
-  
   z-index: 10;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -239,14 +236,6 @@ body {
 .slogan-container1:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-}
-
-.slogan-text { 
-  font-size: 22px; 
-  color: #3A2525; 
-  font-weight: 500;
-  margin: 0;
-  margin-top: 5px; /* Adjusting for the Baloo font baseline */
 }
 
 /* --- Bottom Right Hero Graphics --- */
